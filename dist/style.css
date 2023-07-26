@@ -1,0 +1,9 @@
+/*HIDES SCROLLBAR IN CHROME, OPERA AND SAFARI*/
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+/*HIDES SCROLLBAR IN INTERNET EXPLORER, EDGE AND FIREFOX*/
+.gallery {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
