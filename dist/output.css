@@ -636,24 +636,12 @@ video {
   margin-left: 0.5rem;
 }
 
-.mt-\[4vh\] {
-  margin-top: 4vh;
-}
-
-.mt-\[6vh\] {
-  margin-top: 6vh;
-}
-
 .mt-\[5vh\] {
   margin-top: 5vh;
 }
 
-.mt-\[4\.5vh\] {
-  margin-top: 4.5vh;
-}
-
-.mt-\[3vh\] {
-  margin-top: 3vh;
+.mt-\[6vh\] {
+  margin-top: 6vh;
 }
 
 .line-clamp-3 {
@@ -1178,11 +1166,6 @@ video {
   line-height: 1rem;
 }
 
-.text-8xl {
-  font-size: 6rem;
-  line-height: 1;
-}
-
 .font-extralight {
   font-weight: 200;
 }
@@ -1241,10 +1224,6 @@ video {
 .text-slate-950 {
   --tw-text-opacity: 1;
   color: rgb(2 6 23 / var(--tw-text-opacity));
-}
-
-.text-slate-100\/50 {
-  color: rgb(241 245 249 / 0.5);
 }
 
 .bg-blend-overlay {
@@ -1342,11 +1321,6 @@ video {
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-slate-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
-}
-
 .hover\:text-red-700:hover {
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
@@ -1389,14 +1363,6 @@ video {
 
   .md\:mt-\[6\.5vh\] {
     margin-top: 6.5vh;
-  }
-
-  .md\:mt-\[6vh\] {
-    margin-top: 6vh;
-  }
-
-  .md\:mt-\[5\.5vh\] {
-    margin-top: 5.5vh;
   }
 
   .md\:h-10 {
@@ -1484,11 +1450,6 @@ video {
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-
-  .md\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 
   .md\:text-4xl {

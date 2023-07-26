@@ -1,5 +1,5 @@
 //IMPORTS THE GET SELECTION FUNCTION FROM MOVIE.JS TO GET THE DATA OF A FILM WHEN THE POSTER IS CLICKED
-import { renderSelection } from './movie.js'
+import { renderSelection } from './film.js'
 
 //DOM ELEMENTS ASSIGNED TO VARIABLES
 const searchBar = document.getElementById('search-bar')
