@@ -15,8 +15,8 @@
         <link rel="stylesheet" type="text/css" href="output.css">
     </head>
 
-    <body id="body" class="h-screen bg-red-800 bg-headerimg bg-blend-overlay 
-            bg-cover md:bg-headerImgPosMd bg-headerImgPos p-4 md:p-10 bg-fixed
+    <body class="flex justify-center items-center h-screen bg-red-800 bg-headerimg bg-blend-overlay 
+            bg-cover md:bg-headerImgPosMd bg-headerImgPos px-4 md:px-10 bg-fixed
           text-slate-100">
 
         <div id="loader" class="fixed top-0 left-0 w-screen h-screen bg-red-800 z-50
@@ -24,7 +24,7 @@
             <div class="w-10 h-10 md:w-20 md:h-20 bg-slate-950 rounded-full animate-leftPreload md:animate-leftPreloadMd"></div>
             <div class="w-10 h-10 md:w-20 md:h-20 bg-slate-100/10 rounded-full backdrop-blur-sm animate-rightPreload md:animate-rightPreloadMd"></div>
         </div>  
-        <div class="relative min-h-full backdrop-blur-sm rounded-lg font-inter px-[2%] pb-[2%] pt-[6vh]">
+        <div class="relative w-full h-[92.5vh] backdrop-blur-sm rounded-lg font-inter px-[1%] md:px-[2%] pb-[2%] pt-[6.5vh] overflow-y-auto">
 
         <header id="header">
             <h1 class="font-medium text-3xl 
@@ -40,9 +40,9 @@
 
         </header>
 
-        <main class="w-full flex justify-center my-[6vh]">
+        <main class="w-full flex justify-center mt-[5vh]">
             
-            <div id="watchlist" class="w-[90%] flex flex-wrap gap-8 justify-evenly">
+            <div id="watchlist" class="w-[90%] flex flex-wrap gap-4 md:gap-8 justify-evenly">
 
             </div>
             
@@ -50,7 +50,7 @@
         </div>
 
         <aside id="back-to-the-top" class="invisible fixed left-1 md:left-4 bottom-4 bg-stone-950 rounded-full" title="Back To The Top">
-            <a class="p-[6px] py-1 md:py-2 md:px-3 flex items-center justify-center" href="#body">
+            <a class="p-[6px] py-1 md:py-2 md:px-3 flex items-center justify-center" href="#header">
                 <span class="material-symbols-outlined text-3xl animate-upArrow">
                     arrow_upward
                 </span>
