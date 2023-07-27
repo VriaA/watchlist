@@ -19,6 +19,11 @@
     <body class="grid place-content-center min-h-screen bg-red-800 bg-headerimg bg-blend-overlay 
                 bg-cover md:bg-headerImgPosMd bg-headerImgPos bg-fixed text-slate-100
                 overflow-x-hidden">
+        <div id="loader" class="fixed top-0 left-0 w-screen h-screen bg-red-800 z-50
+                    flex items-center justify-center">
+            <div class="w-10 h-10 md:w-20 md:h-20 bg-slate-950 rounded-full animate-leftPreload md:animate-leftPreloadMd"></div>
+            <div class="w-10 h-10 md:w-20 md:h-20 bg-slate-100/10 rounded-full backdrop-blur-sm animate-rightPreload md:animate-rightPreloadMd"></div>
+        </div>
 
          <div class="relative w-[90vw] h-[90vh] md:h-[85vh] backdrop-blur-sm rounded-lg font-inter p-[2%]">
 
@@ -144,5 +149,6 @@
         </div>
 
         <script src="./dist/index.js" type="module"></script>
+        <script src="/dist/loader.js"></script>
     </body>
 </html>
