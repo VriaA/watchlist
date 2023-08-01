@@ -67,7 +67,7 @@ function updateWatchlistInLocalStorage() {
 function getWatchListHtml() {
         return watchlist.map(listItem=> {
             return `<section class="self-start max-w-lg text-sm p-2 grid grid-cols-four justify-start items-center gap-y-2 bg-stone-800 rounded-md">
-                        <img class="col-start-1 col-end-2 row-start-1 row-end-4 object-cover" src="${listItem.poster}">
+                        <img class="col-start-1 col-end-2 row-start-1 row-end-4 object-cover" src="${listItem.poster}" alt="${listItem.title}">
 
                         <div class="flex justify-between gap-2 col-start-3 col-end-6 row-start-1 row-end-2">
                             <div class="flex items-baseline gap-3">
