@@ -19,9 +19,9 @@ export default async function Film() {
         const {type, id} = savedFilm
         const filmDetails = await getFilmDetails(type, id)
         view.innerHTML = getFilmHTML(filmDetails, type)
+        changeBackdrop(filmDetails)
         animateFilmIn()
         animateFIlmGalleries()
-        changeBackdrop(filmDetails)
         setFilmCta(filmDetails)
         toggleSearchBarVisibility()
         showSearchSuggestions()
@@ -40,8 +40,8 @@ function changeBackdrop(filmDetails) {
     const filmEl = document.getElementById('film')
 
     if(!backdrop_path) {
-        filmCntr.style.backgroundImage = `url(../images/film.jpg)`
-        filmEl.style.backgroundImage = `url(../images/film.jpg)`
+        filmCntr.style.backgroundImage = `url(../images/film.webp)`
+        filmEl.style.backgroundImage = `url(../images/film.webp)`
         filmCntr.style.backgroundColor = `#450a0a`
         filmEl.style.backgroundColor = `#991b1b`
     } else {
