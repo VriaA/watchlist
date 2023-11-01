@@ -15,6 +15,7 @@ function animateFIlmGalleries() {
 
     const galleryCntrObsever = new IntersectionObserver( (entries)=> {
         entries.forEach(entry=> {
+
             if(entry.isIntersecting) {
                 const galleryTitle = entry.target.dataset.gallery
                 const hiddenTitleUnderlines = document.querySelectorAll(`.gallery-title-underline-${galleryTitle}`)
