@@ -1,6 +1,5 @@
-const loaderCntr = document.getElementById('loader')
-
 function hideLoader() {
+    const loaderCntr = document.getElementById('loader')
     window.onload = ()=> {
         setTimeout(_=> {
             loaderCntr.style.transition = ".5s opacity ease"
@@ -13,6 +12,7 @@ function hideLoader() {
 }
 
 function showLoader() {
+    const loaderCntr = document.getElementById('loader')
     loaderCntr.classList.remove('invisible')
     loaderCntr.style.opacity = 1
 }
