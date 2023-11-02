@@ -11,7 +11,6 @@ export default function renderSelectedFilm() {
             const filmToSave = new Film(filmId, filmType)
            
             sessionStorage.setItem('selectedFilm', JSON.stringify(filmToSave))
-            // showLoader()
             window.location.href = `#/film`
             location.reload()
        })
