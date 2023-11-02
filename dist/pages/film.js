@@ -4,7 +4,7 @@ import scrollCards from "../utils/scrollCards.js"
 import imageBaseUrl from "../utils/imageBaseUrl.js"
 import manageScrollButtons from "../utils/manageScrollButtons.js"
 import renderSelectedFilm from "../utils/renderSelectedFilm.js"
-import { search } from "./home.js"
+import search from '../utils/search.js'
 import store from "../store.js"
 import view from "../utils/view.js"
 import checkWatchlist from "../utils/checkWatchlist.js"
