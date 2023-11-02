@@ -55,10 +55,10 @@ function savedFilm() {
                     <i class="fa-solid fa-circle-check drop-shadow-blackOutline z-50 text-xl lg:text-2xl text-slate-100"></i> 
                 </div>
 
-                <div class="relative z-40 text-sm lg:text-base">
+                <div class="relative z-40 text-base lg:text-lg">
                     ${getSavedFilmImage(film)}
                     
-                    <ul id="saved-film-options-cntr-${id}" class="to-hide invisible absolute bottom-0 right-0 p-2 flex flex-col gap-1 bg-zinc-900 rounded-tl-md z-50" data-saved-film-options-cntr="${id}" data-to-hide=${id}>
+                    <ul id="saved-film-options-cntr-${id}" class="to-hide invisible absolute bottom-0 right-0 p-2 flex flex-col gap-2 bg-zinc-900 rounded-tl-md z-50" data-saved-film-options-cntr="${id}" data-to-hide=${id}>
                         <li class="flex items-center gap-1 cursor-pointer hover:text-red-700" data-remove-film="${id}">
                             Remove <i class="fa-regular fa-trash-can text-xs lg:text-sm text-red-700"></i>
                         </li>
