@@ -18,7 +18,7 @@ module.exports = {
         "rightPreloadMd": "rightPreloadMd 1.2s linear alternate infinite"
       },
       backgroundImage: {
-        homeImg: "url(../images/background.jpg)",
+        homeImg: "url(../images/background.webp)",
       },
       backgroundPosition: {
         wrapperImgPosition: "0% 25%",
