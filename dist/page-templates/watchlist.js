@@ -49,7 +49,7 @@ function savedFilm() {
     return watchlist.map(film=> {
         const {id, type, title, runtime, watched, year} = film
 
-        return`<section id="saved-film-${id}" class="saved-film ${watched ? 'watched' : 'not-watched'} relative backdrop-blur-md rounded-md z-10 pb-2 bg-zinc-800/20 font-robotoCondensed font-normal lg:font-light text-xs md:text-sm">
+        return`<section id="saved-film-${id}" class="saved-film ${watched ? 'watched' : 'not-watched'} relative z-10 pb-2 bg-zinc-800/20 font-robotoCondensed font-normal lg:font-light text-xs md:text-sm backdrop-blur-md rounded-md overflow-hidden">
 
                 <div id="watched-check-icon-${id}" class="${watched ? 'visible' : 'invisible'} absolute top-2 left-2 z-50">
                     <i class="fa-solid fa-circle-check drop-shadow-blackOutline z-50 text-xl lg:text-2xl text-slate-100"></i> 
@@ -98,7 +98,10 @@ function getSavedFilmImage(film) {
     const {poster, id, type, title} = film
 
     if(poster) {
-        return `<img class="object-cover object-center rounded-t-md cursor-pointer" src="${imageBaseUrl}${poster}" alt="${title}" title="${title}" data-id="${id}" data-type="${type === 'Movie' ? 'movie' : 'tv'}" loading="lazy">`
+        return `<div class="grid grid-cols-1 grid-rows-1 min-h-[245px]">
+                    <img class="col-start-1 row-start-1 z-[8] object-cover object-center rounded-t-md cursor-pointer" src="${imageBaseUrl}${poster}" alt="${title}" title="${title}" data-id="${id}" data-type="${type === 'Movie' ? 'movie' : 'tv'}" loading="lazy"></img>
+                    <span class="block col-start-1 row-start-1 z-[7] h-full bg-zinc-900/40 animate-pulse"><span>
+                </div>`
     } else {
         return `<span class="flex items-center justify-center min-h-[245px] bg-zinc-800/40 cursor-pointer" data-film-id="${id}" data-film-type="${type === 'Movie' ? 'movie' : 'tv'}">
                     <span class="material-symbols-outlined text-5xl lg:text-7xl font-thin">

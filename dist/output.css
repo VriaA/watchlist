@@ -946,6 +946,14 @@ video {
   z-index: 5;
 }
 
+.z-\[7\] {
+  z-index: 7;
+}
+
+.z-\[8\] {
+  z-index: 8;
+}
+
 .col-start-1 {
   grid-column-start: 1;
 }
