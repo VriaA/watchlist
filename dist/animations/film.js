@@ -3,7 +3,7 @@ import galleryCardsHoverAnimation from './galleryCards.js'
 function animateFilmIn() {
     let tl = gsap.timeline()
       
-    tl.from('#film', {scale: 0.5, opacity: 0, ease: 'expoScale', delay: 0.3})
+    tl.from('#film', {scale: 0.5, opacity: 0, ease: 'expoScale', delay: 2})
     tl.fromTo('.text-to-reveal', {clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)'}, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1})
     tl.from('.film-cta-btn-cntr', {opacity: 0, ease: "sine.in"})
     tl.fromTo('#scroll-indicator-thumb', {opacity: 0}, {opacity: 1, ease: "sine.in"})

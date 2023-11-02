@@ -14,6 +14,10 @@ export default function getFilmHTML(film, type, path) {
 
     return ` <div id="film-cntr" class="w-[100svw] h-[100svh] bg-fixed bg-cover bg-filmCntrImgPosition md:bg-filmCntrImgPositionMd bg-blend-overlay bg-zinc-900 text-slate-100 overflow-hidden"> 
 
+                <div id="loader" class="fixed top-0 left-0 w-screen h-screen bg-zinc-950 z-50  flex items-center justify-center">
+                    <div class="absolute w-10 h-10 md:w-20 md:h-20 bg-red-800 rounded-full animate-leftPreload md:animate-leftPreloadMd"></div>
+                    <div class="absolute w-10 h-10 md:w-20 md:h-20 bg-slate-100/10 rounded-full backdrop-blur-sm animate-rightPreload md:animate-rightPreloadMd"></div>
+                </div>
                 <div class="grid place-content-center w-full h-full backdrop-blur-md">
 
                     <div id="film" class="relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-zinc-800 bg-blend-overlay overflow-y-auto overflow-x-hidden">
