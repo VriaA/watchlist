@@ -1,7 +1,7 @@
 import imageBaseUrl from "../utils/imageBaseUrl.js"
 
 export default function getFilmHTML(film, type, path) {
-    const {genres, runtime, episode_run_time, release_date, first_air_date, title, original_title, name, original_name, overview, original_language, number_of_seasons, credits, videos, similar} = film
+    const {id, genres, runtime, episode_run_time, release_date, first_air_date, title, original_title, name, original_name, overview, original_language, number_of_seasons, credits, videos, similar} = film
     const language = getLanguage(original_language)
 
     const isTv = type === 'tv'
@@ -64,7 +64,7 @@ export default function getFilmHTML(film, type, path) {
                                         <p>${getYear(release_date || first_air_date)}</p>
                                     </div>
 
-                                    <p id="overview" class="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer"> 
+                                    <p id="clampable-${id}" class="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer" data-clamp="${id}"> 
                                         ${overview}
                                     </p>
 
@@ -421,7 +421,7 @@ function getCastHTML(credits) {
     }
 
    return credits.cast.map(cast=> {
-        const {profile_path, character, name} = cast
+        const {profile_path, character, name, id} = cast
         if(!profile_path) {
             return `<div class="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
                         <div class="grid place-content-center w-full h-48 md:h-72 rounded-t-md">
@@ -430,13 +430,13 @@ function getCastHTML(credits) {
                             </span>
                         </div>
                         <p class="font-medium">${name}</p>
-                        <p class="font-extralight">${character}</p>
+                        <p id="clampable-${id}" class="font-extralight line-clamp-3" data-clamp="${id}">${character}</p>
                     </div>`
         }
     return `<div class="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
                 <img class="w-full h-48 md:h-72 object-cover object-center rounded-t-md" src="${imageBaseUrl}${profile_path}" alt="${name}" loading="lazy">
                 <p class="font-medium">${name}</p>
-                <p class="font-extralight">${character}</p>
+                <p id="clampable-${id}" class="font-extralight line-clamp-3" data-clamp="${id}">${character}</p>
             </div>`
     }).join('')
 }

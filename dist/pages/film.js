@@ -23,14 +23,13 @@ export default async function Film() {
         hideLoader()
         changeBackdrop(filmDetails)
         setFilmCta(filmDetails)
+        handleClickEvents()
+        scrollCards()
         animateFilmIn()
         animateFIlmGalleries()
-        scrollCards()
-        toggleSearchBarVisibility()
         showSearchSuggestions()
         hideElement()
         search()
-        toggleOverviewLength()
         manageScrollButtons()
         renderSelectedFilm()
         manageWatchlist(filmDetails)
@@ -53,28 +52,33 @@ function changeBackdrop(filmDetails) {
     }  
 }
 
+function handleClickEvents() {
+    const filmCntr = document.getElementById('film-cntr')
+    filmCntr.addEventListener('click', e=> {
+        if(e.target.id === 'search-icon') {
+            toggleSearchBarVisibility()
+        } else if(e.target.dataset.clamp) {
+            toggleLineClamp(e.target.dataset.clamp)
+        }
+    })
+}
+
 function toggleSearchBarVisibility() {
     const isPC = window.innerWidth >= 1024
-    const searchIconEl = document.getElementById('search-icon')
     const searchFieldsetEl = document.getElementById('search-fieldset')
-
-    searchIconEl.addEventListener('click', _=> {
         searchFieldsetEl.classList.toggle('hidden')
         if(isPC) {
             searchFieldsetEl.style.width = '500px'
         } else {
             searchFieldsetEl.style.width = '250px'
         }
-    })  
 }
 
-function toggleOverviewLength() {
-    const overviewEl = document.getElementById('overview')
-    overviewEl.addEventListener('click', ()=> {
-        overviewEl.classList.toggle('line-clamp-3')
-        overviewEl.classList.toggle('overflow-y-auto')
-        overviewEl.scrollTo(0,0)
-    })
+function toggleLineClamp(id) {
+    const clampabble = document.getElementById(`clampable-${id}`)
+        clampabble.classList.toggle('line-clamp-3')
+        clampabble.classList.toggle('overflow-y-auto')
+        clampabble.scrollTo(0,0)
 }
 
 function setFilmCta(film) {
