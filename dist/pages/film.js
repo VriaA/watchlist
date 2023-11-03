@@ -11,7 +11,7 @@ import checkWatchlist from "../utils/checkWatchlist.js"
 import showSearchSuggestions from "../utils/showSearchSuggestions.js"
 import hideElement from "../utils/hideElement.js"
 import { animateFilmIn, animateFIlmGalleries} from "../animations/film.js"
-import {hideLoader} from '../utils/loader.js'
+import {hideLoader} from '../utils/hideLoader.js'
 
 const savedFilm = JSON.parse(sessionStorage.getItem('selectedFilm'))
 
