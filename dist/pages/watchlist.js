@@ -4,7 +4,7 @@ import getWatchlistHTML from '../page-templates/watchlist.js'
 import renderSelectedFilm from '../utils/renderSelectedFilm.js'
 import store from '../store.js'
 import hideElement from '../utils/hideElement.js'
-import animateIn from '../animations/watchlist.js'
+import {animateIn, animateSavedFilm} from '../animations/watchlist.js'
 import {hideLoader} from '../utils/loader.js'
  
 export default function Watchlist() {
@@ -126,10 +126,4 @@ function hideFilms(className) {
     filmsToHide.forEach(film=> {
         film.style.display = 'none'
     })
-}
-
-function animateSavedFilm() {
-    const savedFilms = document.querySelectorAll('.saved-film')
-    const tl = gsap.timeline()
-    tl.fromTo(savedFilms, {opacity: 0, y: 56}, {opacity: 1, y: 0, duration: .1, stagger: .05, ease: "sine.out"})
 }
