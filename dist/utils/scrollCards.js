@@ -1,5 +1,3 @@
-scrollCards()
-
 export default function scrollCards() {
     scrollToStart()
     
