@@ -1,5 +1,5 @@
-import { options } from "./getSearchResults.js"
-import Suggestion from "../components/suggestion.js"
+import { options } from './getSearchResults.js'
+import Suggestion from '../components/Suggestion.js'
 
 export default function showSearchSuggestions() {
     const searchInput = document.getElementById('search-input')
