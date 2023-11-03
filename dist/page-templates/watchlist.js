@@ -32,7 +32,7 @@ export default function getWatchlistHTML() {
                                 </form>
                             </section>
                             
-                            <a class="nav-link static self-end" href="/">Find Your Film</a>
+                            <a class="nav-link static self-end" href="/">Find your film</a>
                         </nav>
                     </header>
 
