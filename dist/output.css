@@ -691,12 +691,6 @@ video {
   }
 }
 
-@media (min-width: 1024px) {
-  .nav-link {
-    font-weight: 300;
-  }
-}
-
 .film-cta-btn {
   display: flex;
   cursor: pointer;
@@ -1096,6 +1090,10 @@ video {
 
 .min-h-\[100\%\] {
   min-height: 100%;
+}
+
+.min-h-\[200px\] {
+  min-height: 200px;
 }
 
 .min-h-\[245px\] {
