@@ -6,7 +6,7 @@ export default function getResultsHtml(results) {
                 <div id="results-wrapper" class="content-cntr overflow-y-auto md:overflow-hidden">
                 <div class="h-full flex flex-col md:justify-evenly">
                     <header id="results-header" class="z-50">
-                        <div class="w-full h-fit flex flex-col md:flex-row items-start md:items-center justify-center lg:justify-start gap-4 mt-[5vh]"> 
+                        <div class="w-full h-fit flex flex-col md:flex-row items-start md:items-center justify-center lg:justify-start gap-4 mt-10"> 
                             <h1 class="font-medium text-slate-100 text-3xl uppercase"><a href="/">Find your film</a></h1>
                             
                             <form id="search-bar" class="relative w-[90%] lg:w-[500px]">
