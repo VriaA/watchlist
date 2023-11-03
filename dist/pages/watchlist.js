@@ -1,6 +1,7 @@
 import { reenableResultsPageAnimation } from '../animations/results.js'
 import view from '../utils/view.js'
-import getWatchlistHTML from '../page-templates/watchlist.js'
+import {getWatchlistHTML} from '../page-templates/watchlist.js'
+import EmptyWatchlistMessage from '../components/EmptyWatchlistMessage.js'
 import renderSelectedFilm from '../utils/renderSelectedFilm.js'
 import store from '../store.js'
 import hideElement from '../utils/hideElement.js'
@@ -36,7 +37,8 @@ function handleClickEvents() {
             removeFilmFromWatchlist(e.target.dataset.removeFilm)
         } else if(isChangeWatchStatusClicked) {
             changeFilmWatchStatus(e.target.dataset.changeWatchStatus)
-        } 
+        }
+        renderEmptyWatchlistMessage(films)
     })
 }
 
@@ -90,6 +92,15 @@ function filmNotWatched(id, savedFilmEl, watchStatusLabelEL, watchedCheckIconEl)
     savedFilmEl.classList.remove('watched')
     watchStatusLabelEL.innerHTML = `Watched <i class="fa-regular fa-circle-check text-xs lg:text-sm text-green-700"></i>`
     watchedCheckIconEl.style.visibility = 'hidden'
+}
+
+function renderEmptyWatchlistMessage(films) {
+    const watchlist = store.getState()
+    if(!watchlist.length > 0) {
+        const filtersEl = document.getElementById('filters')
+        filtersEl.classList.add('hidden')
+        films.innerHTML = EmptyWatchlistMessage()
+    }
 }
 
 function filterFilmsInWatchlist() {

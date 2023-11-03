@@ -11,7 +11,7 @@ export default function getHomeHTML() {
                         </header>
 
                         <main class="w-full flex justify-center">
-                            <form id="search-bar" class="relative flex justify-end w-[68%] md:w-[35%] h-10 bg-zinc-900/40 rounded-full overflow-hidden border border-stone-900/30">
+                            <form id="search-bar" class="relative flex justify-end w-[68%] lg:w-[35%] h-10 bg-zinc-900/40 rounded-full overflow-hidden border border-stone-900/30">
                                 <span id="search-icon" class="material-symbols-outlined absolute inset-0 my-auto w-fit h-fit left-2 z-50 self-center text-2xl md:text-3xl font-extralight">
                                     search
                                 </span>

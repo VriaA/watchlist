@@ -1,7 +1,8 @@
 import store from '../store.js'
 import imageBaseUrl from '../utils/imageBaseUrl.js'
+import EmptyWatchlistMessage from '../components/EmptyWatchlistMessage.js'
 
-export default function getWatchlistHTML() {
+export function getWatchlistHTML() {
     const watchlist = store.getState()
     const hasWatchlist = watchlist.length > 0
         return `<div class="page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
@@ -37,7 +38,7 @@ export default function getWatchlistHTML() {
                     </header>
 
                     <main class="films grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-                        ${hasWatchlist ? savedFilm() : getEmptyWatchlistMessageHtml()}
+                        ${hasWatchlist ? savedFilm() : EmptyWatchlistMessage()}
                     </main>
                 </div>
                 </div>`
@@ -109,13 +110,4 @@ function getSavedFilmImage(film) {
                     </span>
                 </span>`
     }
-}
-
-function getEmptyWatchlistMessageHtml() {
-    return `<div class="absolute w-fit h-fit inset-0 m-auto flex flex-col items-center gap-2">
-                <p class="text-base font-semibold">Nothing to see here...</p>
-                <span class="material-symbols-outlined text-5xl font-medium">
-                    sentiment_dissatisfied
-                </span>
-            </div>`
 }
