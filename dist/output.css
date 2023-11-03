@@ -1206,7 +1206,7 @@ video {
 
 @keyframes leftPreload {
   0% {
-    transform: translateX(-30px);
+    transform: translateX(-25px);
     z-index: 100;
   }
 
@@ -1215,7 +1215,7 @@ video {
   }
 
   100% {
-    transform: translateX(30px);
+    transform: translateX(25px);
     z-index: 51;
   }
 }
@@ -1236,7 +1236,7 @@ video {
 
 @keyframes rightPreload {
   0% {
-    transform: translateX(30px);
+    transform: translateX(25px);
     z-index: 52;
   }
 
@@ -1245,7 +1245,7 @@ video {
   }
 
   100% {
-    transform: translateX(-30px);
+    transform: translateX(-25px);
     z-index: 100;
   }
 }
@@ -1898,7 +1898,7 @@ video {
 
   @keyframes leftPreloadMd {
     0% {
-      transform: translateX(-50px);
+      transform: translateX(-45px);
       z-index: 100;
     }
 
@@ -1907,7 +1907,7 @@ video {
     }
 
     100% {
-      transform: translateX(50px);
+      transform: translateX(45px);
       z-index: 51;
     }
   }
@@ -1918,7 +1918,7 @@ video {
 
   @keyframes rightPreloadMd {
     0% {
-      transform: translateX(50px);
+      transform: translateX(45px);
       z-index: 52;
     }
 
@@ -1927,7 +1927,7 @@ video {
     }
 
     100% {
-      transform: translateX(-50px);
+      transform: translateX(-45px);
       z-index: 100;
     }
   }
