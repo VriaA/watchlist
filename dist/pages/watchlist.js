@@ -15,14 +15,14 @@ export default function Watchlist() {
     hideLoader()
     if(watchlist.length > 0) {
         animateIn()
-        handleEvents()
+        handleClickEvents()
         filterFilmsInWatchlist()
         hideElement()
         renderSelectedFilm()
     }
 }
 
-function handleEvents() {
+function handleClickEvents() {
     const films = document.querySelector('.films')
     films.addEventListener('click', e=> {
         
