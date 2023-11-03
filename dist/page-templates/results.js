@@ -4,32 +4,33 @@ export default function getResultsHtml(results) {
 
     return ` <div class="page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
                 <div id="results-wrapper" class="content-cntr overflow-y-auto md:overflow-hidden">
-                <div class="h-full flex flex-col md:justify-evenly">
-                    <header id="results-header" class="z-50">
-                        <div class="w-full h-fit flex flex-col md:flex-row items-start md:items-center justify-center lg:justify-start gap-4 mt-10"> 
-                            <h1 class="font-medium text-slate-100 text-3xl uppercase"><a href="/">Find your film</a></h1>
+                    <div class="h-full flex flex-col">
+                        <header id="results-header" class="z-50">
+                            <div class="w-full h-fit flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start gap-4 mt-4 md:mt-10">
+                                <div class="w-full md:w-fit flex justify-between items-end"> 
+                                    <h1 class="font-medium text-slate-100 text-2xl lg:text-3xl uppercase"><a href="/">Find your film</a></h1>
+                                    <a class="nav-link static md:absolute" href="#/watchlist">My watchlist</a>
+                                </div>
+                                <form id="search-bar" class="relative w-full md:w-[500px]">
+                                    <span id="search-icon" class="material-symbols-outlined absolute inset-0 my-auto w-fit h-fit left-2 z-50 self-center text-2xl md:text-3xl font-extralight">
+                                        search
+                                    </span> 
+
+                                    <fieldset class="relative z-40 flex justify-between h-10 bg-zinc-900/40 rounded-2xl overflow-hidden border border-stone-900/30">
+                                    <input id="search-input" class="w-full h-full px-10 md:pl-12 bg-transparent text-[10px] min-[375px]:text-sm md:text-base outline-none border-none" 
+                                                            type="text" aria-label="Search Bar" name="Movie Title" placeholder="Movie or TV show title" autocomplete="off">
+                                    </fieldset>
+                                    <ul id="suggestions" class="to-hide films search-suggestions invisible z-30">
+                                    </ul>                                           
+                                </form>
+                            </div>
                             
-                            <form id="search-bar" class="relative w-[90%] lg:w-[500px]">
-                                <span id="search-icon" class="material-symbols-outlined absolute inset-0 my-auto w-fit h-fit left-2 z-50 self-center text-2xl md:text-3xl font-extralight">
-                                    search
-                                </span> 
+                        </header> 
 
-                                <fieldset class="relative z-40 flex justify-between h-10 bg-zinc-900/40 rounded-2xl overflow-hidden border border-stone-900/30">
-                                <input id="search-input" class="w-full h-full px-10 md:pl-12 bg-transparent text-[10px] min-[375px]:text-sm md:text-base outline-none border-none" 
-                                                         type="text" aria-label="Search Bar" name="Movie Title" placeholder="Movie or TV show title" autocomplete="off">
-                                </fieldset>
-                                <ul id="suggestions" class="to-hide films search-suggestions invisible z-30">
-                                </ul>                                           
-                            </form>
-                        </div>
-                        
-                        <a class="nav-link" href="#/watchlist">My watchlist</a>
-                    </header> 
-
-                    <main class="gallery-cntr relative z-20 flex items-center justify-center w-full min-h-[300px] pt-4 lg:mt-[2%]">
-                        ${getMainHtml(results)}
-                    </main>
-                </div>
+                        <main class="gallery-cntr relative z-20 flex items-center justify-center w-full min-h-[300px] pt-4 lg:mt-[2%]">
+                            ${getMainHtml(results)}
+                        </main>
+                    </div>
                 </div>
             </div>`
 }

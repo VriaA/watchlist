@@ -647,8 +647,8 @@ video {
   top: 0.5rem;
   right: 0.5rem;
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 400;
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -682,6 +682,13 @@ video {
 .nav-link:active {
   --tw-translate-y: 0.25rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@media (min-width: 375px) {
+  .nav-link {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -997,14 +1004,6 @@ video {
   margin-top: 1.25rem;
 }
 
-.mt-\[5vh\] {
-  margin-top: 5vh;
-}
-
-.mt-10 {
-  margin-top: 2.5rem;
-}
-
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -1166,10 +1165,6 @@ video {
 
 .w-\[70\%\] {
   width: 70%;
-}
-
-.w-\[90\%\] {
-  width: 90%;
 }
 
 .w-\[95svw\] {
@@ -1828,6 +1823,10 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:absolute {
+    position: absolute;
+  }
+
   .md\:left-auto {
     left: auto;
   }
@@ -1842,6 +1841,10 @@ video {
 
   .md\:mb-9 {
     margin-bottom: 2.25rem;
+  }
+
+  .md\:mt-10 {
+    margin-top: 2.5rem;
   }
 
   .md\:h-20 {
@@ -1880,8 +1883,17 @@ video {
     width: 50%;
   }
 
+  .md\:w-\[500px\] {
+    width: 500px;
+  }
+
   .md\:w-\[90svw\] {
     width: 90svw;
+  }
+
+  .md\:w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
   }
 
   @keyframes leftPreloadMd {
@@ -1940,16 +1952,16 @@ video {
     align-items: center;
   }
 
+  .md\:justify-start {
+    justify-content: flex-start;
+  }
+
   .md\:justify-center {
     justify-content: center;
   }
 
   .md\:justify-between {
     justify-content: space-between;
-  }
-
-  .md\:justify-evenly {
-    justify-content: space-evenly;
   }
 
   .md\:gap-0 {
@@ -2093,10 +2105,6 @@ video {
 
   .lg\:w-\[50\%\] {
     width: 50%;
-  }
-
-  .lg\:w-\[500px\] {
-    width: 500px;
   }
 
   .lg\:min-w-\[248px\] {
