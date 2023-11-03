@@ -5,7 +5,7 @@ import renderSelectedFilm from '../utils/renderSelectedFilm.js'
 import store from '../store.js'
 import hideElement from '../utils/hideElement.js'
 import {animateIn, animateSavedFilm} from '../animations/watchlist.js'
-import {hideLoader} from '../utils/loader.js'
+import {hideLoader} from '../utils/hideLoader.js'
  
 export default function Watchlist() {
     const watchlist = store.getState()
