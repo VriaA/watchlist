@@ -98,12 +98,12 @@ function getSavedFilmImage(film) {
     const {poster, id, type, title} = film
 
     if(poster) {
-        return `<div class="grid grid-cols-1 grid-rows-1 min-h-[245px]">
+        return `<div class="grid grid-cols-1 grid-rows-1 min-h-[200px]">
                     <img class="col-start-1 row-start-1 z-[8] object-cover object-center rounded-t-md cursor-pointer" src="${imageBaseUrl}${poster}" alt="${title}" title="${title}" data-id="${id}" data-type="${type === 'Movie' ? 'movie' : 'tv'}" loading="lazy"></img>
                     <span class="block col-start-1 row-start-1 z-[7] h-full bg-zinc-900/40 animate-pulse"><span>
                 </div>`
     } else {
-        return `<span class="flex items-center justify-center min-h-[245px] bg-zinc-800/40 cursor-pointer" data-film-id="${id}" data-film-type="${type === 'Movie' ? 'movie' : 'tv'}">
+        return `<span class="flex items-center justify-center min-h-[200px] bg-zinc-800/40 cursor-pointer" data-film-id="${id}" data-film-type="${type === 'Movie' ? 'movie' : 'tv'}">
                     <span class="material-symbols-outlined text-5xl lg:text-7xl font-thin">
                         broken_image
                     </span>
