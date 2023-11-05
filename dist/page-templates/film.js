@@ -20,9 +20,9 @@ export default function getFilmHTML(film, type, path) {
                 </div>
                 <div class="grid place-content-center w-full h-full backdrop-blur-md">
 
-                    <div id="film" class="relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-zinc-800 bg-blend-overlay overflow-y-auto overflow-x-hidden">
+                    <div id="film" class="relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-zinc-800 bg-blend-overlay overflow-y-auto lg:snap-mandatory lg:snap-y overflow-x-hidden">
                                     
-                        <header class="absolute flex justify-end items-center gap-4 w-full p-[4%] md:p-[2%]">
+                        <header class="absolute flex justify-end items-center gap-4 w-full p-[4%] md:p-[2%] lg:snap-start">
                         
                             <nav class="flex justify-end items-center gap-4">
 
@@ -107,7 +107,7 @@ export default function getFilmHTML(film, type, path) {
 
                             <div class="flex flex-col justify-center py-16 lg:py-0 gap-16 lg:gap-0 min-h-full bg-zinc-900/40 backdrop-blur-md rounded-md">
 
-                                <section class="flex items-center lg:h-[90svh] px-[2%]">
+                                <section class="flex items-center lg:h-[90svh] px-[2%] lg:snap-start">
                                     <h2 class="relative w-[30%] text-3xl md:text-6xl font-robotoCondensed font-normal">
                                         Cast
                                         <span class="gallery-title-underline-cast block mt-1 border-b"><span>
@@ -133,7 +133,7 @@ export default function getFilmHTML(film, type, path) {
                                     </div>
                                 </section>
                             
-                                <section class="flex items-center lg:h-[90svh] px-[2%]">
+                                <section class="flex items-center lg:h-[90svh] px-[2%] lg:snap-start">
 
                                     <h2 class="relative w-[30%] text-3xl md:text-6xl font-robotoCondensed font-normal">
                                         Videos
@@ -162,7 +162,7 @@ export default function getFilmHTML(film, type, path) {
                                     </div>    
                                 </section>
 
-                                <section class="flex items-center lg:h-[90svh] px-[2%]">
+                                <section class="flex items-center lg:h-[90svh] px-[2%] lg:snap-start">
 
                                     <h2 class="relative w-[30%] text-3xl md:text-6xl font-robotoCondensed font-normal">
                                         Similar

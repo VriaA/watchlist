@@ -1871,10 +1871,6 @@ video {
     width: 5rem;
   }
 
-  .md\:w-\[35\%\] {
-    width: 35%;
-  }
-
   .md\:w-\[45\%\] {
     width: 45%;
   }
@@ -2103,12 +2099,12 @@ video {
     width: 32%;
   }
 
-  .lg\:w-\[50\%\] {
-    width: 50%;
-  }
-
   .lg\:w-\[35\%\] {
     width: 35%;
+  }
+
+  .lg\:w-\[50\%\] {
+    width: 50%;
   }
 
   .lg\:min-w-\[248px\] {
@@ -2117,6 +2113,22 @@ video {
 
   .lg\:max-w-\[66\%\] {
     max-width: 66%;
+  }
+
+  .lg\:snap-x {
+    scroll-snap-type: x var(--tw-scroll-snap-strictness);
+  }
+
+  .lg\:snap-y {
+    scroll-snap-type: y var(--tw-scroll-snap-strictness);
+  }
+
+  .lg\:snap-mandatory {
+    --tw-scroll-snap-strictness: mandatory;
+  }
+
+  .lg\:snap-start {
+    scroll-snap-align: start;
   }
 
   .lg\:grid-cols-6 {
