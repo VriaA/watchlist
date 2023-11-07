@@ -19,8 +19,11 @@
     </head>
 
     <body class="w-[100svw] h-[100svh] bg-zinc-950 overflow-x-hidden">
-
-        <div id="view" class="w-full h-[100svh]"></div>
+        <div id="loader" class="hidden fixed top-0 left-0 w-screen h-screen bg-zinc-950 z-[999] items-center justify-center">
+            <div class="absolute w-10 h-10 md:w-20 md:h-20 bg-red-800 rounded-full animate-leftPreload md:animate-leftPreloadMd"></div>
+            <div class="absolute w-10 h-10 md:w-20 md:h-20 bg-slate-100/10 rounded-full backdrop-blur-sm animate-rightPreload md:animate-rightPreloadMd"></div>
+        </div>
+        <div id="view" class="relative z-[200] w-full h-[100svh]"></div>
 
         <script src="//unpkg.com/navigo@6"></script>
         <script src="./dist/app.js" type="module"></script>

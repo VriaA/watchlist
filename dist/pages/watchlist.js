@@ -6,14 +6,14 @@ import renderSelectedFilm from '../utils/renderSelectedFilm.js'
 import store from '../store.js'
 import hideElement from '../utils/hideElement.js'
 import {animateIn, animateSavedFilm} from '../animations/watchlist.js'
-import {hideLoader} from '../utils/hideLoader.js'
+import {hideLoader, showLoader} from '../utils/loader.js'
  
 export default function Watchlist() {
+    showLoader()
     const watchlist = store.getState()
     
     reenableResultsPageAnimation()
     view.innerHTML = getWatchlistHTML()
-    hideLoader()
     if(watchlist.length > 0) {
         animateIn()
         handleClickEvents()
@@ -21,6 +21,7 @@ export default function Watchlist() {
         hideElement()
         renderSelectedFilm()
     }
+    hideLoader()
 }
 
 function handleClickEvents() {

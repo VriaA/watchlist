@@ -11,16 +11,15 @@ import checkWatchlist from "../utils/checkWatchlist.js"
 import showSearchSuggestions from "../utils/showSearchSuggestions.js"
 import hideElement from "../utils/hideElement.js"
 import { animateFilmIn, animateFIlmGalleries} from "../animations/film.js"
-import {hideLoader} from '../utils/hideLoader.js'
+import {hideLoader, showLoader} from '../utils/loader.js'
 
 const savedFilm = JSON.parse(sessionStorage.getItem('selectedFilm'))
 
 export default async function Film() {
-
+        showLoader()
         const {type, id} = savedFilm
         const filmDetails = await getFilmDetails(type, id)
         view.innerHTML = getFilmHTML(filmDetails, type)
-        hideLoader()
         changeBackdrop(filmDetails)
         setFilmCta(filmDetails)
         handleClickEvents()
@@ -33,6 +32,7 @@ export default async function Film() {
         manageScrollButtons()
         renderSelectedFilm()
         manageWatchlist(filmDetails)
+        hideLoader()
 }
 
 function changeBackdrop(filmDetails) {

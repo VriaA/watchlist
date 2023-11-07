@@ -935,6 +935,10 @@ video {
   z-index: 50;
 }
 
+.z-\[200\] {
+  z-index: 200;
+}
+
 .z-\[2\] {
   z-index: 2;
 }
@@ -953,6 +957,10 @@ video {
 
 .z-\[8\] {
   z-index: 8;
+}
+
+.z-\[999\] {
+  z-index: 999;
 }
 
 .col-start-1 {
@@ -2113,10 +2121,6 @@ video {
 
   .lg\:max-w-\[66\%\] {
     max-width: 66%;
-  }
-
-  .lg\:snap-x {
-    scroll-snap-type: x var(--tw-scroll-snap-strictness);
   }
 
   .lg\:snap-y {

@@ -6,11 +6,6 @@ export function getWatchlistHTML() {
     const watchlist = store.getState()
     const hasWatchlist = watchlist.length > 0
         return `<div class="page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
-        
-                <div id="loader" class="fixed top-0 left-0 w-screen h-screen bg-zinc-950 z-50 hidden lg:flex items-center justify-center">
-                    <div class="absolute w-10 h-10 md:w-20 md:h-20 bg-red-800 rounded-full animate-leftPreload md:animate-leftPreloadMd"></div>
-                    <div class="absolute w-10 h-10 md:w-20 md:h-20 bg-slate-100/10 rounded-full backdrop-blur-sm animate-rightPreload md:animate-rightPreloadMd"></div>
-                </div>
 
                 <div id="films-wrapper" class="content-cntr flex flex-col items-center overflow-y-auto">
 
