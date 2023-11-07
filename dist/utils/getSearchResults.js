@@ -19,6 +19,6 @@ export default async function getSearchResults() {
           sessionStorage.setItem('results', JSON.stringify(searchResults))
       }
     } catch (error) {
-      window.alert('Check internet connection and try again.')
+      window.alert('Error getting results.\nCheck internet connection and try again.')
     }
 }
