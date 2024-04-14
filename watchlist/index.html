@@ -18,7 +18,12 @@
     <link rel="stylesheet" type="text/css" href="./src/output.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div class="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
+      <div class=" w-screen h-screen grid place-content-center">
+          <div id="root" class="content-cntr overflow-y-auto md:overflow-hidden">
+          </div>
+      </div>
+    </div> 
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
