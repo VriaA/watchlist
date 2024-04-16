@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}> 
           <Route path="/" element={<Home />} />
-          <Route path="/results" element={<Results />} />
+          <Route path="/search" element={<Results />} />
           <Route path="/film" element={<Film />} />
 
           <Route element={<AuthRequired />}>
