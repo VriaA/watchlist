@@ -45,10 +45,12 @@ export default function Home():JSX.Element {
     }
     
     return (
-        <main className="flex-1 flex flex-col justify-center items-center">
+        <div className="flex-1 flex flex-col justify-center items-center">
             <Link to="/" className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9">
                 <h1>Find your film</h1>
             </Link>
+            <Link className="nav-link" to="watchlist">My watchlist</Link>
+
             <form 
                 className="relative flex justify-end w-[68%] lg:w-[35%] h-10 bg-zinc-900/40 rounded-full overflow-hidden border border-stone-900/30"
                 onSubmit={handleFormSubmit} >
@@ -67,6 +69,6 @@ export default function Home():JSX.Element {
                 />
             </form>
             <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0'} mt-2 px-2 md:px-4 py-1 text-[10px] min-[375px]:text-sm md:text-base bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a movie title to search.</span>
-        </main> 
+        </div> 
     )
 }
