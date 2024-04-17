@@ -1352,6 +1352,10 @@ video {
   line-height: 1rem;
 }
 
+.text-\[8px\] {
+  font-size: 8px;
+}
+
 .font-extralight {
   font-weight: 200;
 }
@@ -1466,11 +1470,36 @@ video {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
+
+  .min-\[375px\]\:text-\[10px\] {
+    font-size: 10px;
+  }
+
+  .min-\[375px\]\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
 }
 
 @media (min-width: 768px) {
   .md\:-bottom-10 {
     bottom: -2.5rem;
+  }
+
+  .md\:-bottom-8 {
+    bottom: -2rem;
+  }
+
+  .md\:bottom-\[36px\] {
+    bottom: 36px;
+  }
+
+  .md\:bottom-\[-40px\] {
+    bottom: -40px;
+  }
+
+  .md\:bottom-\[-36px\] {
+    bottom: -36px;
   }
 
   .md\:mb-5 {
@@ -1571,6 +1600,16 @@ video {
   .md\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .md\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .md\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .md\:font-extralight {
