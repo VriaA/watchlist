@@ -14,7 +14,6 @@ export default function FilmResults(): JSX.Element {
         <>
             {isFilmPosters ?  
                 <>
-                {console.log(results)}
                     <div id="back-btn" className="cursor-pointer">
                         <span id="results-left-arrow" className="left-arrow material-symbols-outlined hidden lg:inline-block text-5xl md:text-7xl font-light" data-arrow="results">
                             keyboard_arrow_left

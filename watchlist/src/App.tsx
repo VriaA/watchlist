@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import AppLayout from "./components/layout/AppLayout"
 import Home from "./pages/Home"
 import Results from "./pages/Results"
 import Film from "./pages/Film"
@@ -12,14 +11,12 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}> 
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Results />} />
-            <Route path="/film" element={<Film />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Results />} />
+          <Route path="/film" element={<Film />} />
 
-            <Route element={<AuthRequired />}>
-              <Route path="/watchlist" element={<Watchlist />} />
-            </Route>
+          <Route element={<AuthRequired />}>
+            <Route path="/watchlist" element={<Watchlist />} />
           </Route>
 
           <Route path="/auth" element={<Authentication />} />
