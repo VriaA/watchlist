@@ -1,9 +1,29 @@
-import { FormEvent, useState, ChangeEvent  } from 'react'
+import { FormEvent, useState, ChangeEvent, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Home():JSX.Element {
     const [searchTitle, setSearchTitle] = useState<string>('')
+    const [isSearchBarEmpty, setIsSearchBarEmpty] = useState<boolean>(false)
     const navigate = useNavigate()
+    const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
+
+    useEffect(()=> {
+        if(!isSearchBarEmpty) return
+            const clearMessage: NodeJS.Timeout = setTimeout(()=> hideEnterTitleMessage() , 4000)
+            return ()=> clearTimeout(clearMessage)
+    }, [isSearchBarEmpty])
+
+    useEffect(()=> {
+        searchTitle && hideEnterTitleMessage()
+    }, [searchTitle])
+
+    function hideEnterTitleMessage() {
+        if(enterTitleMessageRef.current && enterTitleMessageRef.current.classList.contains('opacity-1')) {
+            enterTitleMessageRef.current.classList.remove('opacity-1')
+            enterTitleMessageRef.current.classList.add('opacity-0')
+            setIsSearchBarEmpty(false)
+        }
+    }
 
     function updateSearchTitleOnChange(e: ChangeEvent) {
         const searchBar = e.target as HTMLInputElement
@@ -13,15 +33,17 @@ export default function Home():JSX.Element {
     function handleFormSubmit(e: FormEvent): void {
         e.preventDefault()
 
-        const title: string = searchTitle.trim().replace('&', '&26%')
-        if(searchTitle.trim().split('').length > 0) {
+        const title: string = searchTitle.toLowerCase().trim().replace('&', '&26%')
+        const isEmptySearchBar = searchTitle.trim().split('').length <= 0
+
+        if(!isEmptySearchBar) {
+            setIsSearchBarEmpty(false)
             navigate(`search`, {state: title})
         } else {
-            console.log('nothing to see here')
+            setIsSearchBarEmpty(true)
         }
     }
     
-
     return (
         <main className="flex-1 flex flex-col justify-center items-center">
             <Link to="/" className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9">
@@ -41,8 +63,10 @@ export default function Home():JSX.Element {
                     placeholder="Movie or TV show title" 
                     autoComplete="off"
                     onChange={updateSearchTitleOnChange}
-                    value={searchTitle} />
+                    value={searchTitle} 
+                />
             </form>
+            <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0'} mt-2 px-2 md:px-4 py-1 text-[10px] min-[375px]:text-sm md:text-base bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a movie title to search.</span>
         </main> 
     )
 }
