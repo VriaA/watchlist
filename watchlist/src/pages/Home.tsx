@@ -5,7 +5,7 @@ export default function Home():JSX.Element {
     const [searchTitle, setSearchTitle] = useState<string>('')
     const navigate = useNavigate()
 
-    function manageSearchBar(e: ChangeEvent) {
+    function updateSearchTitleOnChange(e: ChangeEvent) {
         const searchBar = e.target as HTMLInputElement
         setSearchTitle(searchBar.value)
     }
@@ -40,7 +40,7 @@ export default function Home():JSX.Element {
                     name="Movie Title" 
                     placeholder="Movie or TV show title" 
                     autoComplete="off"
-                    onChange={manageSearchBar}
+                    onChange={updateSearchTitleOnChange}
                     value={searchTitle} />
             </form>
         </main> 
