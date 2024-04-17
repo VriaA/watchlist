@@ -1,9 +1,3 @@
-import { ReactNode } from 'react'
-
-export type TResultContextProvider = {
-    children: ReactNode;
-}
-
 export type TResult = {
     adult: boolean;
     backdrop_path: string;

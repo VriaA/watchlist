@@ -35,13 +35,13 @@ function handleResponseError(response: Response) {
     } else if (response.status === 429) {
       throw new Error('Too many requests: Please try again later.');
     } else {
-      throw new Error('Error fetching ressults. \n Please check your internet connection and try again')
+      throw new Error('Error fetching results. \n Please check your internet connection and try again.')
     }
   }
 }
 
 function handleNoResultError(searchResults: TResults) {
   if(searchResults.length <=0 ) {
-    throw new Error('No results found!')
+    throw new Error('No results found.')
   }
 }

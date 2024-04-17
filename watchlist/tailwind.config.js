@@ -4,10 +4,10 @@ export default{
   theme: {
     extend: {
       animation: {
-        "leftPreload": "leftPreload 1.2s linear alternate infinite",
-        "rightPreload": "rightPreload 1.2s linear alternate infinite",
-        "leftPreloadMd": "leftPreloadMd 1.2s linear alternate infinite",
-        "rightPreloadMd": "rightPreloadMd 1.2s linear alternate infinite"
+        "leftPreload": "leftPreload .7s linear alternate infinite",
+        "rightPreload": "rightPreload .7s linear alternate infinite",
+        "leftPreloadMd": "leftPreloadMd .8s linear alternate infinite",
+        "rightPreloadMd": "rightPreloadMd .8s linear alternate infinite"
       },
 
       backgroundImage: {
@@ -40,24 +40,24 @@ export default{
       
       keyframes: {
         "leftPreload": {
-          "0%": {transform: 'translateX(-25px)', zIndex: '100'},
+          "0%": {transform: 'translateX(-15px)', zIndex: '100'},
           "99%": {zIndex: '51'},
-          "100%": {transform: 'translateX(25px)', zIndex: '51'}
+          "100%": {transform: 'translateX(50px)', zIndex: '51'}
         },
         "rightPreload": {
-          "0%": {transform: 'translateX(25px)', zIndex: '52'},
+          "0%": {transform: 'translateX(15px)', zIndex: '52'},
           "99%": {zIndex: '100'},
-          "100%": {transform: 'translateX(-25px)', zIndex: '100'}
+          "100%": {transform: 'translateX(-50px)', zIndex: '100'}
         },
         "leftPreloadMd": {
-          "0%": {transform: 'translateX(-45px)', zIndex: '100'},
+          "0%": {transform: 'translateX(-30px)', zIndex: '100'},
           "99%": {zIndex: '51'},
-          "100%": {transform: 'translateX(45px)', zIndex: '51'}
+          "100%": {transform: 'translateX(90px)', zIndex: '51'}
         },
         "rightPreloadMd": {
-          "0%": {transform: 'translateX(45px)', zIndex: '52'},
+          "0%": {transform: 'translateX(30px)', zIndex: '52'},
           "99%": {zIndex: '100'},
-          "100%": {transform: 'translateX(-45px)', zIndex: '100'}
+          "100%": {transform: 'translateX(-90px)', zIndex: '100'}
         }
       }
     },
