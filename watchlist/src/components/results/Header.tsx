@@ -19,7 +19,7 @@ export default function Header() {
                 </ul>                                           
             </form>
 
-            <Link className="col-start-4 col-end-5 lg:col-start-4 lg:col-end-5 justify-self-end" to="#/watchlist">My watchlist</Link>
+            <Link className="nav-link col-start-4 col-end-5 lg:col-start-4 lg:col-end-5 justify-self-end" to="#/watchlist">My watchlist</Link>
         </header> 
     )
 }

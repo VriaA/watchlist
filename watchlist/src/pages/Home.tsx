@@ -53,10 +53,11 @@ export default function Home():JSX.Element {
     
     return (
         <div className="flex-1 flex flex-col justify-center items-center">
+            <Link className="nav-link absolute top-8 right-8 leading-none" to="watchlist">My watchlist</Link>
+            
             <Link to="/" className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9">
                 <h1>Find your film</h1>
             </Link>
-            <Link className="nav-link" to="watchlist">My watchlist</Link>
 
             <main className='relative flex justify-center w-full'>
                 <form 
