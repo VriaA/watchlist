@@ -7,16 +7,19 @@ export default function Home():JSX.Element {
     const navigate = useNavigate()
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
 
+    // HIDES THE ENTER TITLE MESSAGE AFTER FOUR SECONDS
     useEffect(()=> {
         if(!isSearchBarEmpty) return
             const clearMessage: NodeJS.Timeout = setTimeout(()=> hideEnterTitleMessage() , 4000)
             return ()=> clearTimeout(clearMessage)
     }, [isSearchBarEmpty])
 
+    // HIDES THE ENTER TITLE MESSAGE ONCE THERE IS TEXT IN THE SEARCH BAR
     useEffect(()=> {
         searchTitle && hideEnterTitleMessage()
     }, [searchTitle])
 
+    // HIDES THE ENTER TITLE MESSAGE IF IT IS VISIBLE
     function hideEnterTitleMessage() {
         if(enterTitleMessageRef.current && enterTitleMessageRef.current.classList.contains('opacity-1')) {
             enterTitleMessageRef.current.classList.remove('opacity-1')
@@ -25,11 +28,15 @@ export default function Home():JSX.Element {
         }
     }
 
+    // CONTROLS THE SEARCH INPUT
     function updateSearchTitleOnChange(e: ChangeEvent) {
         const searchBar = e.target as HTMLInputElement
         setSearchTitle(searchBar.value)
     }
 
+    // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE
+    // IF THE SEARCH BAR IS EMPTY, isSearchBarEmpty IS SET TO TRUE WHICH RESULTS IN THE DISPLAY OF THE ENTER TITLE MESSAGE
+    // THIS PREVENTS SEARCHING WHEN THE SEARCH BAR IS EMPTY OR FILLED WITH ONLY WHITESPACES
     function handleFormSubmit(e: FormEvent): void {
         e.preventDefault()
 
