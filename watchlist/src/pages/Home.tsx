@@ -45,7 +45,7 @@ export default function Home():JSX.Element {
 
         if(!isEmptySearchBar) {
             setIsSearchBarEmpty(false)
-            navigate(`search`, {state: title})
+            navigate(`search?title=${title}`)
         } else {
             setIsSearchBarEmpty(true)
         }

@@ -8,14 +8,8 @@ export const ResultsContext = createContext<TResults | null>(null)
 
 export default function ResultsContextProvider({ children }: TChildren):JSX.Element {
     const [results, setResults] = useState<TResults | []>([])
-    const [searchParams, setSearchparams] = useSearchParams()
+    const [searchParams] = useSearchParams()
     const location = useLocation()
-
-    useEffect((): void => setSearchparams(()=> {
-        const title: string = location.search.split('=')[1] || location.state
-        return {'title': title}
-        }
-    ), [])
     
     useEffect((): void => {
         
