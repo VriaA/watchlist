@@ -7,7 +7,7 @@ import { TChildren } from "../types/appTypes";
 export const ResultsContext = createContext<TResults | null>(null)
 
 export default function ResultsContextProvider({ children }: TChildren):JSX.Element {
-    const [results, setResults] = useState<TResults | []>([])
+    const [results, setResults] = useState<TResults | [] | string>([])
     const [searchParams] = useSearchParams()
     const location = useLocation()
     
@@ -19,7 +19,8 @@ export default function ResultsContextProvider({ children }: TChildren):JSX.Elem
             const results = await getSearchResults(title) as TResults
             setResults(results)
         }
-        title && getResults()
+        
+        title ? getResults() : setResults('Please enter a valid title to search.')
       }, [location.search]);
 
     return  <ResultsContext.Provider value={results as TResults}>
