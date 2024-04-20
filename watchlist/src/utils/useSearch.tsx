@@ -1,9 +1,15 @@
 import { useState, useEffect, RefObject} from "react"
+import { useLocation } from "react-router-dom"
 import { TUseSearch, THandleSearchFormSubmit } from "../types/useSearchTypes"
+import getSearchResults from "./getSearchResults"
+import { TResults } from "../types/resultTypes"
 
 export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElement>) {
     const [searchTitle, setSearchTitle] = useState<string>('')
     const [isSearchBarEmpty, setIsSearchBarEmpty] = useState<boolean>(false)
+    const [suggestions, setSuggestions] = useState<TResults>([])
+    const isEmptySearchBar = searchTitle.trim().split('').length <= 0
+    const location = useLocation()
 
         // HIDES THE ENTER TITLE MESSAGE AFTER FOUR SECONDS
         useEffect(()=> {
@@ -14,7 +20,22 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         
         // HIDES THE ENTER TITLE MESSAGE ONCE THERE IS TEXT IN THE SEARCH BAR
         useEffect(()=> {
-            searchTitle && hideEnterTitleMessage()
+            if (isEmptySearchBar) return 
+                hideEnterTitleMessage()
+
+            async function getSearchSuggestions() {
+                const title: string = searchTitle.toLowerCase().trim().replace('&', '&26%')
+                const suggestions = await getSearchResults(title)
+                
+                if(Array.isArray(suggestions)) {
+                    setSuggestions(suggestions.splice(0, 3))
+                }
+            }
+            
+            if(location.pathname !== '/') {
+               const suggestionsTimeOut = setTimeout(()=> getSearchSuggestions(), 300) 
+               return ()=> clearTimeout(suggestionsTimeOut)
+            }  
         }, [searchTitle])
         
         // HIDES THE ENTER TITLE MESSAGE IF IT IS VISIBLE
@@ -34,7 +55,6 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             e.preventDefault()
     
             const title: string = searchTitle.toLowerCase().trim().replace('&', '&26%')
-            const isEmptySearchBar = searchTitle.trim().split('').length <= 0
     
             if(!isEmptySearchBar) {
                 setIsSearchBarEmpty(false);
@@ -45,5 +65,5 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             }
         }
 
-        return { searchTitle, setSearchTitle, isSearchBarEmpty, setIsSearchBarEmpty, handleSearchFormSubmit } as TUseSearch
+        return { searchTitle, setSearchTitle, isSearchBarEmpty, setIsSearchBarEmpty, handleSearchFormSubmit, suggestions } as TUseSearch
 }
