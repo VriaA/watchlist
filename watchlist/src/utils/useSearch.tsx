@@ -26,9 +26,10 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             }
         }
     
-        // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE OR THE URL SEARCH PARAMETER IS UPDATED 
+        // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE OR THE URL SEARCH PARAMETER IS UPDATED
         // IF THE SEARCH BAR IS EMPTY, isSearchBarEmpty IS SET TO TRUE WHICH RESULTS IN THE DISPLAY OF THE ENTER TITLE MESSAGE
         // THIS PREVENTS SEARCHING WHEN THE SEARCH BAR IS EMPTY OR FILLED WITH ONLY WHITESPACES
+        // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE OR THE URL SEARCH PARAMETER IS UPDATED 
         const handleSearchFormSubmit: THandleSearchFormSubmit = (e, navigate, setSearchParams)=> {
             e.preventDefault()
     
@@ -36,7 +37,8 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             const isEmptySearchBar = searchTitle.trim().split('').length <= 0
     
             if(!isEmptySearchBar) {
-                setIsSearchBarEmpty(false)
+                setIsSearchBarEmpty(false);
+                (document.getElementById('search-input') as HTMLInputElement).value = ''
                 navigate ? navigate(`search?title=${title}`) : setSearchParams ? setSearchParams({title: title}) : ''
             } else {
                 setIsSearchBarEmpty(true)

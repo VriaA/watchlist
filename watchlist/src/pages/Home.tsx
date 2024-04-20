@@ -26,6 +26,7 @@ export default function Home():JSX.Element {
                         search
                     </span>
                     <input 
+                        id="search-input"
                         className="w-full h-full px-10 text-[10px] min-[375px]:text-sm md:text-base bg-transparent outline-none text-center border-none" 
                         type="text" 
                         aria-label="Search Bar" 
