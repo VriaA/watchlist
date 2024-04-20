@@ -1,50 +1,14 @@
-import { FormEvent, useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import updateSearchTitleOnChange from '../utils/updateSearchTitleOnChange'
+import useSearch from '../utils/useSearch'
 
 export default function Home():JSX.Element {
-    const [searchTitle, setSearchTitle] = useState<string>('')
-    const [isSearchBarEmpty, setIsSearchBarEmpty] = useState<boolean>(false)
     const navigate = useNavigate()
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
+    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
 
-    // HIDES THE ENTER TITLE MESSAGE AFTER FOUR SECONDS
-    useEffect(()=> {
-        if(!isSearchBarEmpty) return
-            const clearMessage: NodeJS.Timeout = setTimeout(()=> hideEnterTitleMessage() , 4000)
-            return ()=> clearTimeout(clearMessage)
-    }, [isSearchBarEmpty])
-
-    // HIDES THE ENTER TITLE MESSAGE ONCE THERE IS TEXT IN THE SEARCH BAR
-    useEffect(()=> {
-        searchTitle && hideEnterTitleMessage()
-    }, [searchTitle])
-
-    // HIDES THE ENTER TITLE MESSAGE IF IT IS VISIBLE
-    function hideEnterTitleMessage() {
-        if(enterTitleMessageRef.current && enterTitleMessageRef.current.classList.contains('opacity-1')) {
-            enterTitleMessageRef.current.classList.remove('opacity-1')
-            enterTitleMessageRef.current.classList.add('opacity-0')
-            setIsSearchBarEmpty(false)
-        }
-    }
-
-    // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE
-    // IF THE SEARCH BAR IS EMPTY, isSearchBarEmpty IS SET TO TRUE WHICH RESULTS IN THE DISPLAY OF THE ENTER TITLE MESSAGE
-    // THIS PREVENTS SEARCHING WHEN THE SEARCH BAR IS EMPTY OR FILLED WITH ONLY WHITESPACES
-    function handleFormSubmit(e: FormEvent): void {
-        e.preventDefault()
-
-        const title: string = searchTitle.toLowerCase().trim().replace('&', '&26%')
-        const isEmptySearchBar = searchTitle.trim().split('').length <= 0
-
-        if(!isEmptySearchBar) {
-            setIsSearchBarEmpty(false)
-            navigate(`search?title=${title}`)
-        } else {
-            setIsSearchBarEmpty(true)
-        }
-    }
+    useSearch(enterTitleMessageRef)
     
     return (
         <div className="flex-1 flex flex-col justify-center items-center">
@@ -57,7 +21,7 @@ export default function Home():JSX.Element {
             <main className='relative flex justify-center w-full'>
                 <form 
                     className="relative flex justify-end w-[68%] lg:w-[35%] h-10 bg-zinc-900/40 rounded-full overflow-hidden border border-stone-900/30"
-                    onSubmit={handleFormSubmit} >
+                    onSubmit={(e)=> handleSearchFormSubmit(e, navigate)} >
                     <span className="material-symbols-outlined absolute inset-0 my-auto w-fit h-fit left-2 z-50 self-center text-2xl md:text-3xl font-extralight">
                         search
                     </span>

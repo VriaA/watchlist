@@ -1,48 +1,14 @@
-
-import { FormEvent, useEffect, useState, useRef } from "react";
+import {  useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import updateSearchTitleOnChange from "../../utils/updateSearchTitleOnChange";
+import useSearch from "../../utils/useSearch";
 
 export default function Header() {
-    const [searchTitle, setSearchTitle] = useState<string>('')
-    const [isSearchBarEmpty, setIsSearchBarEmpty] = useState<boolean>(false)
-    const [ searchParams, setSearchParams ] = useSearchParams()
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
+    const { setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
+    const [ searchParams, setSearchParams ] = useSearchParams()
 
-    // HIDES THE ENTER TITLE MESSAGE AFTER FOUR SECONDS
-    useEffect(()=> {
-        if(!isSearchBarEmpty) return
-            const clearMessage: NodeJS.Timeout = setTimeout(()=> hideEnterTitleMessage() , 4000)
-            return ()=> clearTimeout(clearMessage)
-    }, [isSearchBarEmpty])
-    
-    // HIDES THE ENTER TITLE MESSAGE ONCE THERE IS TEXT IN THE SEARCH BAR
-    useEffect(()=> {
-        searchTitle && hideEnterTitleMessage()
-    }, [searchTitle])
-    
-    // HIDES THE ENTER TITLE MESSAGE IF IT IS VISIBLE
-    function hideEnterTitleMessage() {
-        if(enterTitleMessageRef.current && enterTitleMessageRef.current.classList.contains('opacity-1')) {
-            enterTitleMessageRef.current.classList.remove('opacity-1')
-            enterTitleMessageRef.current.classList.add('opacity-0')
-            setIsSearchBarEmpty(false)
-        }
-    }
-
-    function handleSearchBarSubmit(e: FormEvent) {
-        e.preventDefault()
-
-        const title: string = searchTitle.toLowerCase().trim().replace('&', '&26%')
-        const isEmptySearchBar = searchTitle.trim().split('').length <= 0
-
-        if(!isEmptySearchBar) {
-            setIsSearchBarEmpty(false)
-            setSearchParams({title: title})
-        } else {
-            setIsSearchBarEmpty(true)
-        }
-    }
+    useSearch(enterTitleMessageRef)
 
     return (
         <header id="results-header" className="w-full h-fit grid grid-cols-3 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 items-center gap-2 md:gap-4 mt-4">
@@ -51,7 +17,7 @@ export default function Header() {
                     
             <form   id="search-bar" 
                     className="col-start-1 col-end-5 row-start-2 row-end-3 lg:col-start-2 lg:col-end-4 lg:row-start-1 lg:row-end-1 lg:justify-self-center relative w-full lg:max-w-[500px]"
-                    onSubmit={handleSearchBarSubmit}
+                    onSubmit={(e)=> handleSearchFormSubmit(e, undefined, setSearchParams)}
             >
                 <span id="search-icon" className="material-symbols-outlined absolute inset-0 my-auto w-fit h-fit left-2 z-50 self-center text-2xl lg:text-3xl font-extralight">
                     search
