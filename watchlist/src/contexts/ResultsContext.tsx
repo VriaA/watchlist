@@ -10,11 +10,12 @@ export default function ResultsContextProvider({ children }: TChildren):JSX.Elem
     const [results, setResults] = useState<TResults | [] | string>([])
     const [searchParams] = useSearchParams()
     const location = useLocation()
-    
-    useEffect((): void => {
-        
-        const title: string | null = searchParams.get('title');
 
+    useEffect((): void => {
+        setResults([])
+
+        const title: string | null = searchParams.get('title');
+        
         async function getResults() {
             const results = await getSearchResults(title) as TResults
             setResults(results)

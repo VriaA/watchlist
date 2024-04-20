@@ -1,5 +1,6 @@
-import { FormEvent, useState, ChangeEvent, useEffect, useRef } from 'react'
+import { FormEvent, useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import updateSearchTitleOnChange from '../utils/updateSearchTitleOnChange'
 
 export default function Home():JSX.Element {
     const [searchTitle, setSearchTitle] = useState<string>('')
@@ -26,12 +27,6 @@ export default function Home():JSX.Element {
             enterTitleMessageRef.current.classList.add('opacity-0')
             setIsSearchBarEmpty(false)
         }
-    }
-
-    // CONTROLS THE SEARCH INPUT
-    function updateSearchTitleOnChange(e: ChangeEvent) {
-        const searchBar = e.target as HTMLInputElement
-        setSearchTitle(searchBar.value)
     }
 
     // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE
@@ -73,7 +68,7 @@ export default function Home():JSX.Element {
                         name="Movie Title" 
                         placeholder="Movie or TV show title" 
                         autoComplete="off"
-                        onChange={updateSearchTitleOnChange}
+                        onChange={(e)=> updateSearchTitleOnChange(e, setSearchTitle)}
                         value={searchTitle} 
                     />
                 </form>

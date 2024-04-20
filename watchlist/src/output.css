@@ -986,12 +986,24 @@ video {
   margin-bottom: auto;
 }
 
+.-mb-8 {
+  margin-bottom: -2rem;
+}
+
 .mb-3 {
   margin-bottom: 0.75rem;
 }
 
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
 }
 
 .mt-2 {
@@ -1004,6 +1016,14 @@ video {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.block {
+  display: block;
 }
 
 .inline-block {
@@ -1473,6 +1493,10 @@ video {
 
   .md\:mb-9 {
     margin-bottom: 2.25rem;
+  }
+
+  .md\:mb-\[-36px\] {
+    margin-bottom: -36px;
   }
 
   .md\:h-20 {
