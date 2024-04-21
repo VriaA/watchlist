@@ -881,6 +881,10 @@ video {
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
 }
 
+.visible {
+  visibility: visible;
+}
+
 .invisible {
   visibility: hidden;
 }
@@ -1046,6 +1050,10 @@ video {
   height: 2.5rem;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-fit {
   height: -moz-fit-content;
   height: fit-content;
@@ -1057,10 +1065,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-20 {
-  height: 5rem;
 }
 
 .min-h-\[245px\] {
@@ -1079,6 +1083,10 @@ video {
   width: 2.5rem;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .w-\[68\%\] {
   width: 68%;
 }
@@ -1094,10 +1102,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-16 {
-  width: 4rem;
 }
 
 .min-w-\[38px\] {
@@ -1218,16 +1222,16 @@ video {
   justify-content: space-between;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-1 {
-  gap: 0.25rem;
 }
 
 .self-center {
@@ -1447,6 +1451,10 @@ video {
   opacity: 0;
 }
 
+.opacity-100 {
+  opacity: 1;
+}
+
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1476,6 +1484,12 @@ video {
 
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

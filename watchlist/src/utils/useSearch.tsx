@@ -10,6 +10,7 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
     const [suggestions, setSuggestions] = useState<TResults>([])
     const isEmptySearchBar = searchTitle.trim().split('').length <= 0
     const location = useLocation()
+    const suggestionsEl =  document.getElementById('suggestions') as HTMLUListElement
 
     // HIDES THE ENTER TITLE MESSAGE AFTER FOUR SECONDS
     useEffect(()=> {
@@ -18,23 +19,31 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             return ()=> clearTimeout(clearMessage)
     }, [isSearchBarEmpty])
         
+    // HIDES FILM SUGGESTIONS WHEN THERE IS NO TEXT IN THE SEARCH BAR
     // HIDES THE ENTER TITLE MESSAGE ONCE THERE IS TEXT IN THE SEARCH BAR
+    // FETCHES AND DISPLAYS FILM SUGGESTIONS FOR THE TITLE IN THE SEARCH BAR AS IT IS BEING UPDATED
     useEffect(()=> {
-        if (isEmptySearchBar) return 
+        if (isEmptySearchBar) {
+            hideSuggestions()
+        } else {
             hideEnterTitleMessage()
 
-        async function getSearchSuggestions() {
-            const suggestions = await getSearchResults(searchTitle)
+            async function getSearchSuggestions() {
+                const suggestions = await getSearchResults(searchTitle)
 
-            if(Array.isArray(suggestions)) {
-                setSuggestions(suggestions.splice(0, 3))
+                if(Array.isArray(suggestions)) {
+                    setSuggestions(suggestions.splice(0, 3))
+                    showSuggestions()
+                }
             }
+                
+            if(location.pathname !== '/') {
+                const suggestionsTimeOut: NodeJS.Timeout = setTimeout(()=> {
+                    getSearchSuggestions()
+                }, 300) 
+                return ()=> clearTimeout(suggestionsTimeOut)
+            }  
         }
-            
-        if(location.pathname !== '/') {
-           const suggestionsTimeOut = setTimeout(()=> getSearchSuggestions(), 300) 
-           return ()=> clearTimeout(suggestionsTimeOut)
-        }  
     }, [searchTitle])
         
     // HIDES THE ENTER TITLE MESSAGE IF IT IS VISIBLE
@@ -44,6 +53,18 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             enterTitleMessageRef.current.classList.add('opacity-0')
             setIsSearchBarEmpty(false)
         }
+    }
+
+    function hideSuggestions() {
+        if(!suggestionsEl) return
+        suggestionsEl.classList.add('invisible')
+        suggestionsEl.classList.remove('visible')
+    }
+
+    function showSuggestions() {
+        if(!suggestionsEl) return
+        suggestionsEl.classList.remove('invisible')
+        suggestionsEl.classList.add('visible')
     }
     
     // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE OR THE URL SEARCH PARAMETER IS UPDATED
@@ -56,6 +77,7 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         if(!isEmptySearchBar) {
             setIsSearchBarEmpty(false);
             (document.getElementById('search-input') as HTMLInputElement).value = ''
+            hideSuggestions()
             navigate ? navigate(`search?title=${searchTitle}`) : setSearchParams ? setSearchParams({title: searchTitle}) : ''
         } else {
             setIsSearchBarEmpty(true)
