@@ -6,7 +6,7 @@ import Suggestions from "../searchSuggestions/Suggestions";
 
 export default function Header() {
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
-    const { setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions } = useSearch(enterTitleMessageRef)
+    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions } = useSearch(enterTitleMessageRef)
     const [ searchParams, setSearchParams ] = useSearchParams()
 
     useSearch(enterTitleMessageRef)
@@ -33,6 +33,7 @@ export default function Header() {
                         placeholder="Movie or TV show title" 
                         autoComplete="off"
                         onChange={(e)=> updateSearchTitleOnChange(e, setSearchTitle)} 
+                        value={searchTitle}
                 />
                 </fieldset>
 
