@@ -76,9 +76,8 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         e.preventDefault()
     
         if(!isEmptySearchBar) {
-            setIsSearchBarEmpty(false);
-            (document.getElementById('search-input') as HTMLInputElement).value = ''
-            hideSuggestions()
+            setIsSearchBarEmpty(false)
+            setSearchTitle('')
             navigate ? navigate(`search?title=${titleToSearch}`) : setSearchParams ? setSearchParams({title: titleToSearch}) : ''
         } else {
             setIsSearchBarEmpty(true)
