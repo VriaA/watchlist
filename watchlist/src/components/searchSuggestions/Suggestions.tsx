@@ -10,7 +10,7 @@ export default function Suggestions({suggestions}: {suggestions: TResults}) {
     return (
         <>
             {   suggestions && 
-                    <ul id="suggestions" className={`${suggestions.length > 0 ? 'visible' : 'invisible'} films search-suggestions z-30 transition-all`}>
+                    <ul id="suggestions" className={`invisible films search-suggestions z-30 transition-all`}>
                         {suggestionsElArray}
                     </ul>        
             }
