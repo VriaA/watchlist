@@ -8,9 +8,10 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
     const [searchTitle, setSearchTitle] = useState<string>('')
     const [isSearchBarEmpty, setIsSearchBarEmpty] = useState<boolean>(false)
     const [suggestions, setSuggestions] = useState<TResults>([])
-    const isEmptySearchBar = searchTitle.trim().split('').length <= 0
     const location = useLocation()
     const suggestionsEl =  document.getElementById('suggestions') as HTMLUListElement
+    const isEmptySearchBar: boolean = searchTitle.trim().split('').length <= 0
+    const titleToSearch: string = searchTitle.toLowerCase().trim().replace('&', '%2526')
 
     // HIDES THE ENTER TITLE MESSAGE AFTER FOUR SECONDS
     useEffect(()=> {
@@ -29,7 +30,7 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             hideEnterTitleMessage()
 
             async function getSearchSuggestions() {
-                const suggestions = await getSearchResults(searchTitle)
+                const suggestions = await getSearchResults(titleToSearch)
 
                 if(Array.isArray(suggestions)) {
                     setSuggestions(suggestions.splice(0, 3))
@@ -78,7 +79,7 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
             setIsSearchBarEmpty(false);
             (document.getElementById('search-input') as HTMLInputElement).value = ''
             hideSuggestions()
-            navigate ? navigate(`search?title=${searchTitle}`) : setSearchParams ? setSearchParams({title: searchTitle}) : ''
+            navigate ? navigate(`search?title=${titleToSearch}`) : setSearchParams ? setSearchParams({title: titleToSearch}) : ''
         } else {
             setIsSearchBarEmpty(true)
         }
