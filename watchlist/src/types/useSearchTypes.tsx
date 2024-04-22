@@ -12,5 +12,6 @@ export type TUseSearch = {
     searchParams: URLSearchParams, 
     setSearchParams: SetURLSearchParams, 
     handleSearchFormSubmit : THandleSearchFormSubmit,
-    suggestions: TResults;
+    suggestions: TResults,
+    isEmptySearchBar: boolean
 }

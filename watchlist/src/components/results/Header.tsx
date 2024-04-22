@@ -6,7 +6,7 @@ import Suggestions from "../searchSuggestions/Suggestions";
 
 export default function Header() {
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
-    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions } = useSearch(enterTitleMessageRef)
+    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
     const [ searchParams, setSearchParams ] = useSearchParams()
 
     useSearch(enterTitleMessageRef)
@@ -39,7 +39,7 @@ export default function Header() {
 
                 <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0'} absolute z-50 block w-fit inset-0 mr-auto ml-auto mt-auto h-fit -mb-8 md:mb-[-36px] px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
 
-                <Suggestions suggestions={suggestions} />
+                {!isEmptySearchBar && <Suggestions suggestions={suggestions} />}
             </form>
 
             <Link className="nav-link col-start-4 col-end-5 lg:col-start-4 lg:col-end-5 justify-self-end" to="#/watchlist">My watchlist</Link>

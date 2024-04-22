@@ -84,5 +84,5 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         }
     }
 
-    return { searchTitle, setSearchTitle, isSearchBarEmpty, setIsSearchBarEmpty, handleSearchFormSubmit, suggestions } as TUseSearch
+    return { searchTitle, setSearchTitle, isSearchBarEmpty, setIsSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } as TUseSearch
 }
