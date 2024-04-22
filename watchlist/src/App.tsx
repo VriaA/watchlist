@@ -13,7 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Results />} />
-          <Route path="/film" element={<Film />} />
+          <Route path="/movie/:id" element={<Film />} />
+          <Route path="/tv/:id" element={<Film />} />
 
           <Route element={<AuthRequired />}>
             <Route path="/watchlist" element={<Watchlist />} />
