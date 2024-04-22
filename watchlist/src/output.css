@@ -881,10 +881,6 @@ video {
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
 }
 
-.visible {
-  visibility: visible;
-}
-
 .invisible {
   visibility: hidden;
 }
