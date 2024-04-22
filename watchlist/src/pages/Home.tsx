@@ -7,8 +7,6 @@ export default function Home():JSX.Element {
     const navigate = useNavigate()
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
     const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
-
-    useSearch(enterTitleMessageRef)
     
     return (
         <div className="flex-1 flex flex-col justify-center items-center">

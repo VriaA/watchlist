@@ -9,8 +9,6 @@ export default function Header() {
     const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
     const [ searchParams, setSearchParams ] = useSearchParams()
 
-    useSearch(enterTitleMessageRef)
-
     return (
         <header id="results-header" className="w-full h-fit grid grid-cols-3 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 items-center gap-2 md:gap-4 mt-4">
 
