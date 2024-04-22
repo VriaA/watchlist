@@ -58,14 +58,14 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
 
     function hideSuggestions() {
         if(!suggestionsEl) return
-        suggestionsEl.classList.add('invisible')
-        suggestionsEl.classList.remove('visible')
+        suggestionsEl.classList.add('hidden')
+        suggestionsEl.classList.remove('flex')
     }
 
     function showSuggestions() {
         if(!suggestionsEl) return
-        suggestionsEl.classList.remove('invisible')
-        suggestionsEl.classList.add('visible')
+        suggestionsEl.classList.remove('hidden')
+        suggestionsEl.classList.add('flex')
     }
     
     // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE OR THE URL SEARCH PARAMETER IS UPDATED
