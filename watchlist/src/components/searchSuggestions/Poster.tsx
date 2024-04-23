@@ -1,6 +1,6 @@
 import imageBaseUrl from "../../utils/imageBaseUrl.ts";
 
-export default function Poster({poster, id, type}: {poster: string, id: number, type: string}) {
+export default function Poster({poster}: {poster: string}) {
 
     return (
         <>
