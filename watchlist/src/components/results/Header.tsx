@@ -1,7 +1,7 @@
 import {  useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import updateSearchTitleOnChange from "../../utils/updateSearchTitleOnChange";
-import useSearch from "../../utils/useSearch";
+import useSearch from "../../hooks/useSearch";
 import Suggestions from "../searchSuggestions/Suggestions";
 
 export default function Header() {

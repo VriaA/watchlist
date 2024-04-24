@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import updateSearchTitleOnChange from '../utils/updateSearchTitleOnChange'
-import useSearch from '../utils/useSearch'
+import useSearch from '../hooks/useSearch'
 
 export default function Home():JSX.Element {
     const navigate = useNavigate()

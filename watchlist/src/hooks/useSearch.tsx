@@ -1,7 +1,7 @@
 import { useState, useEffect, RefObject} from "react"
 import { useLocation } from "react-router-dom"
 import { TUseSearch, THandleSearchFormSubmit } from "../types/useSearchTypes"
-import getSearchResults from "./getSearchResults"
+import getSearchResults from "../utils/getSearchResults"
 import { TResults } from "../types/resultTypes"
 
 export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElement>) {
