@@ -12,7 +12,7 @@ export default function useFetch(url: string) {
         }
     };
 
-    const [results, setResults] = useState([])
+    const [results, setResults] = useState(null)
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
