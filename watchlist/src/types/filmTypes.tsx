@@ -1,3 +1,5 @@
+import { iso639_1LanguageCodes } from "../data/iso639LanguageCodes";
+
 export type TMovie = {
     adult: boolean;
     backdrop_path: string;
@@ -9,7 +11,7 @@ export type TMovie = {
     id: number;
     imdb_id: string;
     origin_country: string[];
-    original_language: string;
+    original_language:  keyof typeof iso639_1LanguageCodes;
     original_title: string;
     overview: string;
     popularity: number;
@@ -34,9 +36,8 @@ export type TSeries = {
     adult: boolean;
     id: number;
     genres: {id: number; name: string;}[];
-    runtime: [number];
     backdrop_path: string;
-    episode_run_time: number[];
+    episode_run_time: [number];
     release_date: string; 
     first_air_date: string; 
     last_air_date: string;
@@ -52,7 +53,7 @@ export type TSeries = {
     overview: string; 
     popularity: number;
     origin_country: string[];
-    original_language: string; 
+    original_language:  keyof typeof iso639_1LanguageCodes; 
     languages: string[];
     number_of_episodes: number;
     number_of_seasons: number; 

@@ -1,41 +1,46 @@
 import { iso639_1LanguageCodes } from "../../data/iso639LanguageCodes"
-export default function Hero(prop: unknown) {
-    const {title, original_title, name, original_name, genres, runtime, release_date, first_air_date, overview, type, number_of_seasons, original_language, episode_run_time} = prop 
+import { TMovie, TSeries } from "../../types/filmTypes"
+
+export default function Hero({ film }: {film: TMovie | TSeries}) {
+    const { title, original_title, genres, runtime, release_date, overview, original_language } = film as TMovie
+    const {name, original_name, first_air_date, type, number_of_seasons, episode_run_time} = film as TSeries
     
     const language = getLanguage(original_language)
 
-    const isTv = type === 'tv'
-    const hasGenre = genres.length > 0
-    const hasEpisodeRunTime = episode_run_time && episode_run_time.length > 0
-    const episodeRunTime = hasEpisodeRunTime ? episode_run_time[0] : null
+    const isTv: boolean = type === 'tv'
+    const hasGenre: boolean = genres && genres.length > 0
+    const hasEpisodeRunTime: boolean = episode_run_time && episode_run_time.length > 0
+    const episodeRunTime: number | null = hasEpisodeRunTime ? episode_run_time[0] : null
 
-    function getGenres(genres: {id: number; name: string;}[], hasGenre: boolean) {
+    function getGenres(genres: {id: number; name: string;}[], hasGenre: boolean): string | JSX.Element {
         return hasGenre ? genres.map( (genre)=> `${genre.name}`).join(' | ') : unknownValuePlaceHolder()
    }
    
-   function getYear(date: string) {
+   function getYear(date: string): string | JSX.Element {
        return date ? date.split('-')[0] : unknownValuePlaceHolder()
    }
    
-   function getLanguage(code: keyof typeof iso639_1LanguageCodes) {
+   function getLanguage(code: keyof typeof iso639_1LanguageCodes): string | JSX.Element {
        if(iso639_1LanguageCodes[code]) {
            return iso639_1LanguageCodes[code]
        }
        return unknownValuePlaceHolder()
    }
    
-   function getRuntime(time: string) {
+   function getRuntime(time: number | null): number | JSX.Element {
        return time ? time : unknownValuePlaceHolder()
    }
    
-   function getType(type: string) {
+   function getType(type: string): 'Movie' | 'Series' | JSX.Element {
        return type ? type === 'movie' ? 'Movie' : 'Series' : unknownValuePlaceHolder()
    }
 
-   function unknownValuePlaceHolder() {
-        return `<span class="material-symbols-outlined text-sm md:text-base font-light">
-                    unknown_med
-                </span>`
+   function unknownValuePlaceHolder(): JSX.Element {
+        return (
+                    <span className="material-symbols-outlined text-sm md:text-base font-light">
+                        unknown_med
+                    </span>
+                )
     }
 
     // TODO: Create add to watchlist function
