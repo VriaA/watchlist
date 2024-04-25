@@ -2,39 +2,43 @@ import { TCast, TCrew } from "../../types/filmTypes"
 import imageBaseUrl from "../../utils/imageBaseUrl"
 
 export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]}}) {
-    const hasCast = credits.cast.length > 0
-    
-    function getCastHTML(credits: { cast: TCast[], crew: TCrew[]}) {
-        if(credits.cast.length === 0) {
-            return <p className="card-cast w-full h-full text-lg lg:text-xl font-light text-center">
-                        No cast data.
-                    </p>
-        }
-    
-       return credits.cast.map(cast=> {
-            const {profile_path, character, name} = cast
+    const hasCast = credits && credits.cast.length > 0
 
-            if(!profile_path) {
-                return (
-                    <div className="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
-                        <div className="grid place-content-center w-full h-48 md:h-72 rounded-t-md">
-                            <span className="material-symbols-outlined text-5xl lg:text-7xl font-thin">
-                                broken_image
-                            </span>
-                        </div>
-                        <p className="font-medium">{name}</p>
-                        <p className="font-extralight line-clamp-3">{character}</p>
+    function CastWithImage({profile_path, character, name}: TCast): JSX.Element {
+        return  (<div className="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
+                    <img className="w-full h-48 md:h-72 object-cover object-center rounded-t-md" src={`${imageBaseUrl}${profile_path}`} alt={name} loading="lazy" />
+                    <p className="font-medium">{name}</p>
+                    <p className="font-extralight line-clamp-3">{character}</p>
+                </div>)
+    }
+    
+    function CastNoImage({character, name}: TCast): JSX.Element {
+        return  (<div className="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
+                    <div className="grid place-content-center w-full h-48 md:h-72 rounded-t-md">
+                        <span className="material-symbols-outlined text-5xl lg:text-7xl font-thin">
+                            broken_image
+                        </span>
                     </div>
-                )
-            }
-            return (
-                    <div className="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
-                        <img className="w-full h-48 md:h-72 object-cover object-center rounded-t-md" src={`${imageBaseUrl}${profile_path}`} alt={name} loading="lazy" />
-                        <p className="font-medium">{name}</p>
-                        <p className="font-extralight line-clamp-3">{character}</p>
-                    </div>
-                )
-        })
+                    <p className="font-medium">{name}</p>
+                    <p className="font-extralight line-clamp-3">{character}</p>
+                </div>)
+    }
+
+    function NoCastData(): JSX.Element {
+        return ( <p className="card-cast w-full h-full text-lg lg:text-xl font-light text-center">
+                    No cast data.
+                 </p>)
+    }
+    
+    function CastELements(): JSX.Element[] | JSX.Element {
+        if(credits.cast.length > 0 ) {
+            return credits.cast.map((cast, i): JSX.Element=> {
+                const {profile_path, character, name} = cast
+                return profile_path ? <CastWithImage key={i} profile_path={profile_path} character={character} name={name} /> : <CastNoImage key={i} character={character} name={name} />
+            })
+        } else {
+            return <NoCastData />
+        }
     }
     
     return (
@@ -56,9 +60,8 @@ export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]
                 </div>}
 
                 <div id="gallery-cast" className="gallery overflow-x-auto">
-
                     <div className="cards-cntr flex gap-2 md:gap-5 pl-4 py-2">
-                        {getCastHTML(credits)}
+                        <CastELements />
                     </div>  
                 </div>  
             </div>
