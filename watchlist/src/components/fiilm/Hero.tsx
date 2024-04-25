@@ -1,9 +1,9 @@
 import { iso639_1LanguageCodes } from "../../data/iso639LanguageCodes"
 import { TMovie, TSeries } from "../../types/filmTypes"
 
-export default function Hero({ film }: {film: TMovie | TSeries}) {
+export default function Hero({ film, type }: {film: TMovie | TSeries, type: string}) {
     const { title, original_title, genres, runtime, release_date, overview, original_language } = film as TMovie
-    const {name, original_name, first_air_date, type, number_of_seasons, episode_run_time} = film as TSeries
+    const {name, original_name, first_air_date, number_of_seasons, episode_run_time} = film as TSeries
     
     const language = getLanguage(original_language)
 
