@@ -72,7 +72,7 @@ export type TSeries = {
     vote_count: number;
 }
 
-type TCast = {
+export type TCast = {
     adult: boolean;
     character: string;
     credit_id: string;
@@ -86,7 +86,7 @@ type TCast = {
     profile_path: string;
 }
 
-type TCrew = {
+export type TCrew = {
     adult: boolean;
     credit_id: string;
     department: string;
@@ -100,7 +100,7 @@ type TCrew = {
     profile_path: string | null;
 }
 
-type TVideo = {
+export type TVideo = {
     id: string;
     iso_639_1: string;
     iso_3166_1: string;
@@ -113,7 +113,7 @@ type TVideo = {
     type: string;
 }
 
-type TSimilar = {
+export type TSimilar = {
     id: number;
     name: string;
     original_name: string  
@@ -132,7 +132,7 @@ type TSimilar = {
     vote_count: number
 }
 
-type TSimilarObj = { 
+export type TSimilarObj = { 
     page: number; 
     results: TSimilar[];
     total_pages: number;
