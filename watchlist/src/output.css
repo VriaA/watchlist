@@ -1365,6 +1365,10 @@ video {
   overflow-y: auto;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .overflow-x-scroll {
   overflow-x: scroll;
 }
@@ -1424,6 +1428,11 @@ video {
   background-color: transparent;
 }
 
+.bg-zinc-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
+}
+
 .bg-zinc-800\/60 {
   background-color: rgb(39 39 42 / 0.6);
 }
@@ -1441,8 +1450,27 @@ video {
   background-color: rgb(24 24 27 / 0.4);
 }
 
+.bg-red-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
+.bg-zinc-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 63 70 / var(--tw-bg-opacity));
+}
+
+.bg-red-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(69 10 10 / var(--tw-bg-opacity));
+}
+
 .bg-homeImg {
   background-image: url(./assets/images/background.webp);
+}
+
+.bg-filmBackdropPosition {
+  background-position: 50% 0%;
 }
 
 .bg-wrapperImgPosition {
@@ -1639,6 +1667,10 @@ video {
 
 .opacity-60 {
   opacity: 0.6;
+}
+
+.bg-blend-overlay {
+  background-blend-mode: overlay;
 }
 
 .outline-none {
@@ -1988,6 +2020,14 @@ video {
 
   .lg\:max-w-\[66\%\] {
     max-width: 66%;
+  }
+
+  .lg\:snap-y {
+    scroll-snap-type: y var(--tw-scroll-snap-strictness);
+  }
+
+  .lg\:snap-mandatory {
+    --tw-scroll-snap-strictness: mandatory;
   }
 
   .lg\:snap-start {

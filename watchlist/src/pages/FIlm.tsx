@@ -1,5 +1,12 @@
 import { useLocation } from "react-router-dom"
+import  { useEffect } from "react"
+import imageBaseUrl from "../utils/imageBaseUrl"
 import useFetch from "../hooks/useFetch"
+import Hero from "../components/fiilm/Hero"
+import Cast from "../components/fiilm/Cast"
+import Videos from "../components/fiilm/Videos"
+import Similar from "../components/fiilm/SImilar"
+import FilmImage from "../assets/images/film.webp"
 
 export default function Film(): JSX.Element {
     const location = useLocation()
@@ -12,7 +19,13 @@ export default function Film(): JSX.Element {
         <>
             {
                 loading ? <h1>loading...</h1> :
-                results ? <h1>{`${results}`}</h1> :
+                results ? <>
+                            <Hero type={type} film={results} />
+                            <Cast credits={results.credits} />
+                            <Videos videos={results.videos}/>
+                            <Similar similar={results.similar} />
+                          </>
+                 :
                 <h1>{error}</h1>
             }
         </>
