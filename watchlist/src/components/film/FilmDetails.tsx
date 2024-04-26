@@ -17,7 +17,7 @@ export default function FilmDetails({film, type}: filmDetailsProp) {
                 <div className="flex flex-col justify-center py-16 lg:py-0 gap-16 lg:gap-0 min-h-full bg-zinc-900/40 backdrop-blur-md rounded-md">
                     <Cast credits={film.credits} />
                     <Videos videos={film.videos}/>
-                    <Similar similar={film.similar} />
+                    <Similar similar={film.similar} type={type} />
                 </div>
             </main>
     )
