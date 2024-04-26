@@ -1,8 +1,9 @@
 import { TSimilarObj, TSimilar } from "../../types/filmTypes"
 import imageBaseUrl from "../../utils/imageBaseUrl"
+import useScroll from "../../hooks/useScroll"
 
 export default function Similar({similar}: {similar: TSimilarObj}) {
-
+    const { galleryRef, leftArrowRef, rightArrowRef, changeArrowOpacity, scrollLeft, scrollRight} = useScroll()
     const hasSimilarFilm = similar.results.length > 0
 
     function SimilarFilmPosterWithImage({filmName, posterPath}: {filmName: string, posterPath: string}): JSX.Element {
@@ -61,16 +62,21 @@ export default function Similar({similar}: {similar: TSimilarObj}) {
 
                 {hasSimilarFilm &&
                     <div className="arrows-similar flex justify-end items-end gap-3 pl-4">
-                        <span id="similar-left-arrow" className="material-symbols-outlined left-arrow scroll-arrow-small" title="Previous">
-                            keyboard_arrow_left
-                        </span>
-                        <span id="similar-right-arrow" className="material-symbols-outlined right-arrow scroll-arrow-small" title="Next">
-                            keyboard_arrow_right
-                        </span>
+                        <button ref={leftArrowRef} onClick={scrollLeft} title="Previous">
+                            <span id="similar-left-arrow" className="material-symbols-outlined left-arrow scroll-arrow-small">
+                                keyboard_arrow_left
+                            </span>
+                        </button>
+
+                        <button ref={rightArrowRef} onClick={scrollRight} title="Next">
+                            <span id="similar-right-arrow" className="material-symbols-outlined right-arrow scroll-arrow-small">
+                                keyboard_arrow_right
+                            </span>
+                        </button>
                     </div> 
                 }
 
-                <div id="gallery-similar" className="gallery overflow-x-auto pl-2 md:px-4">
+                <div id="gallery-similar" className="gallery overflow-x-auto pl-2 md:px-4" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="films cards-cntr flex gap-2 md:gap-3 py-2">
                         {hasSimilarFilm ? <SimilarFilmPoster /> : <NoSimilarFilmMessage />}
                     </div>

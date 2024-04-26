@@ -1,7 +1,8 @@
 import { TVideo } from "../../types/filmTypes"
+import useScroll from "../../hooks/useScroll"
 
 export default function Videos({videos}: {videos: {results: TVideo[]}}) {
-    
+    const {galleryRef, leftArrowRef, rightArrowRef, changeArrowOpacity, scrollLeft, scrollRight} = useScroll()
     const hasVideos = videos.results.length > 0
 
     return (
@@ -11,19 +12,23 @@ export default function Videos({videos}: {videos: {results: TVideo[]}}) {
                 <span className="gallery-title-underline-videos block mt-1 border-b"></span>    
             </h2>
 
-            <div className="w-[70%] gallery-cntr hide-film-gallery" data-gallery="videos">
+            <div className="w-[70%] gallery-cntr hide-film-gallery">
                 {hasVideos &&
                     <div className="arrows-videos flex justify-end items-end gap-3 pl-4">
-                        <span id="videos-left-arrow" className="left-arrow scroll-arrow-small material-symbols-outlined" data-arrow="videos" title="Previous">
-                            keyboard_arrow_left
-                        </span>
-                        <span id="videos-right-arrow" className="right-arrow scroll-arrow-small material-symbols-outlined" data-arrow="videos" title="Next">
-                            keyboard_arrow_right
-                        </span>
+                        <button ref={leftArrowRef} onClick={scrollLeft} title="Previous">
+                            <span className="scroll-arrow-small material-symbols-outlined">
+                                keyboard_arrow_left
+                            </span>
+                        </button>
+                        <button ref={rightArrowRef} onClick={scrollRight} title="Next">
+                            <span className="scroll-arrow-small material-symbols-outlined">
+                                keyboard_arrow_right
+                            </span>
+                        </button>
                     </div>
                 }
 
-                <div id="gallery-videos" className="gallery overflow-x-auto pl-2 md:px-4" data-gallery="videos">
+                <div className="gallery overflow-x-auto pl-2 md:px-4" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="cards-cntr flex gap-2 md:gap-3 py-2">
                         {videos.results.length > 0 ?
                             videos.results.map(video=> {

@@ -1,7 +1,9 @@
 import { TCast, TCrew } from "../../types/filmTypes"
 import imageBaseUrl from "../../utils/imageBaseUrl"
+import useScroll from "../../hooks/useScroll"
 
 export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]}}) {
+    const { galleryRef, leftArrowRef, rightArrowRef, changeArrowOpacity, scrollLeft, scrollRight } = useScroll()
     const hasCast = credits && credits.cast.length > 0
 
     function CastWithImage({profile_path, character, name}: TCast): JSX.Element {
@@ -51,15 +53,20 @@ export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]
             <div className="w-[70%] gallery-cntr hide-film-gallery">
 
                 {hasCast && <div className="arrows-cast flex justify-end items-end gap-3">
-                            <span id="cast-left-arrow" className="left-arrow scroll-arrow-small material-symbols-outlined" title="Previous">
+                        <button ref={leftArrowRef} onClick={scrollLeft} title="Previous">
+                            <span className="left-arrow scroll-arrow-small material-symbols-outlined">
                                 keyboard_arrow_left
                             </span> 
-                            <span id="cast-right-arrow" className="right-arrow scroll-arrow-small material-symbols-outlined" title="Next">
+                        </button>
+                        
+                        <button ref={rightArrowRef} onClick={scrollRight} title="Next">
+                            <span className="right-arrow scroll-arrow-small material-symbols-outlined">
                                 keyboard_arrow_right
                             </span> 
+                        </button>
                 </div>}
 
-                <div id="gallery-cast" className="gallery overflow-x-auto">
+                <div id="gallery-cast" className="gallery overflow-x-auto" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="cards-cntr flex gap-2 md:gap-5 pl-4 py-2">
                         <CastELements />
                     </div>  
