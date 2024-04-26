@@ -58,25 +58,25 @@ export default function Similar({similar}: {similar: TSimilarObj}) {
                 <span className="gallery-title-underline-similar block mt-1 border-b"></span>
             </h2>
 
-            <div className="w-[70%] gallery-cntr hide-film-gallery" data-gallery="similar">
+            <div className="w-[70%] gallery-cntr hide-film-gallery">
 
                 {hasSimilarFilm &&
                     <div className="arrows-similar flex justify-end items-end gap-3 pl-4">
                         <button ref={leftArrowRef} onClick={scrollLeft} title="Previous">
-                            <span id="similar-left-arrow" className="material-symbols-outlined left-arrow scroll-arrow-small">
+                            <span className="material-symbols-outlined left-arrow scroll-arrow-small">
                                 keyboard_arrow_left
                             </span>
                         </button>
 
                         <button ref={rightArrowRef} onClick={scrollRight} title="Next">
-                            <span id="similar-right-arrow" className="material-symbols-outlined right-arrow scroll-arrow-small">
+                            <span className="material-symbols-outlined right-arrow scroll-arrow-small">
                                 keyboard_arrow_right
                             </span>
                         </button>
                     </div> 
                 }
 
-                <div id="gallery-similar" className="gallery overflow-x-auto pl-2 md:px-4" ref={galleryRef} onScroll={changeArrowOpacity}>
+                <div className="gallery overflow-x-auto pl-2 md:px-4" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="films cards-cntr flex gap-2 md:gap-3 py-2">
                         {hasSimilarFilm ? <SimilarFilmPoster /> : <NoSimilarFilmMessage />}
                     </div>
