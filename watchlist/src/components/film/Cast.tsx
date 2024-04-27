@@ -66,7 +66,7 @@ export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]
                         </button>
                 </div>}
 
-                <div id="gallery-cast" className="gallery overflow-x-auto" ref={galleryRef} onScroll={changeArrowOpacity}>
+                <div id="gallery-cast" className="gallery lg:snap-x lg:snap-mandatory overflow-x-auto" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="cards-cntr flex gap-2 md:gap-5 pl-4 py-2">
                         <CastELements />
                     </div>  

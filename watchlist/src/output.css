@@ -2069,6 +2069,10 @@ video {
     max-width: 66%;
   }
 
+  .lg\:snap-x {
+    scroll-snap-type: x var(--tw-scroll-snap-strictness);
+  }
+
   .lg\:snap-y {
     scroll-snap-type: y var(--tw-scroll-snap-strictness);
   }

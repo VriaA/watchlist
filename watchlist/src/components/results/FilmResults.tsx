@@ -24,7 +24,7 @@ export default function FilmResults(): JSX.Element {
                         </span>
                     </button>
 
-                    <div className="gallery z-20 grid min-w-full h-full lg:pl-2 lg:min-w-[248px] lg:max-w-[66%] rounded-md overflow-x-scroll overflow-y-auto lg:overflow-y-hidden" ref={galleryRef} onScroll={changeArrowOpacity}>
+                    <div className="gallery z-20 grid min-w-full h-full lg:pl-2 lg:min-w-[248px] lg:max-w-[66%] rounded-md overflow-x-scroll overflow-y-auto lg:overflow-y-hidden lg:snap-x lg:snap-mandatory" ref={galleryRef} onScroll={changeArrowOpacity}>
                         <div className="films cards-cntr w-full min-h-full grid grid-cols-2 md:grid-cols-3 lg:flex ${results.length > 2 ? 'justify-center' : ''} lg:justify-start lg:items-center gap-2 md:gap-5 md:mb-5 lg:mb-0 lg:py-5">
                             {results.map((result: TResult, i: number)=>  result.poster_path ? <Poster key={i} result={result} /> : <EmptyPoster key={i} result={result} />)}
                         </div>

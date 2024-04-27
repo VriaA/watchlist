@@ -28,7 +28,7 @@ export default function Videos({videos}: {videos: {results: TVideo[]}}) {
                     </div>
                 }
 
-                <div className="gallery overflow-x-auto pl-2 md:px-4" ref={galleryRef} onScroll={changeArrowOpacity}>
+                <div className="gallery overflow-x-auto pl-2 md:px-4 lg:snap-x lg:snap-mandatory" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="cards-cntr flex gap-2 md:gap-3 py-2">
                         {videos.results.length > 0 ?
                             videos.results.map(video=> {

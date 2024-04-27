@@ -23,7 +23,7 @@ export default function Similar({similar, type}: {similar: TSimilarObj; type: st
 
     function SimilarFilmPosterWithoutImage({filmName, id}: {filmName: string, id: number}) {
         return (
-            <Link to={`../${type}/${filmName}+${id}`} className="card card-similar relative w-[49%] min-h-[245px] lg:w-[242px] lg:h-[350px] no-poster" >
+            <Link to={`../${type}/${filmName}+${id}`} className="card card-similar relative w-[49%] min-h-[245px] lg:w-[242px] lg:h-[350px] snap-start no-poster" >
                 <span className="absolute inset-0 m-auto h-fit w-fit material-symbols-outlined text-5xl lg:text-7xl text-white font-thin" >
                     broken_image
                 </span>
@@ -77,7 +77,7 @@ export default function Similar({similar, type}: {similar: TSimilarObj; type: st
                     </div> 
                 }
 
-                <div className="gallery overflow-x-auto pl-2 md:px-4" ref={galleryRef} onScroll={changeArrowOpacity}>
+                <div className="gallery overflow-x-auto pl-2 md:px-4 lg:snap-x lg:snap-mandatory" ref={galleryRef} onScroll={changeArrowOpacity}>
                     <div className="films cards-cntr flex gap-2 md:gap-3 py-2">
                         {hasSimilarFilm ? <SimilarFilmPoster /> : <NoSimilarFilmMessage />}
                     </div>
