@@ -8,7 +8,7 @@ export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]
 
     function CastWithImage({profile_path, character, name}: TCast): JSX.Element {
         return  (<div className="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
-                    <img className="w-full h-48 md:h-72 object-cover object-center rounded-t-md" src={`${imageBaseUrl}${profile_path}`} alt={name} loading="lazy" />
+                    <img className="w-full h-48 md:h-72 object-cover object-center rounded-t-md" src={`${imageBaseUrl}${profile_path}`} alt={name + ' image'} loading="lazy" />
                     <p className="font-medium">{name}</p>
                     <p className="font-extralight line-clamp-3">{character}</p>
                 </div>)
@@ -17,7 +17,7 @@ export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]
     function CastNoImage({character, name}: TCast): JSX.Element {
         return  (<div className="card card-cast snap-start flex flex-col flex-none gap-1 w-[49%] lg:w-[32%] bg-zinc-900/40 backdrop-blur-md rounded-md pb-2 text-center">
                     <div className="grid place-content-center w-full h-48 md:h-72 rounded-t-md">
-                        <span className="material-symbols-outlined text-5xl lg:text-7xl font-thin">
+                        <span className="material-symbols-outlined text-5xl lg:text-7xl font-thin" aria-hidden={true}>
                             broken_image
                         </span>
                     </div>
@@ -53,14 +53,14 @@ export default function Cast({credits}: {credits: { cast: TCast[], crew: TCrew[]
             <div className="w-[70%] gallery-cntr hide-film-gallery">
 
                 {hasCast && <div className="arrows-cast flex justify-end items-end gap-3">
-                        <button ref={leftArrowRef} onClick={scrollLeft} title="Previous">
-                            <span className="left-arrow scroll-arrow-small material-symbols-outlined">
+                        <button ref={leftArrowRef} onClick={scrollLeft} title="Previous" aria-label="Previous cast">
+                            <span className="left-arrow scroll-arrow-small material-symbols-outlined" aria-hidden={true}>
                                 keyboard_arrow_left
                             </span> 
                         </button>
                         
-                        <button ref={rightArrowRef} onClick={scrollRight} title="Next">
-                            <span className="right-arrow scroll-arrow-small material-symbols-outlined">
+                        <button ref={rightArrowRef} onClick={scrollRight} title="Next" aria-label="Next cast">
+                            <span className="right-arrow scroll-arrow-small material-symbols-outlined" aria-hidden={true}>
                                 keyboard_arrow_right
                             </span> 
                         </button>
