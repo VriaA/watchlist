@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import EmptyPoster from "./EmptyPoster"
 import Poster from "./Poster"
 import { ResultsContext } from "../../contexts/ResultsContext"
@@ -11,6 +11,8 @@ export default function FilmResults(): JSX.Element {
     const isFilmPosters = results && Array.isArray(results) && results.length > 0
     const isErrorMessage = results && (typeof results === 'string')
     const { galleryRef, leftArrowRef, rightArrowRef, changeArrowOpacity, scrollLeft, scrollRight} = useScroll()
+
+    useEffect(()=> changeArrowOpacity(), [results])
 
     return (
         <>

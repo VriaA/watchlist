@@ -12,12 +12,10 @@ export default function useScroll(): {
     const galleryRef = useRef<HTMLDivElement | null>(null)
     const leftArrowRef = useRef<HTMLButtonElement | null>(null)
     const rightArrowRef = useRef<HTMLButtonElement | null>(null)
-    const gallery = galleryRef.current
-    const leftArrow = leftArrowRef.current
-    const rightArrow = rightArrowRef.current
 
     //SCROLLS THE GALLERY LEFT BY ITS VISIBLE WIDTH
     function scrollLeft(): void {
+        const gallery = galleryRef.current
         if(!gallery) return
         const galleryWidth = gallery.offsetWidth
         gallery.scrollLeft -= galleryWidth
@@ -25,6 +23,7 @@ export default function useScroll(): {
     
     //SCROLLS THE GALLERY RIGHT BY ITS VISIBLE WIDTH
     function scrollRight(): void {
+        const gallery = galleryRef.current
         if(!gallery) return
         const galleryWidth = gallery.offsetWidth
         gallery.scrollLeft += galleryWidth
@@ -35,10 +34,13 @@ export default function useScroll(): {
     // REDUCED THE OPACITY OF THE LEFT ARROW WHEN THE RIGHT END/END IS REACHED AND A USER CANNOT LONGER SCROLL RIGHT
     // SETS THE OPACITY TO 1 WHEN NO END IS REACHED AND A USER CAN SCROLL IN ANY DIRECTION
     function changeArrowOpacity() {
+        const gallery = galleryRef.current
+        const leftArrow = leftArrowRef.current
+        const rightArrow = rightArrowRef.current
         if((gallery && leftArrow && rightArrow)) {
+            
             const isStart: boolean = gallery.scrollLeft <= 20
             const isEnd:  boolean = gallery.scrollLeft + gallery.offsetWidth >= gallery.scrollWidth
-                
             switch (true) {
                 case isStart && isEnd:
                     leftArrow.style.opacity = '.2'
