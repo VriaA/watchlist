@@ -44,11 +44,16 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                 )
     }
 
-    function toggleLineClamp(e: MouseEvent | KeyboardEvent) {
+    function toggleLineClamp(e: KeyboardEvent | MouseEvent): void {
+        const isEnterKeyPress = (e.type === 'keydown') && ( (e as KeyboardEvent).key === 'Enter' )
+        const isClick = e.type === 'click'
         const clampabble = e.target as HTMLParagraphElement
+
+        if(isClick || isEnterKeyPress) {
             clampabble.classList.toggle('line-clamp-3')
             clampabble.classList.toggle('overflow-y-auto')
             clampabble.scrollTo(0,0)
+        }
     }
 
     // TODO: Create add to watchlist function
@@ -81,7 +86,7 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                     <p>{getYear(release_date || first_air_date)}</p>
                 </div>
 
-                <p className="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer" onClick={toggleLineClamp}> 
+                <p tabIndex={0} className="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer" onClick={toggleLineClamp} onKeyDown={toggleLineClamp}> 
                     {overview}
                 </p>
 
