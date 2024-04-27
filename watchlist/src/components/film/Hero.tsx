@@ -1,3 +1,4 @@
+import { KeyboardEvent, MouseEvent } from "react"
 import { iso639_1LanguageCodes } from "../../data/iso639LanguageCodes"
 import { TMovie, TSeries } from "../../types/filmTypes"
 
@@ -43,6 +44,13 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                 )
     }
 
+    function toggleLineClamp(e: MouseEvent | KeyboardEvent) {
+        const clampabble = e.target as HTMLParagraphElement
+            clampabble.classList.toggle('line-clamp-3')
+            clampabble.classList.toggle('overflow-y-auto')
+            clampabble.scrollTo(0,0)
+    }
+
     // TODO: Create add to watchlist function
     // function  setWatchlistInfo(filmToSave, type) {
     //     const {id, poster_path, runtime, episode_run_time, release_date, first_air_date, original_title, original_name, watched} = filmToSave
@@ -73,7 +81,7 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                     <p>{getYear(release_date || first_air_date)}</p>
                 </div>
 
-                <p id="clampable-{id}" className="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer"> 
+                <p className="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer" onClick={toggleLineClamp}> 
                     {overview}
                 </p>
 
