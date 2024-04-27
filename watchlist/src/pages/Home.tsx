@@ -11,7 +11,7 @@ export default function Home():JSX.Element {
     return (
         <div className="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
             <div className=" w-screen h-screen grid place-content-center">
-                <div id="root" className="content-cntr overflow-y-auto lg:overflow-hidden">
+                <div className="content-cntr overflow-y-auto lg:overflow-hidden">
                     <div className="flex-1 flex flex-col justify-center items-center">
                         <Link className="nav-link absolute top-8 right-8 leading-none" to="watchlist">My watchlist</Link>
                         
@@ -26,9 +26,7 @@ export default function Home():JSX.Element {
                                 <span className="material-symbols-outlined absolute inset-0 my-auto w-fit h-fit left-2 z-50 self-center text-2xl md:text-3xl font-extralight">
                                     search
                                 </span>
-                                <input 
-                                    id="search-input"
-                                    className="w-full h-full px-10 text-[10px] min-[375px]:text-sm md:text-base bg-transparent outline-none text-center border-none" 
+                                <input className="w-full h-full px-10 text-[10px] min-[375px]:text-sm md:text-base bg-transparent outline-none text-center border-none" 
                                     type="text" 
                                     aria-label="Search Bar" 
                                     name="Movie Title" 

@@ -107,19 +107,19 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
 
             <section className="film-cta-btn-cntr md:w-[45%]">
                 <div className="relative z-[5] flex justify-end md:justify-center items-center gap-2">
-                    <div id="film-cta-btn" className="film-cta-btn group">
-                        <span id="film-cta-icon" className="material-symbols-outlined text-3xl font-medium md:text-5xl text-zinc-900 group-hover:text-red-900/90">
+                    <div className="film-cta-btn group">
+                        <span className="material-symbols-outlined text-3xl font-medium md:text-5xl text-zinc-900 group-hover:text-red-900/90">
                             playlist_add
                         </span>
                     </div>
 
-                    <h3 id="film-cta-text" className="md:text-lg">Add to watchlist</h3>
+                    <h3 className="md:text-lg">Add to watchlist</h3>
                 </div>
 
                 <div className="absolute left-6 bottom-2 md:left-auto md:right-2 flex gap-2">
                     <div className="grid grid-cols-1 grid-rows-1">
                         <span className="col-start-1 col-end-2 row-start-1 row-end-1 justify-self-center z-10 block w-[2px] h-14 bg-zinc-900 opacity-60"></span>
-                        <span id="scroll-indicator-thumb" className="col-start-1 col-end-2 row-start-1 row-end-1 justify-self-center z-20 block w-[3px] h-6 bg-red-800 rounded-sm"></span>
+                        <span className="col-start-1 col-end-2 row-start-1 row-end-1 justify-self-center z-20 block w-[3px] h-6 bg-red-800 rounded-sm"></span>
                     </div>
                     <p className="self-end w-6 md:w-14 leading-none font-robotoCondensed font-normal md:font-light text-sm md:tracking-wide">Scroll down</p>
                 </div>
