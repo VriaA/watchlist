@@ -841,7 +841,7 @@ video {
 /*IMAGE CARD HOVER*/
 
 @media (min-width: 1024px) {
-  .cards-cntr:hover .card:not(:hover) {
+  .cards-cntr:has(.card:hover) .card:not(:hover) {
     --tw-blur: blur(4px);
     --tw-grayscale: grayscale(100%);
     filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1059,10 +1059,6 @@ video {
 
 .inline-block {
   display: inline-block;
-}
-
-.inline {
-  display: inline;
 }
 
 .flex {

@@ -79,7 +79,7 @@
 }
 
 /*IMAGE CARD HOVER*/
-.cards-cntr:hover .card:not(:hover) {
+.cards-cntr:has(.card:hover) .card:not(:hover) {
   @apply lg:grayscale lg:blur-sm
 }
 
