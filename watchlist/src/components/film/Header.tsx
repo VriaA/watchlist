@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export default function Header() {
     return (
         <header className="absolute flex justify-end items-center gap-4 w-full p-[4%] md:p-[2%] lg:snap-start">
@@ -18,9 +20,7 @@ export default function Header() {
                         </ul>   
                     </form>
 
-                    <a className="nav-link static md:font-light" href="#/watchlist">
-                        My watchlist
-                    </a>
+                    <Link className="nav-link static md:font-light" to="../watchlist">My watchlist</Link>
             </nav> 
         </header>
     )
