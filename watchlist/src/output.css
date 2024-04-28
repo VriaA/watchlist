@@ -957,6 +957,10 @@ video {
   z-index: 5;
 }
 
+.z-0 {
+  z-index: 0;
+}
+
 .col-start-1 {
   grid-column-start: 1;
 }
@@ -1483,6 +1487,11 @@ video {
   background-color: rgb(24 24 27 / 0.4);
 }
 
+.bg-green-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 101 52 / var(--tw-bg-opacity));
+}
+
 .bg-homeImg {
   background-image: url(./assets/images/background.webp);
 }
@@ -1745,11 +1754,6 @@ video {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-.indeterminate\:translate-y-0:indeterminate {
-  --tw-translate-y: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .hover\:-translate-y-1:hover {

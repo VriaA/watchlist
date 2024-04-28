@@ -78,7 +78,7 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         if(!isEmptySearchBar) {
             setIsSearchBarEmpty(false)
             setSearchTitle('')
-            navigate ? navigate(`search?title=${titleToSearch}`) : setSearchParams ? setSearchParams({title: titleToSearch}) : ''
+            navigate ? navigate(`../search?title=${titleToSearch}`) : setSearchParams ? setSearchParams({title: titleToSearch}) : ''
         } else {
             setIsSearchBarEmpty(true)
         }
