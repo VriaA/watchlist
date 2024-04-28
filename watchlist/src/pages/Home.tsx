@@ -1,12 +1,11 @@
 import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import updateSearchTitleOnChange from '../utils/updateSearchTitleOnChange'
 import useSearch from '../hooks/useSearch'
 
 export default function Home():JSX.Element {
     const navigate = useNavigate()
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
-    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
+    const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
     
     return (
         <div className="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
@@ -32,7 +31,7 @@ export default function Home():JSX.Element {
                                     name="Movie Title" 
                                     placeholder="Movie or TV show title" 
                                     autoComplete="off"
-                                    onChange={(e)=> updateSearchTitleOnChange(e, setSearchTitle)}
+                                    onChange={updateSearchTitleOnChange}
                                     value={searchTitle} 
                                 />
                             </form>

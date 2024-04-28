@@ -1,12 +1,11 @@
 import {  useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import updateSearchTitleOnChange from "../../utils/updateSearchTitleOnChange";
 import useSearch from "../../hooks/useSearch";
 import Suggestions from "../searchSuggestions/Suggestions";
 
 export default function Header() {
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
-    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
+    const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
     const [ searchParams, setSearchParams ] = useSearchParams()
 
     return (
@@ -27,7 +26,7 @@ export default function Header() {
                         name="Movie Title" 
                         placeholder="Movie or TV show title" 
                         autoComplete="off"
-                        onChange={(e)=> updateSearchTitleOnChange(e, setSearchTitle)} 
+                        onChange={updateSearchTitleOnChange} 
                         value={searchTitle}
                 />
                 </fieldset>

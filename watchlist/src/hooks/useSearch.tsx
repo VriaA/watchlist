@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject} from "react"
+import { useState, useEffect, RefObject, ChangeEvent} from "react"
 import { useLocation } from "react-router-dom"
 import { TUseSearch, THandleSearchFormSubmit } from "../types/useSearchTypes"
 import getSearchResults from "../utils/getSearchResults"
@@ -67,6 +67,11 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         suggestionsEl.classList.remove('hidden')
         suggestionsEl.classList.add('flex')
     }
+
+    function updateSearchTitleOnChange(e: ChangeEvent) {
+        const searchBar = e.target as HTMLInputElement
+        setSearchTitle(searchBar.value)
+    }
     
     // IF THE SEARCH BAR IS NOT EMPTY, THE USER IS REDIRECTED TO THE RESULTS PAGE OR THE URL SEARCH PARAMETER IS UPDATED
     // IF THE SEARCH BAR IS EMPTY, isSearchBarEmpty IS SET TO TRUE WHICH RESULTS IN THE DISPLAY OF THE ENTER TITLE MESSAGE
@@ -84,5 +89,5 @@ export default function useSearch(enterTitleMessageRef: RefObject<HTMLSpanElemen
         }
     }
 
-    return { searchTitle, setSearchTitle, isSearchBarEmpty, setIsSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } as TUseSearch
+    return { searchTitle, setSearchTitle, isSearchBarEmpty, setIsSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar, updateSearchTitleOnChange } as TUseSearch
 }

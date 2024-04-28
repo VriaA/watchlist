@@ -2,12 +2,11 @@ import { useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import useSearch from "../../hooks/useSearch"
 import Suggestions from "../searchSuggestions/Suggestions"
-import updateSearchTitleOnChange from "../../utils/updateSearchTitleOnChange"
 
 export default function Header() {
     const searchFieldRef = useRef<HTMLFieldSetElement | null>(null)
     const enterTitleMessageRef = useRef<HTMLSpanElement | null>(null)
-    const { searchTitle, setSearchTitle, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
+    const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
     const navigate = useNavigate()
 
     function toggleSearchBarVisibility() {
@@ -38,7 +37,7 @@ export default function Header() {
                                     name="Movie Title" 
                                     placeholder="Movie or TV show title" 
                                     autoComplete="off" 
-                                    onChange={(e)=> updateSearchTitleOnChange(e, setSearchTitle)} 
+                                    onChange={updateSearchTitleOnChange} 
                                     value={searchTitle}/>
                             <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0'} absolute z-50 block w-fit inset-0 mr-auto ml-auto mt-auto h-fit -mb-8 md:mb-[-36px] px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
                         </fieldset> 

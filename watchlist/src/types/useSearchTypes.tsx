@@ -1,4 +1,4 @@
-import React, {  FormEvent } from "react"
+import React, {  FormEvent, ChangeEvent } from "react"
 import { SetURLSearchParams, NavigateFunction } from "react-router-dom"
 import { TResults } from "./resultTypes"
 
@@ -13,5 +13,6 @@ export type TUseSearch = {
     setSearchParams: SetURLSearchParams, 
     handleSearchFormSubmit : THandleSearchFormSubmit,
     suggestions: TResults,
-    isEmptySearchBar: boolean
+    isEmptySearchBar: boolean,
+    updateSearchTitleOnChange: (e: ChangeEvent)=> void
 }
