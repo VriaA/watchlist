@@ -881,10 +881,6 @@ video {
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
 }
 
-.invisible {
-  visibility: hidden;
-}
-
 .static {
   position: static;
 }
@@ -955,10 +951,6 @@ video {
 
 .z-\[5\] {
   z-index: 5;
-}
-
-.z-0 {
-  z-index: 0;
 }
 
 .col-start-1 {
@@ -1485,11 +1477,6 @@ video {
 
 .bg-zinc-900\/40 {
   background-color: rgb(24 24 27 / 0.4);
-}
-
-.bg-green-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 101 52 / var(--tw-bg-opacity));
 }
 
 .bg-homeImg {

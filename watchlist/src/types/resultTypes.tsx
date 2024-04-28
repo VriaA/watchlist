@@ -1,3 +1,9 @@
+export type TSearchResult = {
+    page: number, 
+    results: TResult[], 
+    total_pages: number, 
+    total_results: number
+}
 export type TResult = {
     adult: boolean;
     backdrop_path: string;
