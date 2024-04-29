@@ -5,6 +5,7 @@ import FilmDetails from "../components/film/FilmDetails"
 import Header from "../components/film/Header"
 import imageBaseUrl from "../utils/imageBaseUrl"
 import filmImage from "../assets/images/film.webp"
+import FilmPlaceholder from "../components/film/FilmPlaceholder"
 
 export default function Film(): JSX.Element {
     const location = useLocation()
@@ -17,13 +18,18 @@ export default function Film(): JSX.Element {
     const [bgColorFilm, setBgColorFilm] = useState<string>('')
 
     useEffect(()=> {
-        if(results) {
+        if(loading) {
+            setBgColorBackDrop('bg-zinc-900')
+            setBgColorFilm('bg-zinc-800')
+            setBgImageStyle({})
+        } else if(!loading && results) {
             const { backdrop_path } = results
-            setBgImageStyle({ backgroundImage: `url(${backdrop_path ? imageBaseUrl + backdrop_path : filmImage})`})
+            const imageUrl: string = backdrop_path ? imageBaseUrl + backdrop_path : filmImage
+            setBgImageStyle({ backgroundImage: `url(${imageUrl})`})
             setBgColorBackDrop(backdrop_path ? 'bg-zinc-900' : 'bg-red-950')
             setBgColorFilm(backdrop_path ? 'bg-zinc-800' : 'bg-red-800')
         }
-    }, [results])
+    }, [loading])
 
     return (
         <div className={`w-[100svw] h-[100svh] ${bgColorBackDrop} bg-fixed bg-cover bg-filmCntrImgPosition md:bg-filmCntrImgPositionMd bg-blend-overlay text-slate-100 overflow-hidden`}
@@ -32,10 +38,9 @@ export default function Film(): JSX.Element {
                 <div className={`relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] ${bgColorFilm} bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-blend-overlay overflow-y-auto lg:snap-mandatory lg:snap-y overflow-x-hidden`}
                      style={bgImageStyle}>
                 <Header />
-            {   loading ? <h1>loading...</h1> :
-                results ? <FilmDetails film={results} type={type} /> :
-                <h1>{error}</h1>
-            }
+                {loading ? <FilmPlaceholder /> :
+                !loading && results ? <FilmDetails film={results} type={type} /> :
+                <h1>{error}</h1>}
                 </div>
             </div>
         </div>
