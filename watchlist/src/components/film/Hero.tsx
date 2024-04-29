@@ -44,13 +44,13 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                 )
     }
 
-    function toggleLineClamp(e: KeyboardEvent | MouseEvent): void {
+    function toggleLineClamp(e: KeyboardEvent | MouseEvent, length: number): void {
         const isEnterKeyPress = (e.type === 'keydown') && ( (e as KeyboardEvent).key === 'Enter' )
         const isClick = e.type === 'click'
         const clampabble = e.target as HTMLParagraphElement
 
         if(isClick || isEnterKeyPress) {
-            clampabble.classList.toggle('line-clamp-3')
+            clampabble.classList.toggle(`line-clamp-${length}`)
             clampabble.classList.toggle('overflow-y-auto')
             clampabble.scrollTo(0,0)
         }
@@ -76,7 +76,11 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
     return (
         <div className="min-h-[100%] flex flex-col gap-12 md:gap-0 justify-end md:flex-row md:justify-between md:items-center mt-5 p-[4%] pb-[10%] md:p-[2%]  font-inter font-normal md:font-light md:tracking-wide">
             <section className="text-to-reveal flex flex-col gap-2 md:gap-4 md:w-[50%]">
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-robotoCondensed font-medium capitalize">{(title || original_title) || (name || original_name)}</h1>
+                <h1 tabIndex={0} 
+                    className="max-h-[300px] pb-1 text-4xl md:text-5xl lg:text-7xl line-clamp-4 font-robotoCondensed font-medium capitalize cursor-pointer"
+                    onClick={(e)=> toggleLineClamp(e, 4)} onKeyDown={(e)=> toggleLineClamp(e, 4)}>
+                        {(title || original_title) || (name || original_name)}
+                    </h1>
 
                 <div className="flex flex-wrap gap-3 items-center text-sm md:text-base">
                     <p>{getGenres(genres, hasGenre)}</p>
@@ -86,7 +90,8 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                     <p>{getYear(release_date || first_air_date)}</p>
                 </div>
 
-                <p tabIndex={0} className="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer" onClick={toggleLineClamp} onKeyDown={toggleLineClamp}> 
+                <p tabIndex={0} className="md:text-lg max-h-[150px] md:max-h-[170px] line-clamp-3 cursor-pointer" 
+                    onClick={(e)=> toggleLineClamp(e, 3)} onKeyDown={(e)=> toggleLineClamp(e, 3)}> 
                     {overview}
                 </p>
 
