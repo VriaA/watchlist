@@ -1515,6 +1515,16 @@ video {
   background-color: rgb(24 24 27 / 0.4);
 }
 
+.bg-green-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 46 22 / var(--tw-bg-opacity));
+}
+
+.bg-green-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 83 45 / var(--tw-bg-opacity));
+}
+
 .bg-homeImg {
   background-image: url(./assets/images/background.webp);
 }

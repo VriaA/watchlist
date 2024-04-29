@@ -5,6 +5,7 @@ import { ResultsContext } from "../../contexts/ResultsContext"
 import { TResults, TResult } from "../../types/resultTypes"
 import Loader from "../loader/loader"
 import useScroll from "../../hooks/useScroll"
+import ErrorMessage from "../ErrorMessage"
 
 export default function FilmResults(): JSX.Element {
     const results = useContext(ResultsContext) as TResults
@@ -37,12 +38,7 @@ export default function FilmResults(): JSX.Element {
                     </button>
                 </main>
 
-            : isErrorMessage ?
-                <div className="flex-1 flex flex-col items-center justify-center text-center gap-2">
-                    <p className="text-base font-semibold">{results}</p>
-                    <span className="material-symbols-outlined text-5xl font-medium">error</span>
-                </div>
-
+            : isErrorMessage ? <ErrorMessage message={results} />
             : <Loader />
             }
         </>
