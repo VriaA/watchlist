@@ -18,6 +18,7 @@ export default function useFetch(url: string) {
 
     useEffect(()=> {
         async function getResults() {
+            setResults(null)
             setLoading(true)
             try {
                 const response: Response = await fetch(url, options)
@@ -41,7 +42,7 @@ export default function useFetch(url: string) {
         } else if (response.status === 429) {
             throw new Error('Too many requests: Please try again later.');
         } else {
-            throw new Error('Error fetching results. \n Please check your internet connection and try again.')
+            throw new Error('Failed to fetch. \n Please check your internet connection and try again.')
         }
     }
 

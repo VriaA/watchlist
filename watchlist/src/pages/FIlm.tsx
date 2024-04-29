@@ -6,6 +6,7 @@ import Header from "../components/film/Header"
 import imageBaseUrl from "../utils/imageBaseUrl"
 import filmImage from "../assets/images/film.webp"
 import FilmPlaceholder from "../components/film/FilmPlaceholder"
+import ErrorMessage from "../components/ErrorMessage"
 
 export default function Film(): JSX.Element {
     const location = useLocation()
@@ -40,7 +41,7 @@ export default function Film(): JSX.Element {
                 <Header />
                 {loading ? <FilmPlaceholder /> :
                 !loading && results ? <FilmDetails film={results} type={type} /> :
-                <h1>{error}</h1>}
+                <ErrorMessage message={error} />}
                 </div>
             </div>
         </div>
