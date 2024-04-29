@@ -24,7 +24,8 @@ export default{
 
       boxShadow: {
         addButton: "0 0 20px #991b1b",
-        addButtonHover: "0 0 20px #232327e8"
+        addButtonHover: "0 0 20px #232327e8",
+        film: "0 0 10px #66666623"
       },
 
       dropShadow: {

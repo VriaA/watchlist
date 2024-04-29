@@ -35,7 +35,7 @@ export default function Film(): JSX.Element {
         <div className={`w-[100svw] h-[100svh] ${bgColorBackDrop} bg-fixed bg-cover bg-filmCntrImgPosition md:bg-filmCntrImgPositionMd bg-blend-overlay text-slate-100 overflow-hidden`}
              style={bgImageStyle}> 
             <div className="grid place-content-center w-full h-full backdrop-blur-md">
-                <div className={`relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] ${bgColorFilm} bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-blend-overlay overflow-y-auto lg:snap-mandatory lg:snap-y overflow-x-hidden`}
+                <div className={`relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] shadow-film ${bgColorFilm} bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-blend-overlay overflow-y-auto lg:snap-mandatory lg:snap-y overflow-x-hidden`}
                      style={bgImageStyle}>
                 <Header />
                 {loading ? <FilmPlaceholder /> :
