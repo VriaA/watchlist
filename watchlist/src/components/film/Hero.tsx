@@ -105,10 +105,10 @@ export default function Hero({ film, type }: {film: TMovie | TSeries, type: stri
                 </div>
             </section>
 
-            <section className="film-cta-btn-cntr md:w-[45%]">
+            <section className="md:w-[45%]">
                 <div className="relative z-[5] flex justify-end md:justify-center items-center gap-2">
                     <div className="film-cta-btn group">
-                        <span className="material-symbols-outlined text-3xl font-medium md:text-5xl text-zinc-900 group-hover:text-red-900/90">
+                        <span className="material-symbols-outlined text-4xl font-semibold md:text-6xl text-zinc-900 group-hover:text-red-900/90">
                             playlist_add
                         </span>
                     </div>

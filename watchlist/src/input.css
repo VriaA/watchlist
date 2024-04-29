@@ -60,7 +60,7 @@
 }
 
 .film-cta-btn {
-  @apply flex justify-center items-center px-4 py-3 md:p-4 bg-red-900/90 hover:bg-zinc-950/90 shadow-addButton hover:shadow-addButtonHover rounded-full cursor-pointer transition-transform active:translate-y-1 active:shadow-xl active:shadow-red-900/90
+  @apply flex justify-center items-center px-5 py-4 md:p-5 bg-red-900/90 hover:bg-zinc-950/90 shadow-addButton hover:shadow-addButtonHover rounded-full cursor-pointer transition-transform active:translate-y-1 active:shadow-xl active:shadow-red-900/90
                                             
 }
 
