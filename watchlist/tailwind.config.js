@@ -12,6 +12,7 @@ export default{
 
       backgroundImage: {
         homeImg: "url(./assets/images/background.webp)",
+        authBg: "url(./assets/images/auth-bg.jpg)"
       },
 
       backgroundPosition: {
@@ -34,7 +35,7 @@ export default{
       },
 
       fontFamily: {
-        "inter": "'Inter', serif",
+        "inter": "'Inter', sans-serif",
         "robotoCondensed": "'Roboto Condensed', sans-serif",
         "cormorantGaramond": "'Cormorant Garamond', serif"
       },

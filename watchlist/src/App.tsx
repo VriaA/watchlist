@@ -20,7 +20,8 @@ function App() {
             <Route path="/watchlist" element={<Watchlist />} />
           </Route>
 
-          <Route path="/auth" element={<Authentication />} />
+          <Route path="/sign-in" element={<Authentication />} />
+          <Route path="/sign-up" element={<Authentication />} />
         </Routes>
       </BrowserRouter>
   )
