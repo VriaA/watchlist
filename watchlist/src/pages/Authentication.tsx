@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import app from "../firebase"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
@@ -20,7 +20,7 @@ export default function Authentication():JSX.Element {
         password: '',
         confirmPassword: ''
     })
-
+    const formRef = useRef<HTMLFormElement | null>(null)
     const emailInputRef = useRef<HTMLInputElement | null>(null)
     const passwordInputRef = useRef<HTMLInputElement | null>(null)
     const confirmPasswordInputRef = useRef<HTMLInputElement | null>(null)
@@ -29,6 +29,12 @@ export default function Authentication():JSX.Element {
     const isMatch: boolean = newUser.password === newUser.confirmPassword
     const PASSWORD_INPUT_BORDER_CLASS = isBothFilled && isMatch ? 'border-green-600' : isBothFilled && !isMatch ? 'border-red-700' : 'border-zinc-300'
     
+    useEffect(()=>{
+        if(!formRef.current) return
+        const form = formRef.current
+        clearUserDetails(form)
+    }, [location.pathname])
+
     function updateUserDataOnChange(e: FormEvent): void {
         const input = e.target as HTMLFormElement
         const key: string = input.name
@@ -95,7 +101,7 @@ export default function Authentication():JSX.Element {
                 <section className="flex flex-col w-[80%] md:w-[30%] rounded-lg bg-zinc-900 px-8 py-8">
                     <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">Welcome{isSignIn && ' back'}!</h1>
                     <p className="self-center font-inter mt-2 mb-8 text-base text-zinc-400">{isSignIn ? 'Sign in to access your watchlist.' : 'Sign up to add movies to your watchlist.'}</p>
-                    <form onSubmit={authenticateOnSubmit}>
+                    <form onSubmit={authenticateOnSubmit} ref={formRef}>
                         <fieldset className="relative flex flex-col gap-6">
                             <input  className="box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border border-zinc-300 rounded-lg"
                                     type="text" 
