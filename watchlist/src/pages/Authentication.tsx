@@ -114,6 +114,7 @@ export default function Authentication():JSX.Element {
                                     onChange={updateUserDataOnChange}
                                     ref={emailInputRef}
                                     required
+                                    autoComplete="off"
                             />
                             <input  className={`${PASSWORD_INPUT_BORDER_CLASS} box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border rounded-lg`} 
                                     type="password" 
