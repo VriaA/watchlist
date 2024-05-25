@@ -2,7 +2,7 @@ import { FormEvent, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import app from "../firebase"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import Loader from "../components/loader/loader"
+import Loader from "../assets/images/loader.svg"
 
 type newUser = {
     email: string;
@@ -92,15 +92,12 @@ export default function Authentication():JSX.Element {
     return (
         <div className="w-screen min-h-screen bg-authBg bg-cover bg-center bg-red-800 bg-blend-overlay">
             <div className="flex justify-center items-center w-screen min-h-screen backdrop-blur-sm overflow-y-auto">
-                <div className={`${loading ? 'block' : 'hidden'} absolute left-0 top-0 w-screen h-screen`}>
-                    <Loader />
-                </div>
-                <section className="flex flex-col w-[80%] md:w-[30%] rounded-md bg-zinc-900 px-8 py-8">
+                <section className="flex flex-col w-[80%] md:w-[30%] rounded-lg bg-zinc-900 px-8 py-8">
                     <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">Welcome{isSignIn && ' back'}!</h1>
                     <p className="self-center font-inter mt-2 mb-8 text-base text-zinc-400">{isSignIn ? 'Sign in to access your watchlist.' : 'Sign up to add movies to your watchlist.'}</p>
                     <form onSubmit={authenticateOnSubmit}>
                         <fieldset className="relative flex flex-col gap-6">
-                            <input  className="p-2 text-zinc-300 font-inter bg-transparent outline-none border border-zinc-300 rounded-md"
+                            <input  className="box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border border-zinc-300 rounded-lg"
                                     type="text" 
                                     placeholder="Email address" 
                                     name="email" 
@@ -108,7 +105,7 @@ export default function Authentication():JSX.Element {
                                     ref={emailInputRef}
                                     required
                             />
-                            <input  className={`${PASSWORD_INPUT_BORDER_CLASS} p-2 text-zinc-300 font-inter bg-transparent outline-none border rounded-md`} 
+                            <input  className={`${PASSWORD_INPUT_BORDER_CLASS} box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border rounded-lg`} 
                                     type="password" 
                                     placeholder="Password" 
                                     name="password"
@@ -117,7 +114,7 @@ export default function Authentication():JSX.Element {
                                     required 
                             />
                             {!isSignIn && 
-                                <input  className={`${PASSWORD_INPUT_BORDER_CLASS} p-2 text-zinc-300 font-inter bg-transparent outline-none border rounded-md`}
+                                <input  className={`${PASSWORD_INPUT_BORDER_CLASS} box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border rounded-lg`}
                                     type="password" 
                                     placeholder="Confirm password" 
                                     name="confirmPassword"
@@ -127,15 +124,15 @@ export default function Authentication():JSX.Element {
                                 />
                             }
                             
-                            <p className="absolute hidden z-10 self-center top-[110%] px-2 py-1 text-sm text-zinc-950 font-semibold bg-slate-100 rounded-md">
+                            <p className="absolute hidden z-10 self-center top-[110%] px-2 py-1 text-sm text-zinc-950 font-semibold bg-slate-100 rounded-lg">
                                 <span className="relative flex items-center gap-1 before:absolute before:top-[-22px] before:left-0 before:block before:border-x-transparent before:border-x-[10px] before:border-t-transparent before:border-t-[10px] before:border-b-[12px] before:border-b-slate-100 before:z-[9]">
                                     <span className="material-symbols-outlined text-red-600">error</span>
                                     <span ref={authErrorMessageRef}></span>
                                 </span>
                             </p>
                         </fieldset>
-                        <button className="w-full mt-10 py-2 bg-red-800 hover:bg-red-900 text-slate-50 font-inter font-semibold rounded-full transition-all active:translate-y-1">
-                            {isSignIn ? 'Sign in' : 'Create account'}
+                        <button className="grid place-content-center box-border h-12 leading-none w-full mt-10 py-2 bg-red-800 hover:bg-red-900 text-slate-50 font-inter font-semibold rounded-lg transition-all active:translate-y-1">
+                            {loading ? <img className="w-8 h-8" src={Loader} alt="Loading..." /> : isSignIn ? 'Sign in' : 'Create account'}
                         </button>
                     </form>
                     <p className="text-sm font-light font-inter mt-8 self-center text-slate-50">
