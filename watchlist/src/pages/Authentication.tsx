@@ -128,7 +128,7 @@ export default function Authentication():JSX.Element {
                             }
                             
                             <p className="absolute hidden z-10 self-center top-[110%] px-2 py-1 text-sm text-zinc-950 font-semibold bg-slate-100 rounded-md">
-                                <span className="relative flex gap-1 before:absolute before:top-[-22px] before:left-0 before:block before:border-x-transparent before:border-x-[10px] before:border-t-transparent before:border-t-[10px] before:border-b-[12px] before:border-b-slate-100 before:z-[9]">
+                                <span className="relative flex items-center gap-1 before:absolute before:top-[-22px] before:left-0 before:block before:border-x-transparent before:border-x-[10px] before:border-t-transparent before:border-t-[10px] before:border-b-[12px] before:border-b-slate-100 before:z-[9]">
                                     <span className="material-symbols-outlined text-red-600">error</span>
                                     <span ref={authErrorMessageRef}></span>
                                 </span>
