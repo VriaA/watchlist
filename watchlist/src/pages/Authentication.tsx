@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import app from "../firebase"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import Loader from "../assets/images/loader.svg"
+import { useNavigate } from "react-router-dom"
 
 type newUser = {
     email: string;
@@ -14,6 +15,7 @@ export default function Authentication():JSX.Element {
     const auth = getAuth(app)
     const location = useLocation()
     const isSignIn = location.pathname === '/sign-in'
+    const navigate = useNavigate()
     const [loading, setLoading] = useState<boolean>(false)
     const [newUser, setNewUser] = useState<newUser>({
         email: '',
@@ -62,10 +64,11 @@ export default function Authentication():JSX.Element {
             const user = userCredentials.user
             if(user) {
                 clearUserDetails(form)
+                navigate('/watchlist', {replace: true})
             }
         })
         .catch((error)=> showErrorMessage(error.message))
-        .finally(()=> setLoading(false))
+        .finally(()=> {setLoading(false)})
     }
 
     function createAccount(email: string, password: string, form: HTMLFormElement) {
@@ -74,6 +77,7 @@ export default function Authentication():JSX.Element {
             const user = userCredentials.user
             if(user) {
                 clearUserDetails(form)
+                navigate('/watchlist', {replace: true})
             }
         })
         .catch((error)=> showErrorMessage(error.message))
@@ -143,7 +147,7 @@ export default function Authentication():JSX.Element {
                     </form>
                     <p className="text-sm font-light font-inter mt-8 self-center text-slate-50">
                         {isSignIn ? 'New here?' : 'Already have an account?'}&nbsp;
-                        <Link to={`${isSignIn ? '/sign-up' : '/sign-in'}`} className="text-red-700 text-base font-semibold hover:underline hover:underline-offset-2">{isSignIn ? 'Sign up': 'Sign in'}</Link>
+                        <Link to={`${isSignIn ? '/sign-up' : '/sign-in'}`} replace={true} className="text-red-700 text-base font-semibold hover:underline hover:underline-offset-2">{isSignIn ? 'Sign up': 'Sign in'}</Link>
                     </p>
                 </section>
             </div>
