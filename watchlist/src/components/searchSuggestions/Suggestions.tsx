@@ -1,23 +1,12 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import Suggestion from "./Suggestion"
 import { TResult, TResults } from "../../types/resultTypes"
-import { hideOnClickOutside } from '../../utils/hideOnClickOutside'
+import useCloseOnClickOutside from '../../hooks/useCloseOnClickOutside'
 
 export default function Suggestions({suggestions}: {suggestions: TResults}) {
     
     const suggestionsRef = useRef<HTMLUListElement>(null)
-
-    useEffect(()=> {
-        if(!suggestionsRef.current) return
-
-        function hideSuggestionOnClickOutside (e: MouseEvent): void {
-            const suggestionsEl = suggestionsRef.current as HTMLUListElement
-            hideOnClickOutside(e, suggestionsEl)
-        }
-        
-        document.addEventListener('click',  hideSuggestionOnClickOutside)
-        return ()=> document.removeEventListener('click', hideSuggestionOnClickOutside)
-    }, [])
+    useCloseOnClickOutside(suggestionsRef)
 
     const suggestionsElArray =  suggestions.map( ( suggestion: TResult, i)=> {
         return <Suggestion key={i} suggestion={suggestion} /> 

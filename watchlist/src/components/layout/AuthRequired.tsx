@@ -1,17 +1,11 @@
 import {Outlet, Navigate} from 'react-router-dom'
-import app from '../../firebase'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import Loader from '../loader/loader';
- 
-export default function AuthRequired(): JSX.Element {
-    const auth = getAuth(app)
-    const [isLoggedIn, setisLoggedIn] = useState<boolean | null>(null)
+import { AppContext } from '../../contexts/AppContext';
+import { TAppContext } from '../../types/appTypes';
 
-    useEffect(()=> {
-        onAuthStateChanged(auth, (user) => 
-                setisLoggedIn(user ? true : false) );
-    }, [])
+export default function AuthRequired(): JSX.Element {
+    const { isLoggedIn } = useContext(AppContext) as TAppContext
 
     return (
         <div className="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">

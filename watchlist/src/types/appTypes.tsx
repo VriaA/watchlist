@@ -1,10 +1,14 @@
-import { ReactNode } from 'react'
+import { Auth, User } from "firebase/auth";
 
 export type TAppContext = {
-    loading: boolean;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    isLoggedIn: boolean | null;
+    signedInUser: User | null;
+    auth: Auth;
+    setDialog: React.Dispatch<React.SetStateAction<TDialog>>;
+    openDialog: () => void
 }
 
-export type TChildren = {
-    children: ReactNode;
+export type TDialog = {
+    isOpen: boolean;
+    message: null | string;
 }

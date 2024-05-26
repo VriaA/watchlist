@@ -1,18 +1,22 @@
 import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useSearch from '../hooks/useSearch'
+import WatchlistUser from '../components/WatchlistUser'
 
 export default function Home():JSX.Element {
     const navigate = useNavigate()
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
     const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
-    
+
     return (
         <div className="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
             <div className=" w-screen h-screen grid place-content-center">
                 <div className="content-cntr overflow-y-auto lg:overflow-hidden">
                     <div className="flex-1 flex flex-col justify-center items-center">
-                        <Link className="nav-link absolute top-8 right-8 leading-none" to="watchlist">My watchlist</Link>
+                        <div className='absolute top-8 right-8 flex items-center gap-4'>
+                            <Link className="nav-link leading-none" to="watchlist">My watchlist</Link>
+                            <WatchlistUser />
+                        </div>
                         
                         <Link to="/" className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9">
                             <h1>Find your film</h1>
