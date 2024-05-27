@@ -48,6 +48,7 @@ export default function WatchlistUser() {
         const menu = document.getElementById(menuId)
         menu?.classList.toggle('hidden')
         menu?.classList.toggle(`${'flex' || 'grid' || 'block' }`)
+        trigger.setAttribute('aria-expanded', `${menu?.classList.contains('hidden') ? false : true}`)
     }
 
     return (
