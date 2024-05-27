@@ -9,8 +9,8 @@ export default function Home():JSX.Element {
     const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
 
     return (
-        <div className="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
-            <div className=" w-screen h-screen grid place-content-center">
+        <div className="w-[100svw] h-[100svh] page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
+            <div className=" w-[100svw] h-[100svh] grid place-content-center">
                 <div className="content-cntr overflow-y-auto lg:overflow-hidden">
                     <div className="flex-1 flex flex-col justify-center items-center">
                         <div className='absolute top-8 right-8 flex items-center gap-4'>
