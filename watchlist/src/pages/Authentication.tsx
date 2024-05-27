@@ -1,9 +1,12 @@
-import { FormEvent, useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState, useContext } from "react"
 import { Link, useLocation } from "react-router-dom"
 import app from "../firebase"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import Loader from "../assets/images/loader.svg"
+import GoogleLogo from "../assets/images/google.svg"
 import { useNavigate } from "react-router-dom"
+import { AppContext } from "../contexts/AppContext"
+import { TAppContext } from "../types/appTypes"
 
 type newUser = {
     email: string;
@@ -12,6 +15,7 @@ type newUser = {
 }
 
 export default function Authentication():JSX.Element {
+    const provider = new GoogleAuthProvider()
     const auth = getAuth(app)
     const location = useLocation()
     const isSignIn = location.pathname === '/sign-in'
@@ -30,7 +34,8 @@ export default function Authentication():JSX.Element {
     const isBothFilled: boolean = (newUser.password.trim().split('').length > 0) && (newUser.confirmPassword.trim().split('').length > 0)
     const isMatch: boolean = newUser.password === newUser.confirmPassword
     const PASSWORD_INPUT_BORDER_CLASS = isBothFilled && isMatch ? 'border-green-600' : isBothFilled && !isMatch ? 'border-red-700' : 'border-zinc-300'
-    
+    const { setDialog, openDialog } = useContext(AppContext) as TAppContext
+
     useEffect(()=>{
         if(!formRef.current) return
         const form = formRef.current
@@ -84,6 +89,19 @@ export default function Authentication():JSX.Element {
         .finally(()=> setLoading(false))
     }
 
+    async function authenticateWithGoogle() {
+        try {
+            setLoading(true)
+            await signInWithPopup(auth, provider)
+            navigate('/watchlist', {replace: true})
+        } catch(error: any) {
+            setDialog((prevDialog)=> ({...prevDialog, message: error.message}))
+            openDialog()
+        } finally {
+            setLoading(false)
+        }
+    }
+
     function clearUserDetails(form: HTMLFormElement): void {
         setNewUser((prevUser): newUser=> {
             prevUser = { email: '', password: '', confirmPassword: '' }
@@ -102,11 +120,11 @@ export default function Authentication():JSX.Element {
     return (
         <div className="w-screen min-h-screen bg-authBg bg-cover bg-center bg-red-800 bg-blend-overlay">
             <div className="flex justify-center items-center w-screen min-h-screen backdrop-blur-sm overflow-y-auto">
-                <section className="flex flex-col w-[80%] md:w-[30%] rounded-lg bg-zinc-900 px-8 py-8">
+                <section className="flex flex-col items-center w-[80%] md:w-[30%] rounded-lg bg-zinc-900/80 px-8 py-8">
                     <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">Welcome{isSignIn && ' back'}!</h1>
                     <p className="self-center font-inter mt-2 mb-8 text-base text-zinc-400">{isSignIn ? 'Sign in to access your watchlist.' : 'Sign up to add movies to your watchlist.'}</p>
-                    <form onSubmit={authenticateOnSubmit} ref={formRef}>
-                        <fieldset className="relative flex flex-col gap-6">
+                    <form className="flex-none w-full" onSubmit={authenticateOnSubmit} ref={formRef}>
+                        <fieldset className="relative flex flex-col gap-6 w-full">
                             <input  className="box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border border-zinc-300 rounded-lg"
                                     type="text" 
                                     placeholder="Email address" 
@@ -150,6 +168,8 @@ export default function Authentication():JSX.Element {
                         {isSignIn ? 'New here?' : 'Already have an account?'}&nbsp;
                         <Link to={`${isSignIn ? '/sign-up' : '/sign-in'}`} replace={true} className="text-red-700 text-base font-semibold hover:underline hover:underline-offset-2">{isSignIn ? 'Sign up': 'Sign in'}</Link>
                     </p>
+                    <p className="block my-5 text-base font-inter font-light text-zinc-400 ">or</p>
+                    <button className="flex gap-2 items-center text-sm font-inter font-light text-slate-50 hover:underline hover:underline-offset-2" onClick={authenticateWithGoogle}><img src={GoogleLogo} alt="Google logo" /> Sign {isSignIn ? 'in' : 'up'} with google</button>
                 </section>
             </div>
         </div>

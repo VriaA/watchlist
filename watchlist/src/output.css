@@ -973,18 +973,6 @@ video {
   z-index: 9999;
 }
 
-.z-\[99999999\] {
-  z-index: 99999999;
-}
-
-.z-\[999\] {
-  z-index: 999;
-}
-
-.z-\[999999\] {
-  z-index: 999999;
-}
-
 .col-start-1 {
   grid-column-start: 1;
 }
@@ -1025,6 +1013,11 @@ video {
   margin: auto;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
@@ -1044,6 +1037,10 @@ video {
 
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+.ml-6 {
+  margin-left: 1.5rem;
 }
 
 .ml-auto {
@@ -1084,10 +1081,6 @@ video {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.ml-6 {
-  margin-left: 1.5rem;
 }
 
 .box-border {
@@ -1315,24 +1308,16 @@ video {
   min-width: 100%;
 }
 
-.min-w-\[250px\] {
-  min-width: 250px;
-}
-
 .max-w-7xl {
   max-width: 80rem;
 }
 
-.max-w-\[90\%\] {
-  max-width: 90%;
-}
-
-.max-w-\[400px\] {
-  max-width: 400px;
-}
-
 .max-w-\[300px\] {
   max-width: 300px;
+}
+
+.max-w-\[90\%\] {
+  max-width: 90%;
 }
 
 .flex-1 {
@@ -1647,9 +1632,8 @@ video {
   background-color: rgb(24 24 27 / 0.4);
 }
 
-.bg-green-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(20 83 45 / var(--tw-bg-opacity));
+.bg-zinc-900\/80 {
+  background-color: rgb(24 24 27 / 0.8);
 }
 
 .bg-authBg {
@@ -1706,12 +1690,12 @@ video {
   padding: 1rem;
 }
 
-.p-\[4\%\] {
-  padding: 4%;
-}
-
 .p-5 {
   padding: 1.25rem;
+}
+
+.p-\[4\%\] {
+  padding: 4%;
 }
 
 .px-10 {
@@ -1727,6 +1711,11 @@ video {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.px-\[\.5em\] {
+  padding-left: .5em;
+  padding-right: .5em;
 }
 
 .px-\[2\%\] {
@@ -1752,21 +1741,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-\[1em\] {
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-.py-\[\.5em\] {
-  padding-top: .5em;
-  padding-bottom: .5em;
-}
-
-.px-\[\.5em\] {
-  padding-left: .5em;
-  padding-right: .5em;
 }
 
 .py-\[\.25em\] {
@@ -1924,6 +1898,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-zinc-100 {
+  --tw-text-opacity: 1;
+  color: rgb(244 244 245 / var(--tw-text-opacity));
+}
+
 .text-zinc-300 {
   --tw-text-opacity: 1;
   color: rgb(212 212 216 / var(--tw-text-opacity));
@@ -1946,11 +1925,6 @@ video {
 .text-zinc-950 {
   --tw-text-opacity: 1;
   color: rgb(9 9 11 / var(--tw-text-opacity));
-}
-
-.text-zinc-100 {
-  --tw-text-opacity: 1;
-  color: rgb(244 244 245 / var(--tw-text-opacity));
 }
 
 .caret-slate-100 {
