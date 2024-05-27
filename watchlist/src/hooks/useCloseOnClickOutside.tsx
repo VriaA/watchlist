@@ -21,6 +21,7 @@ export default function useCloseOnClickOutside(element: RefObject<HTMLElement | 
             if(((trigger) && (e.target !== trigger) && !trigger.contains(e.target as HTMLElement))) {
                 element.classList.remove(`${'flex' || 'grid' || 'block' }`)
                 element.classList.add('hidden')
+                trigger.setAttribute('aria-expanded', 'false')
             } else if (!trigger) {
                 element.classList.remove(`${'flex' || 'grid' || 'block' }`)
                 element.classList.add('hidden')
