@@ -6,7 +6,7 @@ import { TChildren } from "../types/appTypes";
 
 export const ResultsContext = createContext<TResults | null>(null)
 
-export default function ResultsContextProvider({ children }: TChildren):JSX.Element {
+export default function ResultsContextProvider({ children }: TChildren): JSX.Element {
     const [results, setResults] = useState<TResults | [] | string>([])
     const [searchParams] = useSearchParams()
     const location = useLocation()
@@ -15,16 +15,16 @@ export default function ResultsContextProvider({ children }: TChildren):JSX.Elem
         setResults([])
 
         const title: string | null = searchParams.get('title');
-        
+
         async function getResults() {
             const results = await getSearchResults(title) as TResults
             setResults(results)
         }
-        
-        title ? getResults() : setResults('Please enter a valid title to search.')
-      }, [location.search]);
 
-    return  <ResultsContext.Provider value={results as TResults}>
-                { children }
-            </ResultsContext.Provider>
+        title ? getResults() : setResults('Please enter a valid title to search.')
+    }, [location.search]);
+
+    return <ResultsContext.Provider value={results as TResults}>
+        {children}
+    </ResultsContext.Provider>
 }
