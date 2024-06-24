@@ -1,4 +1,5 @@
 import { Auth, User } from "firebase/auth";
+import React from "react";
 
 export type TAppContext = {
     isLoggedIn: boolean | null;
@@ -11,4 +12,8 @@ export type TAppContext = {
 export type TDialog = {
     isOpen: boolean;
     message: null | string;
+}
+
+export type TChildren = {
+    children: React.ReactNode
 }
