@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useRef, useState, useContext } from "react"
 import { Link, useLocation } from "react-router-dom"
-import app from "../firebase"
+import { app } from "../firebase"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import Loader from "../assets/images/loader.svg"
 import GoogleLogo from "../assets/images/google.svg"
