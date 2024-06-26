@@ -6,7 +6,11 @@ import { TAppContext } from "../types/appTypes"
 import useCloseOnClickOutside from "../hooks/useCloseOnClickOutside"
 import Loader from "./loader/loader"
 
-export default function WatchlistUser() {
+type TWatchlistUser = {
+    style?: string
+}
+
+export default function WatchlistUser({ style }: TWatchlistUser) {
     const userMenuRef = useRef<HTMLUListElement | null>(null)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
     const { isLoggedIn, signedInUser, auth, setDialog, openDialog } = useContext(AppContext) as TAppContext
@@ -52,7 +56,7 @@ export default function WatchlistUser() {
     }
 
     return (
-        <div className="relative overflow-visible">
+        <div className={`${style} relative overflow-visible`}>
             {loading &&
                 <div className="fixed z-[9999] inset-0 grid place-content-center">
                     <Loader />

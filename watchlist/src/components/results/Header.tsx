@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
 import Suggestions from "../searchSuggestions/Suggestions";
+import WatchlistUser from "../WatchlistUser";
 
 export default function Header(): JSX.Element {
     const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
@@ -36,7 +37,10 @@ export default function Header(): JSX.Element {
                 {!isEmptySearchBar && suggestions.length > 0 && <Suggestions suggestions={suggestions} />}
             </form>
 
-            <Link className="nav-link col-start-4 col-end-5 lg:col-start-4 lg:col-end-5 justify-self-end" to="/watchlist">My watchlist</Link>
+            <div className="flex items-center gap-4 md:gap-6 col-start-4 col-end-5 lg:col-start-4 lg:col-end-5 justify-self-end">
+                <Link className="nav-link" to="/watchlist">My watchlist</Link>
+                <WatchlistUser />
+            </div>
         </header>
     )
 }
