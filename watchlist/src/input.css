@@ -51,7 +51,7 @@
 
 /*NAVIGATION LINK*/
 .nav-link {
-  @apply text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 hover:after:w-2/3 hover:drop-shadow-watchlist after:border-b-2 after:border-white after:transition-all transition-transform hover:-translate-y-1 active:translate-y-1;
+  @apply text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 hover:after:w-2/3 hover:drop-shadow-watchlist after:border-b-2 after:border-white after:transition-all transition-transform hover:-translate-y-[2px] active:translate-y-[2px];
 }
 
 .film-cta-btn {
