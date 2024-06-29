@@ -7,12 +7,10 @@ import { db } from "../../firebase"
 import { DocumentData, addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import imageBaseUrl from "../../utils/imageBaseUrl"
 import { useNavigate } from "react-router-dom"
-import { watchlistContext, TWatchlistContext } from "../../contexts/WatchlistContext"
 
 export default function Hero({ film, type }: { film: TMovie | TSeries, type: string }) {
     const navigate = useNavigate()
-    const { signedInUser, setDialog, openDialog } = useContext(AppContext) as TAppContext
-    const { userWatchlist, getFilmInWatchlist } = useContext(watchlistContext) as TWatchlistContext
+    const { signedInUser, setDialog, openDialog, userWatchlist, getFilmInWatchlist } = useContext(AppContext) as TAppContext
     const { title, original_title, genres, runtime, release_date, overview, original_language, backdrop_path, id } = film as TMovie
     const { name, original_name, first_air_date, number_of_seasons, episode_run_time } = film as TSeries
     const [loading, setLoading] = useState<boolean>(false)

@@ -1,20 +1,23 @@
-import { createContext, useContext, useEffect, useState } from "react"
-import { Outlet } from "react-router-dom"
+import React, { useEffect, useState } from "react"
 import { DocumentData, collection, onSnapshot } from "firebase/firestore"
 import { TFilmInWatchlist } from "../types/filmTypes"
 import { db } from "../firebase"
-import { AppContext } from "./AppContext"
-import { TAppContext } from "../types/appTypes"
+import { User } from "firebase/auth"
+import { TDialog } from "../types/appTypes"
 
-export type TWatchlistContext = {
+export type TUseWatchlist = {
     userWatchlist: DocumentData[] | undefined;
-    getFilmInWatchlist: (film: TFilmInWatchlist) => DocumentData | undefined
+    getFilmInWatchlist: (film: TFilmInWatchlist) => DocumentData | undefined;
+    setUserWatchlist: React.Dispatch<React.SetStateAction<DocumentData[] | undefined>>
 }
 
-export const watchlistContext = createContext<TWatchlistContext | null>(null)
+export type TUseWatchlistParams = {
+    setDialog: React.Dispatch<React.SetStateAction<TDialog>>;
+    openDialog: () => void;
+    signedInUser: User | null;
+}
 
-export default function WatchlistContextProvider(): JSX.Element {
-    const { setDialog, openDialog, signedInUser } = useContext(AppContext) as TAppContext
+export default function useWatchlist({ setDialog, openDialog, signedInUser }: TUseWatchlistParams): TUseWatchlist {
     const [userWatchlist, setUserWatchlist] = useState<DocumentData[] | undefined>()
 
     useEffect(() => {
@@ -28,7 +31,7 @@ export default function WatchlistContextProvider(): JSX.Element {
             })
 
         return () => unsubscribe()
-    }, [])
+    }, [signedInUser])
 
     function getUserWatchlist(watchlistData: DocumentData[]): DocumentData[] | undefined {
         if (!signedInUser) return
@@ -41,7 +44,5 @@ export default function WatchlistContextProvider(): JSX.Element {
         }
     }
 
-    return <watchlistContext.Provider value={{ userWatchlist, getFilmInWatchlist }}>
-        <Outlet />
-    </watchlistContext.Provider>
+    return { userWatchlist, getFilmInWatchlist, setUserWatchlist }
 }

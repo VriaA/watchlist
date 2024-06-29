@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { TAppContext, TDialog } from '../types/appTypes'
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth'
 import { app } from '../firebase'
-
+import useWatchlist from '../hooks/useWatchlist'
 export const AppContext = createContext<TAppContext | null>(null)
 
 export default function AppContextProvider(): JSX.Element {
@@ -12,6 +12,7 @@ export default function AppContextProvider(): JSX.Element {
     const [signedInUser, setSignedInUser] = useState<User | null>(null)
     const [dialog, setDialog] = useState<TDialog>({ message: null, isOpen: false })
     const dialogRef = useRef<HTMLDialogElement | null>(null)
+    const { userWatchlist, getFilmInWatchlist, setUserWatchlist } = useWatchlist({ setDialog, openDialog, signedInUser })
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -20,19 +21,17 @@ export default function AppContextProvider(): JSX.Element {
         })
     }, [])
 
-    const openDialog = (): void => {
-        setDialog(prevDialog => {
-            return { ...prevDialog, ['isOpen']: true }
-        })
+    function openDialog(): void {
+        setDialog(prevDialog => ({ ...prevDialog, ['isOpen']: true }))
         dialogRef.current?.showModal()
     }
 
-    const closeDialog = (): void => {
+    function closeDialog(): void {
         setDialog(prevDialog => ({ ...prevDialog, isOpen: false }))
         dialogRef.current?.close()
     }
 
-    return <AppContext.Provider value={{ isLoggedIn, signedInUser, auth, setDialog, openDialog }}>
+    return <AppContext.Provider value={{ isLoggedIn, signedInUser, auth, setDialog, openDialog, userWatchlist, getFilmInWatchlist, setUserWatchlist }}>
         <Outlet />
         <dialog className={`${dialog.isOpen ? 'flex' : ''} flex-col gap-6 items-start w-[70%] max-w-[300px] p-5 backdrop:bg-zinc-900/40 font-inter rounded-lg`}
             ref={dialogRef}>

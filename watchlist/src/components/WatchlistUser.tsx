@@ -5,6 +5,8 @@ import { AppContext } from "../contexts/AppContext"
 import { TAppContext } from "../types/appTypes"
 import useCloseOnClickOutside from "../hooks/useCloseOnClickOutside"
 import Loader from "./loader/loader"
+import { deleteDoc, doc } from "firebase/firestore"
+import { db } from "../firebase"
 
 type TWatchlistUser = {
     style?: string
@@ -13,7 +15,7 @@ type TWatchlistUser = {
 export default function WatchlistUser({ style }: TWatchlistUser) {
     const userMenuRef = useRef<HTMLUListElement | null>(null)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
-    const { isLoggedIn, signedInUser, auth, setDialog, openDialog } = useContext(AppContext) as TAppContext
+    const { isLoggedIn, signedInUser, auth, setDialog, openDialog, userWatchlist } = useContext(AppContext) as TAppContext
     const [loading, setLoading] = useState<boolean>(false)
 
     useCloseOnClickOutside(userMenuRef, triggerRef)
@@ -29,12 +31,19 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
                 setDialog(prevDialog => ({ ...prevDialog, message: error.message }))
                 openDialog()
             })
-            .finally(() => setTimeout(() => setLoading(prevLoading => !prevLoading), 1000))
+            .finally(() => {
+                setTimeout(() => {
+                    setLoading(prevLoading => !prevLoading)
+                }, 1000)
+            })
     }
 
     function deleteAccount() {
         setLoading(prevLoading => !prevLoading)
         deleteUser((signedInUser as User))
+            .then(() => {
+                deleteUserWatchlistData()
+            })
             .then(() => {
                 setDialog(prevDialog => ({ ...prevDialog, message: `Account deleted successfully.` }))
                 openDialog()
@@ -44,6 +53,12 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
                 openDialog()
             })
             .finally(() => setTimeout(() => setLoading(prevLoading => !prevLoading), 1000))
+    }
+
+    function deleteUserWatchlistData() {
+        if (!userWatchlist) return
+        const promises = userWatchlist.map((film) => deleteDoc(doc(db, 'watchlist', film.docId)))
+        return Promise.all(promises)
     }
 
     function toggleUserMenuVisibility(e: MouseEvent) {
