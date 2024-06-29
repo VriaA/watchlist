@@ -6,28 +6,28 @@ export type TMovie = {
     belongs_to_collection: boolean;
     budget: number;
     homepage: string;
-    credits:{ cast: TCast[], crew: TCrew[]};
-    genres: {id: number; name: string;}[];
+    credits: { cast: TCast[], crew: TCrew[] };
+    genres: { id: number; name: string; }[];
     id: number;
     imdb_id: string;
     origin_country: string[];
-    original_language:  keyof typeof iso639_1LanguageCodes;
+    original_language: keyof typeof iso639_1LanguageCodes;
     original_title: string;
     overview: string;
     popularity: number;
     poster_path: string;
-    production_companies: {id: number; logo_path: string | null; name: string; origin_country: string}[];
-    production_countries: {iso_3166_1: string; name: string;}[];
+    production_companies: { id: number; logo_path: string | null; name: string; origin_country: string }[];
+    production_countries: { iso_3166_1: string; name: string; }[];
     release_date: string;
     revenue: number;
     runtime: number;
     similar: TSimilarObj;
-    spoken_languages: {english_name: string, iso_639_1: string, name: string}[];
+    spoken_languages: { english_name: string, iso_639_1: string, name: string }[];
     status: string;
     tagline: string;
     title: string;
     video: boolean;
-    videos: {results: TVideo[]};
+    videos: { results: TVideo[] };
     vote_average: number;
     vote_count: number;
 }
@@ -35,37 +35,37 @@ export type TMovie = {
 export type TSeries = {
     adult: boolean;
     id: number;
-    genres: {id: number; name: string;}[];
+    genres: { id: number; name: string; }[];
     backdrop_path: string;
     episode_run_time: [number];
-    release_date: string; 
-    first_air_date: string; 
+    release_date: string;
+    first_air_date: string;
     last_air_date: string;
     last_episode_to_air: TEpisodeToAir;
     next_episode_to_air: TEpisodeToAir | null;
     networks: TNetwork[];
     homepage: string;
     in_production: boolean;
-    title: string; 
-    original_title: string; 
-    name: string; 
-    original_name: string; 
-    overview: string; 
+    title: string;
+    original_title: string;
+    name: string;
+    original_name: string;
+    overview: string;
     popularity: number;
     origin_country: string[];
-    original_language:  keyof typeof iso639_1LanguageCodes; 
+    original_language: keyof typeof iso639_1LanguageCodes;
     languages: string[];
     number_of_episodes: number;
-    number_of_seasons: number; 
+    number_of_seasons: number;
     poster_path: string;
-    production_companies: {id: number; logo_path: string | null; name: string; origin_country: string}[];
-    production_countries: {iso_3166_1: string; name: string;}[];
+    production_companies: { id: number; logo_path: string | null; name: string; origin_country: string }[];
+    production_countries: { iso_3166_1: string; name: string; }[];
     created_by: TCreatedBy[];
-    credits:{ cast: TCast[], crew: TCrew[]}; 
-    videos: {results: TVideo[]};
+    credits: { cast: TCast[], crew: TCrew[] };
+    videos: { results: TVideo[] };
     seasons: TSeason[];
     similar: TSimilarObj;
-    spoken_languages: {english_name: string, iso_639_1: string, name: string}[];
+    spoken_languages: { english_name: string, iso_639_1: string, name: string }[];
     status: string;
     tagline: string;
     type: string;
@@ -117,9 +117,9 @@ export type TVideo = {
 export type TSimilar = {
     id: number;
     name: string;
-    original_name: string  
+    original_name: string
     title: string;
-    original_title: string    
+    original_title: string
     adult: boolean
     backdrop_path: string | null
     first_air_date: string
@@ -133,11 +133,11 @@ export type TSimilar = {
     vote_count: number
 }
 
-export type TSimilarObj = { 
-    page: number; 
+export type TSimilarObj = {
+    page: number;
     results: TSimilar[];
     total_pages: number;
-    total_results: number; 
+    total_results: number;
 }
 
 type TSeason = {
@@ -181,4 +181,15 @@ type TEpisodeToAir = {
     still_path: string;
     vote_average: number;
     vote_count: number;
+}
+
+export type TFilmInWatchlist = {
+    poster: string,
+    name: string,
+    year: string | null,
+    runtime: number | null,
+    iswatched: boolean,
+    filmId: number,
+    filmType: string | null,
+    userId: string
 }

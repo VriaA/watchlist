@@ -18,15 +18,15 @@ export default function Film(): JSX.Element {
     const [bgColorBackDrop, setBgColorBackDrop] = useState<string>('')
     const [bgColorFilm, setBgColorFilm] = useState<string>('')
 
-    useEffect(()=> {
-        if(loading) {
+    useEffect(() => {
+        if (loading) {
             setBgColorBackDrop('bg-zinc-900')
             setBgColorFilm('bg-zinc-800')
             setBgImageStyle({})
-        } else if(!loading && results) {
+        } else if (!loading && results) {
             const { backdrop_path } = results
             const imageUrl: string = backdrop_path ? imageBaseUrl + backdrop_path : filmImage
-            setBgImageStyle({ backgroundImage: `url(${imageUrl})`})
+            setBgImageStyle({ backgroundImage: `url(${imageUrl})` })
             setBgColorBackDrop(backdrop_path ? 'bg-zinc-900' : 'bg-red-950')
             setBgColorFilm(backdrop_path ? 'bg-zinc-800' : 'bg-red-800')
         }
@@ -34,14 +34,14 @@ export default function Film(): JSX.Element {
 
     return (
         <div className={`w-[100svw] h-[100svh] ${bgColorBackDrop} bg-fixed bg-cover bg-filmCntrImgPosition md:bg-filmCntrImgPositionMd bg-blend-overlay text-slate-100 overflow-hidden`}
-             style={bgImageStyle}> 
+            style={bgImageStyle}>
             <div className="grid place-content-center w-full h-full backdrop-blur-md">
                 <div className={`relative w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] shadow-film ${bgColorFilm} bg-cover rounded-lg font-inter bg-filmBackdropPosition bg-blend-overlay overflow-y-auto lg:snap-mandatory lg:snap-y overflow-x-hidden`}
-                     style={bgImageStyle}>
-                <Header />
-                {loading ? <FilmPlaceholder /> :
-                !loading && results ? <FilmDetails film={results} type={type} /> :
-                <ErrorMessage message={error} />}
+                    style={bgImageStyle}>
+                    <Header />
+                    {loading ? <FilmPlaceholder /> :
+                        !loading && results ? <FilmDetails film={results} type={type} /> :
+                            <ErrorMessage message={error} />}
                 </div>
             </div>
         </div>

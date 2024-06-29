@@ -6,27 +6,31 @@ import Watchlist from "./pages/Watchlist"
 import Authentication from "./pages/Authentication"
 import AuthRequired from "./components/layout/AuthRequired"
 import AppContextProvider from "./contexts/AppContext"
+import WatchlistContextProvider from "./contexts/WatchlistContext"
 
 function App() {
 
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppContextProvider />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Results />} />
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppContextProvider />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Results />} />
+
+          <Route element={<WatchlistContextProvider />}>
             <Route path="/movie/:id" element={<Film />} />
             <Route path="/tv/:id" element={<Film />} />
 
             <Route element={<AuthRequired />}>
               <Route path="/watchlist" element={<Watchlist />} />
             </Route>
-
-            <Route path="/sign-in" element={<Authentication />} />
-            <Route path="/sign-up" element={<Authentication />} />
           </Route>
-        </Routes>
-      </BrowserRouter>
+
+          <Route path="/sign-in" element={<Authentication />} />
+          <Route path="/sign-up" element={<Authentication />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
