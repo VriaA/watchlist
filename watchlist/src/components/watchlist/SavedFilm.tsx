@@ -1,5 +1,5 @@
 
-import { DocumentData, deleteDoc, doc } from "firebase/firestore";
+import { DocumentData, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import SavedFilmPoster from "./SavedFilmPoster";
 import FilmType from "../FilmType";
 import { Link } from "react-router-dom"
@@ -49,13 +49,27 @@ export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element
         }
     }
 
+    function toggleIsWatched() {
+        setLoading(() => true)
+        try {
+            updateDoc(doc(db, 'watchlist', docId), {
+                iswatched: !iswatched
+            })
+        } catch (error: any) {
+            setDialog((prev) => ({ ...prev, message: error.message }))
+            openDialog()
+        } finally {
+            setLoading(() => false)
+        }
+    }
+
     return (
         <section ref={filmRef} className="relative z-10 pb-2 bg-zinc-800/20 font-robotoCondensed font-normal lg:font-light text-xs md:text-sm backdrop-blur-md rounded-md overflow-hidden">
             {
                 iswatched &&
                 <div className="absolute top-2 left-2 z-50">
                     <svg className="w-5 lg:w-6 aspect-square drop-shadow-blackOutline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill="#f1f5f9" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                        <path fill="#f8fafc" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
                     </svg>
                 </div>
             }
@@ -85,6 +99,7 @@ export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element
 
                         <li className="group">
                             <button
+                                onClick={toggleIsWatched}
                                 type="button"
                                 className={`${iswatched ? 'group-hover:text-amber-500' : 'group-hover:text-green-500'} flex items-center gap-1 px-[2px] focus:border-[1px] focus:border-green-500 focus:outline-none rounded cursor-pointer`}>
                                 {iswatched ? 'Not watched' : 'Watched'}
