@@ -25,7 +25,6 @@ export default function Authentication(): JSX.Element {
     const location = useLocation()
     const isSignIn = location.pathname === '/sign-in'
     const navigate = useNavigate()
-    const [loading, setLoading] = useState<boolean>(false)
     const [newUser, setNewUser] = useState<newUser>({
         email: '',
         password: '',
@@ -39,7 +38,7 @@ export default function Authentication(): JSX.Element {
     const isBothFilled: boolean = (newUser.password.trim().split('').length > 0) && (newUser.confirmPassword.trim().split('').length > 0)
     const isMatch: boolean = newUser.password === newUser.confirmPassword
     const PASSWORD_INPUT_BORDER_CLASS = isBothFilled && isMatch ? 'border-green-600' : isBothFilled && !isMatch ? 'border-red-700' : 'border-zinc-300'
-    const { setDialog, openDialog } = useContext(AppContext) as TAppContext
+    const { setDialog, openDialog, loading, setLoading } = useContext(AppContext) as TAppContext
 
     useEffect(() => {
         if (!formRef.current) return

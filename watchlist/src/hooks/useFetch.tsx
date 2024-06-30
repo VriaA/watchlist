@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-
+import { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
+import { TAppContext } from "../types/appTypes";
 // TODO: Use custom hook in home & results page.
 // const searchResults: U = data.results.filter((result: V)=> result.media_type != 'person')
 // `https://api.themoviedb.org/3/search/multi?query=${title}&include_adult=false&language=en-US&page=1`
@@ -7,16 +9,16 @@ export default function useFetch(url: string) {
     const options = {
         method: 'GET',
         headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjhiOTQxM2EwYzk3NTE1YzUwNTkyZTRlY2Y5MjM0MSIsInN1YiI6IjY0ZDA1YTJhNGQ2NzkxMDBlMjQwZjE2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xbqgGX1THEkUWs4NigowqE8P8tLn8hYScBzSfL5dYmI'
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjhiOTQxM2EwYzk3NTE1YzUwNTkyZTRlY2Y5MjM0MSIsInN1YiI6IjY0ZDA1YTJhNGQ2NzkxMDBlMjQwZjE2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xbqgGX1THEkUWs4NigowqE8P8tLn8hYScBzSfL5dYmI'
         }
     };
 
     const [results, setResults] = useState(null)
     const [error, setError] = useState<string>('')
-    const [loading, setLoading] = useState<boolean>(false)
+    const { setLoading } = useContext(AppContext) as TAppContext
 
-    useEffect(()=> {
+    useEffect(() => {
         async function getResults() {
             setResults(null)
             setLoading(true)
@@ -36,8 +38,8 @@ export default function useFetch(url: string) {
 
     // THROWS AN ERROR BASED ON THE ERROR CODE RECEIVED DURING THE FETCHING PROCESS
     function handleResponseError(response: Response) {
-        if(response.ok) return
-        if(response.status >= 500) {
+        if (response.ok) return
+        if (response.status >= 500) {
             throw new Error('Unable to connect to the server.')
         } else if (response.status === 429) {
             throw new Error('Too many requests: Please try again later.');
@@ -46,5 +48,5 @@ export default function useFetch(url: string) {
         }
     }
 
-    return { results, error, loading }
+    return { results, error }
 }

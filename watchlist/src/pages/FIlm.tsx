@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useState } from "react"
+import { CSSProperties, useContext, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import useFetch from "../hooks/useFetch"
 import FilmDetails from "../components/film/FilmDetails"
@@ -7,13 +7,16 @@ import imageBaseUrl from "../utils/imageBaseUrl"
 import filmImage from "../assets/images/film.webp"
 import FilmPlaceholder from "../components/film/FilmPlaceholder"
 import ErrorMessage from "../components/ErrorMessage"
+import { AppContext } from "../contexts/AppContext"
+import { TAppContext } from "../types/appTypes"
 
 export default function Film(): JSX.Element {
     const location = useLocation()
     const type: string = location.pathname.trim().split('/')[1]
     const id: string = location.pathname.trim().split('/')[2].split('+')[1]
     const url: string = `https://api.themoviedb.org/3/${type}/${id}?append_to_response=credits%2Cvideos%2Csimilar&language=en-US`
-    const { results, error, loading } = useFetch(url)
+    const { results, error } = useFetch(url)
+    const { loading } = useContext(AppContext) as TAppContext
     const [bgImageStyle, setBgImageStyle] = useState<CSSProperties>({})
     const [bgColorBackDrop, setBgColorBackDrop] = useState<string>('')
     const [bgColorFilm, setBgColorFilm] = useState<string>('')

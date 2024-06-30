@@ -13,6 +13,7 @@ export default function AppContextProvider(): JSX.Element {
     const [dialog, setDialog] = useState<TDialog>({ message: null, isOpen: false })
     const dialogRef = useRef<HTMLDialogElement | null>(null)
     const { userWatchlist, getFilmInWatchlist, setUserWatchlist } = useWatchlist({ setDialog, openDialog, signedInUser })
+    const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -31,7 +32,7 @@ export default function AppContextProvider(): JSX.Element {
         dialogRef.current?.close()
     }
 
-    return <AppContext.Provider value={{ isLoggedIn, signedInUser, auth, setDialog, openDialog, userWatchlist, getFilmInWatchlist, setUserWatchlist }}>
+    return <AppContext.Provider value={{ isLoggedIn, signedInUser, auth, setDialog, openDialog, userWatchlist, getFilmInWatchlist, setUserWatchlist, loading, setLoading }}>
         <Outlet />
         <dialog className={`${dialog.isOpen ? 'flex' : ''} flex-col gap-6 items-start w-[70%] max-w-[300px] p-5 backdrop:bg-zinc-900/40 font-inter rounded-lg`}
             ref={dialogRef}>

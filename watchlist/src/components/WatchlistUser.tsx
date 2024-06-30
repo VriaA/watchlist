@@ -72,10 +72,7 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
 
     return (
         <div className={`${style} relative overflow-visible`}>
-            {loading &&
-                <div className="fixed z-[9999] inset-0 grid place-content-center">
-                    <Loader />
-                </div>}
+            {loading && <Loader style="fixed top-0 left-0 w-screen h-screen z-[9999]" />}
             <button id="user-menu-trigger"
                 aria-controls="user-menu"
                 aria-haspopup="true"

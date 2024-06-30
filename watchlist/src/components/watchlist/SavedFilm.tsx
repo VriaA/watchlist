@@ -1,13 +1,16 @@
 
-import { DocumentData } from "firebase/firestore";
+import { DocumentData, deleteDoc, doc } from "firebase/firestore";
 import SavedFilmPoster from "./SavedFilmPoster";
 import FilmType from "../FilmType";
 import { Link } from "react-router-dom"
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AppContext } from "../../contexts/AppContext";
+import { TAppContext } from "../../types/appTypes";
+import { db } from "../../firebase";
 
 export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element {
-
-    const { iswatched, filmId, filmType, name, runtime, year } = film
+    const { setDialog, openDialog, setLoading } = useContext(AppContext) as TAppContext
+    const { iswatched, filmId, filmType, name, runtime, year, docId } = film
     const [isFilmMenuOpen, setIsFilmMenuOpen] = useState<boolean>(false)
     const filmRef = useRef<HTMLElement | null>(null)
     const filmMenuRef = useRef<HTMLUListElement | null>(null)
@@ -34,6 +37,18 @@ export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element
         return () => document.removeEventListener('click', closeOnClickOutside)
     }, [filmRef])
 
+    function removeFromWatchlist(): void {
+        setLoading(() => true)
+        try {
+            deleteDoc(doc(db, 'watchlist', docId))
+        } catch (error: any) {
+            setDialog((prev) => ({ ...prev, message: error.message }))
+            openDialog()
+        } finally {
+            setLoading(() => false)
+        }
+    }
+
     return (
         <section ref={filmRef} className="relative z-10 pb-2 bg-zinc-800/20 font-robotoCondensed font-normal lg:font-light text-xs md:text-sm backdrop-blur-md rounded-md overflow-hidden">
             {
@@ -57,6 +72,7 @@ export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element
                         className="absolute bottom-0 right-0 p-2 flex flex-col gap-2 bg-zinc-900 rounded-tl-md z-50">
                         <li className="group cursor-pointer">
                             <button
+                                onClick={removeFromWatchlist}
                                 type="button"
                                 autoFocus={true}
                                 className="flex items-center gap-1 px-[2px] group-hover:text-red-700 focus:border-[1px] focus:border-red-700 focus:outline-none rounded">

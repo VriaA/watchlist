@@ -10,7 +10,7 @@ export default function AuthRequired(): JSX.Element {
     return (
         <div className="w-screen h-screen page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
             <div className="w-screen h-screen grid place-content-center">
-                <div className="content-cntr overflow-y-auto">
+                <div className="content-cntr relative overflow-y-auto">
                     {isLoggedIn === null ? <Loader /> : isLoggedIn ? <Outlet /> : <Navigate to="/sign-in" replace={true} />}
                 </div>
             </div>

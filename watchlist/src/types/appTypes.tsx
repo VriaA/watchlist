@@ -11,7 +11,9 @@ export type TAppContext = {
     openDialog: () => void;
     userWatchlist: DocumentData[] | undefined;
     getFilmInWatchlist: (film: TFilmInWatchlist) => DocumentData | undefined;
-    setUserWatchlist: React.Dispatch<React.SetStateAction<DocumentData[] | undefined>>
+    setUserWatchlist: React.Dispatch<React.SetStateAction<DocumentData[] | undefined>>;
+    loading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type TDialog = {

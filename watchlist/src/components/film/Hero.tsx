@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEvent, useContext, useState } from "react"
+import { KeyboardEvent, MouseEvent, useContext } from "react"
 import { AppContext } from "../../contexts/AppContext"
 import { TAppContext } from "../../types/appTypes"
 import { iso639_1LanguageCodes } from "../../data/iso639LanguageCodes"
@@ -12,10 +12,9 @@ import FilmType from "../FilmType"
 
 export default function Hero({ film, type }: { film: TMovie | TSeries, type: string }) {
     const navigate = useNavigate()
-    const { signedInUser, setDialog, openDialog, userWatchlist, getFilmInWatchlist } = useContext(AppContext) as TAppContext
+    const { signedInUser, setDialog, openDialog, userWatchlist, getFilmInWatchlist, loading, setLoading } = useContext(AppContext) as TAppContext
     const { title, original_title, genres, runtime, release_date, overview, original_language, id, poster_path } = film as TMovie
     const { name, original_name, first_air_date, number_of_seasons, episode_run_time } = film as TSeries
-    const [loading, setLoading] = useState<boolean>(false)
     const language = getLanguage(original_language)
 
     const isTv: boolean = type === 'tv'
