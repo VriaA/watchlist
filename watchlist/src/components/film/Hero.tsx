@@ -7,11 +7,13 @@ import { db } from "../../firebase"
 import { DocumentData, addDoc, collection, deleteDoc, doc } from "firebase/firestore"
 import imageBaseUrl from "../../utils/imageBaseUrl"
 import { useNavigate } from "react-router-dom"
+import UnknownValuePlaceHolder from "../UnknownValuePlaceHolder"
+import FilmType from "../FilmType"
 
 export default function Hero({ film, type }: { film: TMovie | TSeries, type: string }) {
     const navigate = useNavigate()
     const { signedInUser, setDialog, openDialog, userWatchlist, getFilmInWatchlist } = useContext(AppContext) as TAppContext
-    const { title, original_title, genres, runtime, release_date, overview, original_language, backdrop_path, id } = film as TMovie
+    const { title, original_title, genres, runtime, release_date, overview, original_language, id, poster_path } = film as TMovie
     const { name, original_name, first_air_date, number_of_seasons, episode_run_time } = film as TSeries
     const [loading, setLoading] = useState<boolean>(false)
     const language = getLanguage(original_language)
@@ -23,37 +25,24 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
     const runTime = getRunTime(runtime || episodeRunTime)
     const filmName: string = (title || original_title) || (name || original_name)
     const year = getYear(release_date || first_air_date)
-    const filmType = getType(type)
 
     function getGenres(genres: { id: number; name: string; }[], hasGenre: boolean): string | JSX.Element {
-        return hasGenre ? genres.map((genre) => `${genre.name}`).join(' | ') : unknownValuePlaceHolder()
+        return hasGenre ? genres.map((genre) => `${genre.name}`).join(' | ') : UnknownValuePlaceHolder()
     }
 
     function getYear(date: string): string | JSX.Element {
-        return date ? date.split('-')[0] : unknownValuePlaceHolder()
+        return date ? date.split('-')[0] : UnknownValuePlaceHolder()
     }
 
     function getLanguage(code: keyof typeof iso639_1LanguageCodes): string | JSX.Element {
         if (iso639_1LanguageCodes[code]) {
             return iso639_1LanguageCodes[code]
         }
-        return unknownValuePlaceHolder()
+        return UnknownValuePlaceHolder()
     }
 
     function getRunTime(time: number | null): number | JSX.Element {
-        return time ? time : unknownValuePlaceHolder()
-    }
-
-    function getType(type: string): 'Movie' | 'Series' | JSX.Element {
-        return type ? type === 'movie' ? 'Movie' : 'Series' : unknownValuePlaceHolder()
-    }
-
-    function unknownValuePlaceHolder(): JSX.Element {
-        return (
-            <span className="material-symbols-outlined text-sm md:text-base font-light">
-                unknown_med
-            </span>
-        )
+        return time ? time : UnknownValuePlaceHolder()
     }
 
     function toggleLineClamp(e: KeyboardEvent | MouseEvent, length: number): void {
@@ -69,13 +58,13 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
     }
 
     const newWatchlistFilm: TFilmInWatchlist = {
-        poster: imageBaseUrl + backdrop_path,
+        poster: imageBaseUrl + poster_path,
         name: filmName,
         year: typeof year === 'string' ? year : null,
         runtime: typeof runTime === 'number' ? runTime : null,
         iswatched: false,
         filmId: id,
-        filmType: typeof filmType === 'string' ? filmType : null,
+        filmType: type,
         userId: signedInUser?.uid as string
     }
 
@@ -144,7 +133,7 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
 
                     <span className="text-[8px] md:text-[5px]">&#9679;</span>
 
-                    <p>{filmType}</p>
+                    <p>{FilmType(type)}</p>
 
                     {isTv && <>
                         <p className="text-[8px] md:text-[5px]">&#9679;</p>
