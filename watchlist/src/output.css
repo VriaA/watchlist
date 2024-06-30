@@ -1214,10 +1214,6 @@ video {
   max-height: 300px;
 }
 
-.max-h-full {
-  max-height: 100%;
-}
-
 .min-h-\[100\%\] {
   min-height: 100%;
 }
@@ -1556,6 +1552,10 @@ video {
 
 .overflow-x-scroll {
   overflow-x: scroll;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .rounded-2xl {
