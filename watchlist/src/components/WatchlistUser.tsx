@@ -32,9 +32,7 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
                 openDialog()
             })
             .finally(() => {
-                setTimeout(() => {
-                    setLoading(prevLoading => !prevLoading)
-                }, 1000)
+                setLoading(prevLoading => !prevLoading)
             })
     }
 
