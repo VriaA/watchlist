@@ -4,6 +4,7 @@ import { TFilmInWatchlist } from "../types/filmTypes"
 import { db } from "../firebase"
 import { User } from "firebase/auth"
 import { TDialog } from "../types/appTypes"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 export type TUseWatchlist = {
     userWatchlist: DocumentData[] | undefined;
@@ -15,23 +16,44 @@ export type TUseWatchlistParams = {
     setDialog: React.Dispatch<React.SetStateAction<TDialog>>;
     openDialog: () => void;
     signedInUser: User | null;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function useWatchlist({ setDialog, openDialog, signedInUser }: TUseWatchlistParams): TUseWatchlist {
+export default function useWatchlist({ setDialog, openDialog, signedInUser, setLoading }: TUseWatchlistParams): TUseWatchlist {
     const [userWatchlist, setUserWatchlist] = useState<DocumentData[] | undefined>()
+    const location = useLocation()
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "watchlist"), (snapshot) => {
-            const data = snapshot.docs.map(doc => ({ ...doc.data(), docId: doc.id }));
-            setUserWatchlist(() => getUserWatchlist(data))
-        },
-            () => {
-                setDialog((prev) => ({ ...prev, message: "An error occured, please refresh the page." }))
-                openDialog()
+        const watchlistFilter = searchParams.get('filter')
+        setLoading(() => true)
+        const unsubscribe = onSnapshot(collection(db, "watchlist"),
+            (snapshot) => {
+                try {
+                    const data = snapshot.docs.map(doc => ({ ...doc.data(), docId: doc.id }));
+                    let watchlist = getUserWatchlist(data)
+                    watchlist = watchlist?.filter((film) => {
+                        if (watchlistFilter === 'watched') {
+                            return film.iswatched
+                        } else if (watchlistFilter === 'notwatched') {
+                            return !film.iswatched
+                        } else {
+                            return film
+                        }
+                    })
+                    setUserWatchlist(() => watchlist)
+                } catch {
+                    setDialog((prev) => ({ ...prev, message: "An error occured, please refresh the page." }))
+                    openDialog()
+                } finally {
+                    setLoading(() => false)
+                }
             })
 
-        return () => unsubscribe()
-    }, [signedInUser])
+        return () => {
+            unsubscribe()
+        }
+    }, [signedInUser, location.search])
 
     function getUserWatchlist(watchlistData: DocumentData[]): DocumentData[] | undefined {
         if (!signedInUser) return

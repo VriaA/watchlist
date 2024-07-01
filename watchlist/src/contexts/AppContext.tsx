@@ -12,8 +12,8 @@ export default function AppContextProvider(): JSX.Element {
     const [signedInUser, setSignedInUser] = useState<User | null>(null)
     const [dialog, setDialog] = useState<TDialog>({ message: null, isOpen: false })
     const dialogRef = useRef<HTMLDialogElement | null>(null)
-    const { userWatchlist, getFilmInWatchlist, setUserWatchlist } = useWatchlist({ setDialog, openDialog, signedInUser })
     const [loading, setLoading] = useState<boolean>(false)
+    const { userWatchlist, getFilmInWatchlist, setUserWatchlist } = useWatchlist({ setDialog, openDialog, signedInUser, setLoading })
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
