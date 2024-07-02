@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { DocumentData, collection, onSnapshot } from "firebase/firestore"
+import { DocumentData, collection, onSnapshot, query, where } from "firebase/firestore"
 import { TFilmInWatchlist } from "../types/filmTypes"
 import { db } from "../firebase"
 import { User } from "firebase/auth"
@@ -25,14 +25,15 @@ export default function useWatchlist({ setDialog, openDialog, signedInUser, setL
     const [searchParams] = useSearchParams()
 
     useEffect(() => {
+        if (!signedInUser) return
         const watchlistFilter = searchParams.get('filter')
+        const q = query(collection(db, "watchlist"), where('userId', '==', signedInUser.uid))
         setLoading(() => true)
-        const unsubscribe = onSnapshot(collection(db, "watchlist"),
+        const unsubscribe = onSnapshot(q,
             (snapshot) => {
                 try {
-                    const data = snapshot.docs.map(doc => ({ ...doc.data(), docId: doc.id }));
-                    let watchlist = getUserWatchlist(data)
-                    watchlist = watchlist?.filter((film) => {
+                    const watchlist: DocumentData[] = snapshot.docs.map(doc => ({ ...doc.data(), docId: doc.id }));
+                    watchlist?.filter((film) => {
                         if (watchlistFilter === 'watched') {
                             return film.iswatched
                         } else if (watchlistFilter === 'notwatched') {
@@ -54,11 +55,6 @@ export default function useWatchlist({ setDialog, openDialog, signedInUser, setL
             unsubscribe()
         }
     }, [signedInUser, location.search])
-
-    function getUserWatchlist(watchlistData: DocumentData[]): DocumentData[] | undefined {
-        if (!signedInUser) return
-        return watchlistData?.filter(data => data.userId === signedInUser.uid)
-    }
 
     function getFilmInWatchlist(film: TFilmInWatchlist): DocumentData | undefined {
         if (userWatchlist && userWatchlist.length > 0) {
