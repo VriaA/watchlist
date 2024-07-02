@@ -79,6 +79,7 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
                 removeFromWatchlist()
             }
         } else {
+            setLoading(() => false)
             navigate('../sign-in')
         }
     }
