@@ -28,7 +28,7 @@ export default function AppContextProvider(): JSX.Element {
     }
 
     function closeDialog(): void {
-        setDialog(prevDialog => ({ ...prevDialog, isOpen: false }))
+        setDialog(prevDialog => ({ ...prevDialog, message: '', isOpen: false }))
         dialogRef.current?.close()
     }
 

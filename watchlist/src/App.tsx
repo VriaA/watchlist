@@ -24,6 +24,7 @@ function App() {
 
           <Route path="/sign-in" element={<Authentication />} />
           <Route path="/sign-up" element={<Authentication />} />
+          <Route path="/delete-account" element={<Authentication />} />
         </Route>
       </Routes>
     </BrowserRouter>

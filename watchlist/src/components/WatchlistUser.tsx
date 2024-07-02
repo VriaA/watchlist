@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom"
 import { useRef, MouseEvent, useContext, useState } from "react"
-import { signOut, deleteUser, User } from "firebase/auth"
+import { signOut } from "firebase/auth"
 import { AppContext } from "../contexts/AppContext"
 import { TAppContext } from "../types/appTypes"
 import useCloseOnClickOutside from "../hooks/useCloseOnClickOutside"
 import Loader from "./loader/loader"
-import { deleteDoc, doc } from "firebase/firestore"
-import { db } from "../firebase"
 
 type TWatchlistUser = {
     style?: string
@@ -15,10 +13,22 @@ type TWatchlistUser = {
 export default function WatchlistUser({ style }: TWatchlistUser) {
     const userMenuRef = useRef<HTMLUListElement | null>(null)
     const triggerRef = useRef<HTMLButtonElement | null>(null)
-    const { isLoggedIn, signedInUser, auth, setDialog, openDialog, userWatchlist } = useContext(AppContext) as TAppContext
+    const { isLoggedIn, signedInUser, auth, setDialog, openDialog } = useContext(AppContext) as TAppContext
     const [loading, setLoading] = useState<boolean>(false)
+    const deleteDialogRef = useRef<HTMLDialogElement | null>(null)
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false)
 
     useCloseOnClickOutside(userMenuRef, triggerRef)
+
+    function openDeleteDialog() {
+        setIsDeleteDialogOpen(() => true)
+        deleteDialogRef.current?.showModal()
+    }
+
+    function closeDeleteDialog() {
+        setIsDeleteDialogOpen(() => false)
+        deleteDialogRef.current?.close()
+    }
 
     function signUserOut() {
         setLoading(prevLoading => !prevLoading)
@@ -34,29 +44,6 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
             .finally(() => {
                 setLoading(prevLoading => !prevLoading)
             })
-    }
-
-    function deleteAccount() {
-        setLoading(prevLoading => !prevLoading)
-        deleteUser((signedInUser as User))
-            .then(() => {
-                deleteUserWatchlistData()
-            })
-            .then(() => {
-                setDialog(prevDialog => ({ ...prevDialog, message: `Account deleted successfully.` }))
-                openDialog()
-            })
-            .catch(error => {
-                setDialog(prevDialog => ({ ...prevDialog, message: error.message }))
-                openDialog()
-            })
-            .finally(() => setTimeout(() => setLoading(prevLoading => !prevLoading), 1000))
-    }
-
-    function deleteUserWatchlistData() {
-        if (!userWatchlist) return
-        const promises = userWatchlist.map((film) => deleteDoc(doc(db, 'watchlist', film.docId)))
-        return Promise.all(promises)
     }
 
     function toggleUserMenuVisibility(e: MouseEvent) {
@@ -105,13 +92,21 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
                     </svg>
                 </button>}
 
-                {isLoggedIn && <button className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-1 active:translate-y-1 hover:text-red-500" onClick={deleteAccount}>
+                {isLoggedIn && <button className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-1 active:translate-y-1 hover:text-red-500" onClick={openDeleteDialog}>
                     <span className="text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 group-hover:after:w-2/3 group-hover:drop-shadow-watchlist after:border-b-2 after:transition-all after:border-red-500">Delete account</span>
                     <svg className="fill-zinc-100 group-hover:fill-red-500 " xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512">
                         <path d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
                     </svg>
                 </button>}
             </ul>
+            <dialog className={`${isDeleteDialogOpen ? 'flex' : ''} flex-col gap-6 items-start w-[70%] max-w-[300px] p-5 backdrop:bg-zinc-900/40 font-inter rounded-lg`}
+                ref={deleteDialogRef}>
+                <p className='text-base font-medium'>Are you sure you want to delete your account?</p>
+                <div className="flex justify-end self-end gap-4">
+                    <Link to="../delete-account" className='w-20 text-center bg-red-800 text-zinc-100 font-semibold tracking-wide rounded-lg px-[.5em] py-[.25em]'>Yes</Link>
+                    <button className='w-20 text-center border border-zinc-900 text-zinc-900 font-semibold tracking-wide rounded-lg px-[.5em] py-[.25em]' onClick={closeDeleteDialog}>No</button>
+                </div>
+            </dialog>
         </div>
     )
 }

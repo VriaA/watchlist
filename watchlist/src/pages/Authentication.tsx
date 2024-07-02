@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useRef, useState, useContext } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { app } from "../firebase"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { deleteDoc, doc } from "firebase/firestore"
+import { app, db } from "../firebase"
+import { User, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, reauthenticateWithCredential, deleteUser, AuthCredential, EmailAuthProvider, reauthenticateWithPopup } from "firebase/auth"
 import Loader from "../assets/images/loader.svg"
 import GoogleLogo from "../assets/images/google.svg"
 import { useNavigate } from "react-router-dom"
@@ -24,6 +25,8 @@ export default function Authentication(): JSX.Element {
     const auth = getAuth(app)
     const location = useLocation()
     const isSignIn = location.pathname === '/sign-in'
+    const isSignUp = location.pathname === '/sign-up'
+    const isDeleteAccount = location.pathname === '/delete-account'
     const navigate = useNavigate()
     const [newUser, setNewUser] = useState<newUser>({
         email: '',
@@ -38,7 +41,7 @@ export default function Authentication(): JSX.Element {
     const isBothFilled: boolean = (newUser.password.trim().split('').length > 0) && (newUser.confirmPassword.trim().split('').length > 0)
     const isMatch: boolean = newUser.password === newUser.confirmPassword
     const PASSWORD_INPUT_BORDER_CLASS = isBothFilled && isMatch ? 'border-green-600' : isBothFilled && !isMatch ? 'border-red-700' : 'border-zinc-300'
-    const { setDialog, openDialog, loading, setLoading } = useContext(AppContext) as TAppContext
+    const { setDialog, openDialog, loading, setLoading, userWatchlist } = useContext(AppContext) as TAppContext
 
     useEffect(() => {
         if (!formRef.current) return
@@ -54,53 +57,87 @@ export default function Authentication(): JSX.Element {
         setNewUser(prevUser => ({ ...prevUser, [key]: value }))
     }
 
-    function authenticateOnSubmit(e: FormEvent) {
+    function authenticateWithEmailAndPassword(e: FormEvent) {
         e.preventDefault()
         const form = e.target as HTMLFormElement
         const { email, password, confirmPassword } = newUser
 
-        if (!isSignIn && password !== confirmPassword) {
+        if (isSignUp && password !== confirmPassword) {
             showErrorMessage(`Passwords do not match.`)
         } else {
             setLoading(true)
-            isSignIn ? signIn(email, password, form) : createAccount(email, password, form)
+            if (isSignIn) {
+                signIn(email, password, form)
+            } else if (isSignUp) {
+                createAccount(email, password, form)
+            } else {
+                const credential = EmailAuthProvider.credential(email, password)
+                deleteAccount((auth.currentUser as User), 'emailAndPassword', credential)
+            }
         }
     }
 
-    function signIn(email: string, password: string, form: HTMLFormElement) {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredentials) => {
-                const user = userCredentials.user
-                if (user) {
-                    clearUserDetails(form)
-                    navigate('/watchlist', { replace: true })
-                }
-            })
-            .catch((error) => showErrorMessage(error.message))
-            .finally(() => { setLoading(false) })
-    }
-
-    function createAccount(email: string, password: string, form: HTMLFormElement) {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredentials) => {
-                const user = userCredentials.user
-                if (user) {
-                    clearUserDetails(form)
-                    navigate('/watchlist', { replace: true })
-                }
-            })
-            .catch((error) => showErrorMessage(error.message))
-            .finally(() => setLoading(false))
+    async function signIn(email: string, password: string, form: HTMLFormElement) {
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+            clearUserDetails(form)
+            navigate('/watchlist', { replace: true })
+        } catch (error: any) {
+            showErrorMessage(error.message)
+        } finally {
+            setLoading(false)
+        }
     }
 
     async function authenticateWithGoogle() {
         try {
-            setLoading(true)
-            await signInWithPopup(auth, provider)
-            navigate('/watchlist', { replace: true })
+            setLoading(() => true)
+            if (isDeleteAccount) {
+                deleteAccount(auth.currentUser as User, 'google')
+            } else {
+                await signInWithPopup(auth, provider)
+                navigate('/watchlist', { replace: true })
+            }
         } catch (error: any) {
             setDialog((prevDialog) => ({ ...prevDialog, message: error.message }))
             openDialog()
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function deleteAccount(user: User, method: string, credential?: AuthCredential) {
+        try {
+            if (method === 'emailAndPassword') {
+                await reauthenticateWithCredential(user, credential as AuthCredential)
+            } else {
+                await reauthenticateWithPopup(user, provider)
+            }
+            await deleteUser((user))
+            await deleteUserWatchlistData()
+            setDialog(prevDialog => ({ ...prevDialog, message: `Account deleted successfully.` }))
+            openDialog()
+            navigate('/', { replace: true })
+        } catch (error: any) {
+            setDialog(prevDialog => ({ ...prevDialog, message: error.message }))
+            openDialog()
+        }
+        finally { setLoading(() => false) }
+    }
+
+    function deleteUserWatchlistData() {
+        if (!userWatchlist) return
+        const promises = userWatchlist.map((film) => deleteDoc(doc(db, 'watchlist', film.docId)))
+        return Promise.all(promises)
+    }
+
+    async function createAccount(email: string, password: string, form: HTMLFormElement) {
+        try {
+            await createUserWithEmailAndPassword(auth, email, password)
+            clearUserDetails(form)
+            navigate('/watchlist', { replace: true })
+        } catch (error: any) {
+            showErrorMessage(error.message)
         } finally {
             setLoading(false)
         }
@@ -123,9 +160,9 @@ export default function Authentication(): JSX.Element {
         <div className="w-screen min-h-screen bg-authBg bg-cover bg-center bg-red-800 bg-blend-overlay">
             <div className="flex justify-center items-center w-screen min-h-screen backdrop-blur-sm overflow-y-auto">
                 <section className="flex flex-col items-center w-[80%] md:w-[30%] rounded-lg bg-zinc-900/80 px-8 py-8">
-                    <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">Welcome{isSignIn && ' back'}!</h1>
-                    <p className="self-center font-inter mt-2 mb-8 text-base text-zinc-400">{isSignIn ? 'Sign in to access your watchlist.' : 'Sign up to add movies to your watchlist.'}</p>
-                    <form className="flex-none w-full" onSubmit={authenticateOnSubmit} ref={formRef}>
+                    <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">{isDeleteAccount ? 'Sad to see you go!' : `Welcome${isSignIn && ' back'}!`}</h1>
+                    <p className="self-center font-inter mt-2 mb-8 text-base text-zinc-400">{isSignIn ? 'Sign in to access your watchlist.' : isDeleteAccount ? 'Confirm account ownership before deleting.' : 'Sign up to add movies to your watchlist.'}</p>
+                    <form className="flex-none w-full" onSubmit={authenticateWithEmailAndPassword} ref={formRef}>
                         <fieldset className="relative flex flex-col gap-6 w-full">
                             <input className="box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border border-zinc-300 rounded-lg"
                                 type="text"
@@ -144,7 +181,7 @@ export default function Authentication(): JSX.Element {
                                 ref={passwordInputRef}
                                 required
                             />
-                            {!isSignIn &&
+                            {isSignUp &&
                                 <input className={`${PASSWORD_INPUT_BORDER_CLASS} box-border h-10 leading-none p-2 text-zinc-300 font-inter bg-transparent outline-none border rounded-lg`}
                                     type="password"
                                     placeholder="Confirm password"
@@ -167,15 +204,18 @@ export default function Authentication(): JSX.Element {
 
                         </fieldset>
                         <button className="grid place-content-center box-border h-12 leading-none w-full mt-10 py-2 bg-red-800 hover:bg-red-900 text-slate-50 font-inter font-semibold rounded-lg transition-all active:translate-y-1">
-                            {loading ? <img className="w-8 h-8" src={Loader} alt="Loading..." /> : isSignIn ? 'Sign in' : 'Create account'}
+                            {loading ? <img className="w-8 h-8" src={Loader} alt="Loading..." /> : isSignIn ? 'Sign in' : isDeleteAccount ? 'Confirm' : 'Create account'}
                         </button>
                     </form>
-                    <p className="text-sm font-light font-inter mt-8 self-center text-slate-50">
-                        {isSignIn ? 'New here?' : 'Already have an account?'}&nbsp;
-                        <Link to={`${isSignIn ? '/sign-up' : '/sign-in'}`} replace={true} className="text-red-700 text-base font-semibold hover:underline hover:underline-offset-2">{isSignIn ? 'Sign up' : 'Sign in'}</Link>
-                    </p>
+                    {!isDeleteAccount &&
+                        <p className="text-sm font-light font-inter mt-8 self-center text-slate-50">
+                            {isSignIn ? 'New here?' : 'Already have an account?'}&nbsp;
+                            <Link to={`${isSignIn ? '/sign-up' : '/sign-in'}`} replace={true} className="text-red-700 text-base font-semibold hover:underline hover:underline-offset-2">{isSignIn ? 'Sign up' : 'Sign in'}</Link>
+                        </p>
+                    }
+
                     <p className="flex items-center justify-center gap-2 w-full overflow-hidden h-fit my-5 p-0 text-base font-inter font-light text-zinc-300 leading-none before:block before:flex-none before:w-full before:mt-[1%] before:h-[1px] before:bg-[#99999940] after:block after:flex-none after:w-full after:mt-[1%] after:h-[1px] after:bg-[#99999940]">or</p>
-                    <button className="flex gap-2 items-center text-sm font-inter font-light text-slate-50 hover:underline hover:underline-offset-2" onClick={authenticateWithGoogle}><img src={GoogleLogo} alt="Google logo" /> Sign {isSignIn ? 'in' : 'up'} with google</button>
+                    <button className="flex gap-2 items-center text-sm font-inter font-light text-slate-50 hover:underline hover:underline-offset-2" onClick={authenticateWithGoogle}><img src={GoogleLogo} alt="Google logo" /> Continue with google</button>
                 </section>
             </div>
         </div>
