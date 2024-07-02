@@ -41,7 +41,7 @@ export default function Authentication(): JSX.Element {
     const isBothFilled: boolean = (newUser.password.trim().split('').length > 0) && (newUser.confirmPassword.trim().split('').length > 0)
     const isMatch: boolean = newUser.password === newUser.confirmPassword
     const PASSWORD_INPUT_BORDER_CLASS = isBothFilled && isMatch ? 'border-green-600' : isBothFilled && !isMatch ? 'border-red-700' : 'border-zinc-300'
-    const { setDialog, openDialog, loading, setLoading, userWatchlist } = useContext(AppContext) as TAppContext
+    const { setDialog, openDialog, loading, setLoading, userWatchlist, setUserWatchlist } = useContext(AppContext) as TAppContext
 
     useEffect(() => {
         if (!formRef.current) return
@@ -81,11 +81,11 @@ export default function Authentication(): JSX.Element {
         try {
             await signInWithEmailAndPassword(auth, email, password)
             clearUserDetails(form)
-            navigate('/watchlist', { replace: true })
         } catch (error: any) {
             showErrorMessage(error.message)
         } finally {
-            setLoading(false)
+            setLoading(() => false)
+            navigate('/watchlist', { replace: true })
         }
     }
 
@@ -96,13 +96,13 @@ export default function Authentication(): JSX.Element {
                 deleteAccount(auth.currentUser as User, 'google')
             } else {
                 await signInWithPopup(auth, provider)
-                navigate('/watchlist', { replace: true })
             }
         } catch (error: any) {
             setDialog((prevDialog) => ({ ...prevDialog, message: error.message }))
             openDialog()
         } finally {
-            setLoading(false)
+            setLoading(() => false)
+            navigate('/watchlist', { replace: true })
         }
     }
 
@@ -117,17 +117,21 @@ export default function Authentication(): JSX.Element {
             await deleteUserWatchlistData()
             setDialog(prevDialog => ({ ...prevDialog, message: `Account deleted successfully.` }))
             openDialog()
-            navigate('/', { replace: true })
+
         } catch (error: any) {
             setDialog(prevDialog => ({ ...prevDialog, message: error.message }))
             openDialog()
         }
-        finally { setLoading(() => false) }
+        finally {
+            setLoading(() => false)
+            navigate('/', { replace: true })
+        }
     }
 
     function deleteUserWatchlistData() {
         if (!userWatchlist) return
         const promises = userWatchlist.map((film) => deleteDoc(doc(db, 'watchlist', film.docId)))
+        setUserWatchlist(() => [])
         return Promise.all(promises)
     }
 
@@ -135,11 +139,11 @@ export default function Authentication(): JSX.Element {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
             clearUserDetails(form)
-            navigate('/watchlist', { replace: true })
         } catch (error: any) {
             showErrorMessage(error.message)
         } finally {
-            setLoading(false)
+            setLoading(() => false)
+            navigate('/watchlist', { replace: true })
         }
     }
 
