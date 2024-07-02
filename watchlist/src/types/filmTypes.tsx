@@ -1,3 +1,4 @@
+import { FieldValue } from "firebase/firestore";
 import { iso639_1LanguageCodes } from "../data/iso639LanguageCodes";
 
 export type TMovie = {
@@ -191,5 +192,6 @@ export type TFilmInWatchlist = {
     iswatched: boolean,
     filmId: number,
     filmType: string | null,
-    userId: string
+    userId: string,
+    timestamp: FieldValue
 }

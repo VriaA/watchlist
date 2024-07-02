@@ -4,7 +4,7 @@ import { TAppContext } from "../../types/appTypes"
 import { iso639_1LanguageCodes } from "../../data/iso639LanguageCodes"
 import { TFilmInWatchlist, TMovie, TSeries } from "../../types/filmTypes"
 import { db } from "../../firebase"
-import { DocumentData, addDoc, collection, deleteDoc, doc } from "firebase/firestore"
+import { DocumentData, addDoc, collection, deleteDoc, doc, serverTimestamp } from "firebase/firestore"
 import imageBaseUrl from "../../utils/imageBaseUrl"
 import { useNavigate } from "react-router-dom"
 import UnknownValuePlaceHolder from "../UnknownValuePlaceHolder"
@@ -64,7 +64,8 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
         iswatched: false,
         filmId: id,
         filmType: type,
-        userId: signedInUser?.uid as string
+        userId: signedInUser?.uid as string,
+        timestamp: serverTimestamp()
     }
 
     const isFilmInWatchlist = getFilmInWatchlist(newWatchlistFilm)

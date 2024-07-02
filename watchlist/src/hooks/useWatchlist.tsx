@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { DocumentData, collection, onSnapshot, query, where } from "firebase/firestore"
+import { DocumentData, collection, onSnapshot, query, where, orderBy } from "firebase/firestore"
 import { TFilmInWatchlist } from "../types/filmTypes"
 import { db } from "../firebase"
 import { User } from "firebase/auth"
@@ -27,7 +27,7 @@ export default function useWatchlist({ setDialog, openDialog, signedInUser, setL
     useEffect(() => {
         if (!signedInUser) return
         const watchlistFilter = searchParams.get('filter')
-        const q = query(collection(db, "watchlist"), where('userId', '==', signedInUser.uid))
+        const q = query(collection(db, "watchlist"), where('userId', '==', signedInUser.uid), orderBy('timestamp', 'asc'))
         setLoading(() => true)
         const unsubscribe = onSnapshot(q,
             (snapshot) => {
