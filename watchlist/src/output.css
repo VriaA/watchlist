@@ -1222,6 +1222,18 @@ video {
   max-height: 300px;
 }
 
+.max-h-\[130px\] {
+  max-height: 130px;
+}
+
+.max-h-\[250px\] {
+  max-height: 250px;
+}
+
+.max-h-\[280px\] {
+  max-height: 280px;
+}
+
 .min-h-\[100\%\] {
   min-height: 100%;
 }
@@ -1240,6 +1252,18 @@ video {
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-\[300px\] {
+  min-height: 300px;
+}
+
+.min-h-\[600px\] {
+  min-height: 600px;
+}
+
+.min-h-\[100px\] {
+  min-height: 100px;
 }
 
 .w-1 {
