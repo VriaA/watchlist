@@ -174,7 +174,7 @@ export default function Authentication(): JSX.Element {
                         {isSignIn ? 'New here?' : 'Already have an account?'}&nbsp;
                         <Link to={`${isSignIn ? '/sign-up' : '/sign-in'}`} replace={true} className="text-red-700 text-base font-semibold hover:underline hover:underline-offset-2">{isSignIn ? 'Sign up' : 'Sign in'}</Link>
                     </p>
-                    <p className="block my-5 text-base font-inter font-light text-zinc-400 ">or</p>
+                    <p className="flex items-center justify-center gap-2 w-full overflow-hidden h-fit my-5 p-0 text-base font-inter font-light text-zinc-300 leading-none before:block before:flex-none before:w-full before:mt-[1%] before:h-[1px] before:bg-[#99999940] after:block after:flex-none after:w-full after:mt-[1%] after:h-[1px] after:bg-[#99999940]">or</p>
                     <button className="flex gap-2 items-center text-sm font-inter font-light text-slate-50 hover:underline hover:underline-offset-2" onClick={authenticateWithGoogle}><img src={GoogleLogo} alt="Google logo" /> Sign {isSignIn ? 'in' : 'up'} with google</button>
                 </section>
             </div>
