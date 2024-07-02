@@ -32,8 +32,8 @@ export default function useWatchlist({ setDialog, openDialog, signedInUser, setL
         const unsubscribe = onSnapshot(q,
             (snapshot) => {
                 try {
-                    const watchlist: DocumentData[] = snapshot.docs.map(doc => ({ ...doc.data(), docId: doc.id }));
-                    watchlist?.filter((film) => {
+                    let watchlist: DocumentData[] = snapshot.docs.map(doc => ({ ...doc.data(), docId: doc.id }));
+                    watchlist = watchlist?.filter((film) => {
                         if (watchlistFilter === 'watched') {
                             return film.iswatched
                         } else if (watchlistFilter === 'notwatched') {
