@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState, useContext } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { deleteDoc, doc } from "firebase/firestore"
 import { app, db } from "../firebase"
-import { User, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, reauthenticateWithCredential, deleteUser, AuthCredential, EmailAuthProvider, reauthenticateWithPopup } from "firebase/auth"
+import { User, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, reauthenticateWithCredential, deleteUser, AuthCredential, EmailAuthProvider, reauthenticateWithPopup, UserCredential } from "firebase/auth"
 import Loader from "../assets/images/loader.svg"
 import GoogleLogo from "../assets/images/google.svg"
 import { useNavigate } from "react-router-dom"
@@ -33,7 +33,7 @@ export default function Authentication(): JSX.Element {
         password: '',
         confirmPassword: ''
     })
-    const [authError, setAuthError] = useState<TAuthError>({ isMessageShown: false, message: null })
+    const [authError, setAuthError] = useState<TAuthError>(() => ({ isMessageShown: false, message: null }))
     const formRef = useRef<HTMLFormElement | null>(null)
     const emailInputRef = useRef<HTMLInputElement | null>(null)
     const passwordInputRef = useRef<HTMLInputElement | null>(null)
@@ -79,13 +79,15 @@ export default function Authentication(): JSX.Element {
 
     async function signIn(email: string, password: string, form: HTMLFormElement) {
         try {
-            await signInWithEmailAndPassword(auth, email, password)
-            clearUserDetails(form)
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            if (userCredential) {
+                clearUserDetails(form)
+                setLoading(() => false)
+                navigate('/watchlist', { replace: true })
+            }
         } catch (error: any) {
-            showErrorMessage(error.message)
-        } finally {
             setLoading(() => false)
-            navigate('/watchlist', { replace: true })
+            showErrorMessage(error.message)
         }
     }
 
@@ -93,38 +95,41 @@ export default function Authentication(): JSX.Element {
         try {
             setLoading(() => true)
             if (isDeleteAccount) {
-                deleteAccount(auth.currentUser as User, 'google')
+                await deleteAccount(auth.currentUser as User, 'google')
             } else {
-                await signInWithPopup(auth, provider)
+                const userCredential = await signInWithPopup(auth, provider)
+                if (userCredential) {
+                    setLoading(() => false)
+                    !isDeleteAccount && navigate('/watchlist', { replace: true })
+                }
             }
         } catch (error: any) {
+            setLoading(() => false)
             setDialog((prevDialog) => ({ ...prevDialog, message: error.message }))
             openDialog()
-        } finally {
-            setLoading(() => false)
-            navigate('/watchlist', { replace: true })
         }
     }
 
     async function deleteAccount(user: User, method: string, credential?: AuthCredential) {
         try {
+            let userCredential: UserCredential;
             if (method === 'emailAndPassword') {
-                await reauthenticateWithCredential(user, credential as AuthCredential)
+                userCredential = await reauthenticateWithCredential(user, credential as AuthCredential)
             } else {
-                await reauthenticateWithPopup(user, provider)
+                userCredential = await reauthenticateWithPopup(user, provider)
             }
-            await deleteUser((user))
-            await deleteUserWatchlistData()
-            setDialog(prevDialog => ({ ...prevDialog, message: `Account deleted successfully.` }))
-            openDialog()
-
+            if (userCredential) {
+                await deleteUser((user))
+                await deleteUserWatchlistData()
+                setDialog(prevDialog => ({ ...prevDialog, message: `Account deleted successfully.` }))
+                openDialog()
+                setLoading(() => false)
+                navigate('/', { replace: true })
+            }
         } catch (error: any) {
             setDialog(prevDialog => ({ ...prevDialog, message: error.message }))
             openDialog()
-        }
-        finally {
             setLoading(() => false)
-            navigate('/', { replace: true })
         }
     }
 
@@ -137,13 +142,16 @@ export default function Authentication(): JSX.Element {
 
     async function createAccount(email: string, password: string, form: HTMLFormElement) {
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
-            clearUserDetails(form)
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            if (userCredential) {
+                clearUserDetails(form)
+                setLoading(() => false)
+                navigate('/watchlist', { replace: true })
+            }
         } catch (error: any) {
             showErrorMessage(error.message)
         } finally {
             setLoading(() => false)
-            navigate('/watchlist', { replace: true })
         }
     }
 
