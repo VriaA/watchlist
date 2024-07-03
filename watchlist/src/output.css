@@ -1438,6 +1438,10 @@ video {
   cursor: pointer;
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
 .snap-start {
   scroll-snap-align: start;
 }

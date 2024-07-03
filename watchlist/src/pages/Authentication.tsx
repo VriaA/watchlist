@@ -215,7 +215,8 @@ export default function Authentication(): JSX.Element {
                             }
 
                         </fieldset>
-                        <button className="grid place-content-center box-border h-12 leading-none w-full mt-10 py-2 bg-red-800 hover:bg-red-900 text-slate-50 font-inter font-semibold rounded-lg transition-all active:translate-y-1">
+                        <button className={`${loading ? 'cursor-not-allowed' : ''} grid place-content-center box-border h-12 leading-none w-full mt-10 py-2 bg-red-800 hover:bg-red-900 text-slate-50 font-inter font-semibold rounded-lg transition-all active:translate-y-1`}
+                            disabled={loading ? true : false}>
                             {loading ? <img className="w-8 h-8" src={Loader} alt="Loading..." /> : isSignIn ? 'Sign in' : isDeleteAccount ? 'Confirm' : 'Create account'}
                         </button>
                     </form>
@@ -227,7 +228,10 @@ export default function Authentication(): JSX.Element {
                     }
 
                     <p className="flex items-center justify-center gap-2 w-full overflow-hidden h-fit my-5 p-0 text-base font-inter font-light text-zinc-300 leading-none before:block before:flex-none before:w-full before:mt-[1%] before:h-[1px] before:bg-[#99999940] after:block after:flex-none after:w-full after:mt-[1%] after:h-[1px] after:bg-[#99999940]">or</p>
-                    <button className="flex gap-2 items-center text-sm font-inter font-light text-slate-50 hover:underline hover:underline-offset-2" onClick={authenticateWithGoogle}><img src={GoogleLogo} alt="Google logo" /> Continue with google</button>
+                    <button
+                        className={`${loading ? 'cursor-not-allowed' : ''} flex gap-2 items-center text-sm font-inter font-light text-slate-50 hover:underline hover:underline-offset-2`}
+                        onClick={authenticateWithGoogle}
+                        disabled={loading ? true : false}><img src={GoogleLogo} alt="Google logo" /> Continue with google</button>
                 </section>
             </div>
         </div>
