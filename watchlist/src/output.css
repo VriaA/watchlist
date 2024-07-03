@@ -1667,6 +1667,11 @@ video {
   background-color: transparent;
 }
 
+.bg-zinc-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 244 245 / var(--tw-bg-opacity));
+}
+
 .bg-zinc-500\/40 {
   background-color: rgb(113 113 122 / 0.4);
 }
@@ -2059,6 +2064,10 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.\!filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -2254,8 +2263,18 @@ video {
   background-color: rgb(127 29 29 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-zinc-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(212 212 216 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-zinc-900\/70:hover {
   background-color: rgb(24 24 27 / 0.7);
+}
+
+.hover\:bg-zinc-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(228 228 231 / var(--tw-bg-opacity));
 }
 
 .hover\:text-red-500:hover {
@@ -2335,36 +2354,6 @@ video {
 .group:hover .group-hover\:after\:w-2\/3::after {
   content: var(--tw-content);
   width: 66.666667%;
-}
-
-.peer\/all:checked ~ .peer-checked\/all\:bg-zinc-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(244 244 245 / var(--tw-bg-opacity));
-}
-
-.peer\/not-watched:checked ~ .peer-checked\/not-watched\:bg-zinc-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(244 244 245 / var(--tw-bg-opacity));
-}
-
-.peer\/watched:checked ~ .peer-checked\/watched\:bg-zinc-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(244 244 245 / var(--tw-bg-opacity));
-}
-
-.peer\/all:checked ~ .peer-checked\/all\:text-zinc-900 {
-  --tw-text-opacity: 1;
-  color: rgb(24 24 27 / var(--tw-text-opacity));
-}
-
-.peer\/not-watched:checked ~ .peer-checked\/not-watched\:text-zinc-900 {
-  --tw-text-opacity: 1;
-  color: rgb(24 24 27 / var(--tw-text-opacity));
-}
-
-.peer\/watched:checked ~ .peer-checked\/watched\:text-zinc-900 {
-  --tw-text-opacity: 1;
-  color: rgb(24 24 27 / var(--tw-text-opacity));
 }
 
 @media (min-width: 375px) {
