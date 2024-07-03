@@ -172,7 +172,7 @@ export default function Authentication(): JSX.Element {
         <div className="w-screen min-h-screen bg-authBg bg-cover bg-center bg-red-800 bg-blend-overlay">
             <div className="flex justify-center items-center w-screen min-h-screen backdrop-blur-sm overflow-y-auto">
                 <section className="flex flex-col items-center w-[80%] md:w-[30%] rounded-lg bg-zinc-900/80 px-8 py-8">
-                    <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">{isDeleteAccount ? 'Sad to see you go!' : `Welcome${isSignIn && ' back'}!`}</h1>
+                    <h1 className="self-center font-robotoCondensed text-4xl text-slate-50 font-semibold leading-none">{isDeleteAccount ? 'Sad to see you go!' : `Welcome${isSignIn ? ' back' : ''}!`}</h1>
                     <p className="self-center font-inter mt-2 mb-8 text-base text-zinc-400">{isSignIn ? 'Sign in to access your watchlist.' : isDeleteAccount ? 'Confirm account ownership before deleting.' : 'Sign up to add movies to your watchlist.'}</p>
                     <form className="flex-none w-full" onSubmit={authenticateWithEmailAndPassword} ref={formRef}>
                         <fieldset className="relative flex flex-col gap-6 w-full">
