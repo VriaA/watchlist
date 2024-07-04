@@ -1,18 +1,16 @@
-import React, {  FormEvent, ChangeEvent } from "react"
+import { FormEvent, ChangeEvent } from "react"
 import { SetURLSearchParams, NavigateFunction } from "react-router-dom"
 import { TResults } from "./resultTypes"
 
-export type THandleSearchFormSubmit = (e: FormEvent, navigate?: NavigateFunction, setSearchParams?: SetURLSearchParams)=> void
+export type THandleSearchFormSubmit = (e: FormEvent, navigate?: NavigateFunction, setSearchParams?: SetURLSearchParams) => void
 
 export type TUseSearch = {
-    searchTitle: string, 
-    setSearchTitle: React.Dispatch<React.SetStateAction<string>>, 
-    isSearchBarEmpty: boolean, 
-    setIsSearchBarEmpty:  React.Dispatch<React.SetStateAction<boolean>>, 
-    searchParams: URLSearchParams, 
-    setSearchParams: SetURLSearchParams, 
-    handleSearchFormSubmit : THandleSearchFormSubmit,
-    suggestions: TResults,
-    isEmptySearchBar: boolean,
-    updateSearchTitleOnChange: (e: ChangeEvent)=> void
+    searchTitle: string;
+    isTitleMessageVisible: boolean;
+    handleSearchFormSubmit: THandleSearchFormSubmit;
+    suggestions: TResults;
+    updateSearchTitleOnChange: (e: ChangeEvent) => void;
+    isSuggestionsOpen: boolean;
+    setIsSuggestionsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isSearchBarEmpty: boolean
 }

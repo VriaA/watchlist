@@ -1,12 +1,10 @@
-import { useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
 import Suggestions from "../searchSuggestions/Suggestions";
 import WatchlistUser from "../WatchlistUser";
 
 export default function Header(): JSX.Element {
-    const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
-    const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
+    const { searchTitle, updateSearchTitleOnChange, handleSearchFormSubmit, suggestions, isSuggestionsOpen, isSearchBarEmpty, setIsSuggestionsOpen, isTitleMessageVisible } = useSearch()
     const [searchParams, setSearchParams] = useSearchParams()
 
     return (
@@ -32,9 +30,9 @@ export default function Header(): JSX.Element {
                     />
                 </fieldset>
 
-                <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0'} absolute z-50 block w-fit inset-0 mr-auto ml-auto mt-auto h-fit -mb-8 md:mb-[-36px] px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
+                <span className={`${isTitleMessageVisible ? 'opacity-1' : 'opacity-0'} absolute z-50 block w-fit inset-0 mr-auto ml-auto mt-auto h-fit -mb-8 md:mb-[-36px] px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
 
-                {!isEmptySearchBar && suggestions.length > 0 && <Suggestions suggestions={suggestions} />}
+                {!isSearchBarEmpty && isSuggestionsOpen && <Suggestions suggestions={suggestions} setIsSuggestionsOpen={setIsSuggestionsOpen} />}
             </form>
 
             <div className="flex items-center gap-4 md:gap-6 col-start-4 col-end-5 lg:col-start-4 lg:col-end-5 justify-self-end">

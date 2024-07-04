@@ -6,8 +6,7 @@ import WatchlistUser from "../WatchlistUser"
 
 export default function Header() {
     const searchFieldRef = useRef<HTMLFieldSetElement | null>(null)
-    const enterTitleMessageRef = useRef<HTMLSpanElement | null>(null)
-    const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit, suggestions, isEmptySearchBar } = useSearch(enterTitleMessageRef)
+    const { searchTitle, updateSearchTitleOnChange, handleSearchFormSubmit, suggestions, isSearchBarEmpty, isSuggestionsOpen, isTitleMessageVisible, setIsSuggestionsOpen } = useSearch()
     const navigate = useNavigate()
 
     function toggleSearchBarVisibility() {
@@ -41,9 +40,9 @@ export default function Header() {
                             onChange={updateSearchTitleOnChange}
                             value={searchTitle} />
                     </fieldset>
-                    <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0 hidden'} absolute z-50 block w-fit inset-0 mr-auto ml-auto mt-auto h-fit -mb-8 md:mb-[-36px] px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
+                    <span className={`${isTitleMessageVisible ? 'opacity-1' : 'opacity-0 hidden'} absolute z-50 block w-fit inset-0 mr-auto ml-auto mt-auto h-fit -mb-8 md:mb-[-36px] px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
 
-                    {!isEmptySearchBar && suggestions.length > 0 && <Suggestions suggestions={suggestions} />}
+                    {!isSearchBarEmpty && isSuggestionsOpen && <Suggestions suggestions={suggestions} setIsSuggestionsOpen={setIsSuggestionsOpen} />}
                 </form>
 
                 <Link className="nav-link static md:font-light" to="../watchlist">My watchlist</Link>

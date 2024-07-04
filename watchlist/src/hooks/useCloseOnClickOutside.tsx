@@ -1,32 +1,21 @@
 import { RefObject, useEffect } from "react"
-type clickOutside = MouseEvent | TouchEvent | KeyboardEvent
-type THideOnClickOutside = (e: clickOutside, element: HTMLElement, trigger: HTMLButtonElement | undefined | null)=> void
 
-export default function useCloseOnClickOutside(element: RefObject<HTMLElement | null>, trigger?: RefObject<HTMLButtonElement | null>): void {
-    useEffect(()=> {
-        if(!element) return
-        function hideSuggestionOnClickOutside (e: MouseEvent): void {
-            const elementToHide = element.current as HTMLUListElement
-            hideOnClickOutside(e, elementToHide, trigger?.current)
-        }
-        
-        document.addEventListener('click',  hideSuggestionOnClickOutside)
-        return ()=> document.removeEventListener('click', hideSuggestionOnClickOutside)
-    }, [element.current, trigger?.current]) 
+type TCloseOnClickOutside = (
+    containerRef: RefObject<HTMLElement | null>,
+    isOpenSetter: React.Dispatch<React.SetStateAction<boolean>>,
+) => void
 
-    const hideOnClickOutside : THideOnClickOutside = (e, element, trigger): void=>  {
-        const isHidden: boolean = element.classList.contains('hidden')
-
-        if( (e.target !== element) && (!isHidden) ) {
-            if(((trigger) && (e.target !== trigger) && !trigger.contains(e.target as HTMLElement))) {
-                element.classList.remove(`${'flex' || 'grid' || 'block' }`)
-                element.classList.add('hidden')
-                trigger.setAttribute('aria-expanded', 'false')
-            } else if (!trigger) {
-                element.classList.remove(`${'flex' || 'grid' || 'block' }`)
-                element.classList.add('hidden')
+export const useCloseOnClickOutside: TCloseOnClickOutside = (containerRef, isOpenSetter): void => {
+    useEffect(() => {
+        if (!containerRef.current) return
+        function closeOnClickOutside(e: MouseEvent): void {
+            const clickedElement = e.target as HTMLElement
+            if (!containerRef.current?.contains(clickedElement)) {
+                isOpenSetter(() => false)
             }
-        
-        } 
-    }
+        }
+
+        document.addEventListener('click', closeOnClickOutside)
+        return () => document.removeEventListener('click', closeOnClickOutside)
+    }, [containerRef])
 }

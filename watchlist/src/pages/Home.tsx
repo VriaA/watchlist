@@ -1,12 +1,10 @@
-import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useSearch from '../hooks/useSearch'
 import WatchlistUser from '../components/WatchlistUser'
 
 export default function Home(): JSX.Element {
     const navigate = useNavigate()
-    const enterTitleMessageRef = useRef<HTMLSpanElement>(null)
-    const { searchTitle, updateSearchTitleOnChange, isSearchBarEmpty, handleSearchFormSubmit } = useSearch(enterTitleMessageRef)
+    const { searchTitle, updateSearchTitleOnChange, isTitleMessageVisible, handleSearchFormSubmit } = useSearch()
 
     return (
         <div className="w-[100svw] h-[100svh] page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
@@ -39,7 +37,7 @@ export default function Home(): JSX.Element {
                                     value={searchTitle}
                                 />
                             </form>
-                            <span ref={enterTitleMessageRef} className={`${isSearchBarEmpty ? 'opacity-1' : 'opacity-0'} absolute -bottom-8 md:bottom-[-36px] mt-2 px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
+                            <span className={`${isTitleMessageVisible ? 'opacity-1' : 'opacity-0'} absolute -bottom-8 md:bottom-[-36px] mt-2 px-2 md:px-4 py-1 text-[8px] min-[375px]:text-xs md:text-sm bg-zinc-900 font-normal leading-wide text-slate-50 rounded-full transition-opacity`}>Please enter a title to search.</span>
                         </main>
                     </div>
                 </div>
