@@ -59,6 +59,7 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
                 aria-haspopup="true"
                 aria-expanded={isUserMenuOpen}
                 aria-label="User menu"
+                title="User menu"
                 onClick={toggleUserMenuVisibility}
                 ref={triggerRef}
                 className='grid place-content-center w-10 h-10 bg-zinc-900/40 rounded-full cursor-pointer hover:bg-zinc-900/70 overflow-hidden transition-all hover:-translate-y-[2px] active:translate-y-[2px]'>

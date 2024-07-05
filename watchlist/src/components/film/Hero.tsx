@@ -146,7 +146,7 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
 
             <section className="md:w-[45%]">
                 <div className="relative z-[5] flex justify-end md:justify-center items-center gap-2 md:gap-4">
-                    <button className="film-cta-btn group"
+                    <button className="group flex justify-center items-center px-5 py-4 md:p-5 bg-red-900/90 hover:bg-zinc-950/90 shadow-addButton hover:shadow-addButtonHover rounded-full cursor-pointer transition-transform active:translate-y-1 active:shadow-xl active:shadow-red-900/90"
                         onClick={handleWatchlistBtnClick}>
                         {
                             loading ?
@@ -159,9 +159,14 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
                                     </g>
                                 </svg>
                                 :
-                                <span className="material-symbols-outlined text-4xl font-semibold md:text-6xl text-zinc-900 group-hover:text-red-900/90">
-                                    {isFilmInWatchlist ? 'playlist_add_check' : 'playlist_add'}
-                                </span>
+                                isFilmInWatchlist ?
+                                    <svg className="w-9 md:w-[60px] fill-zinc-900 group-hover:fill-red-900/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                        <path d="M109.26-309.81v-88.52h321.41v88.52H109.26Zm0-178.22v-88.14h482.3v88.14h-482.3Zm0-177.84v-88.15h482.3v88.15h-482.3Zm550.38 494.03L506.56-324.91l61.74-62.41 91.34 90 180-179.81 62.97 62.88-242.97 242.41Z" />
+                                    </svg>
+                                    :
+                                    <svg className="w-9 md:w-[60px] fill-zinc-900 group-hover:fill-red-900/90" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                        <path d="M109.26-309.14v-88.53h322.16v88.53H109.26Zm0-178.22v-88.15h481.48v88.15H109.26Zm0-177.84v-88.15h481.48v88.15H109.26Zm541.18 515.19v-159.13h-159.7v-88.53h159.7v-159.69h88.52v159.69h159.13v88.53H738.96v159.13h-88.52Z" />
+                                    </svg>
                         }
                     </button>
 
@@ -175,7 +180,7 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
                     </div>
                     <p className="self-end w-6 md:w-14 leading-none font-robotoCondensed font-normal md:font-light text-sm md:tracking-wide">Scroll down</p>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     )
 }

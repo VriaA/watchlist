@@ -3,11 +3,11 @@ import { TSimilarObj, TSimilar } from "../../types/filmTypes"
 import imageBaseUrl from "../../utils/imageBaseUrl"
 import useScroll from "../../hooks/useScroll"
 
-export default function Similar({similar, type}: {similar: TSimilarObj; type: string}) {
-    const { galleryRef, leftArrowRef, rightArrowRef, changeArrowOpacity, scrollLeft, scrollRight} = useScroll()
+export default function Similar({ similar, type }: { similar: TSimilarObj; type: string }) {
+    const { galleryRef, leftArrowRef, rightArrowRef, changeArrowOpacity, scrollLeft, scrollRight } = useScroll()
     const hasSimilarFilm = similar.results.length > 0
 
-    function SimilarFilmPosterWithImage({filmName, posterPath, id}: {filmName: string, posterPath: string, id: number}): JSX.Element {
+    function SimilarFilmPosterWithImage({ filmName, posterPath, id }: { filmName: string, posterPath: string, id: number }): JSX.Element {
 
         return (
             <Link to={`../${type}/${filmName}+${id}`} className="card card-similar group grid z-[5] w-[49%] min-h-[245px] lg:w-[242px] lg:h-[350px] flex-none overflow-hidden cursor-pointer rounded-md snap-start">
@@ -21,7 +21,7 @@ export default function Similar({similar, type}: {similar: TSimilarObj; type: st
         )
     }
 
-    function SimilarFilmPosterWithoutImage({filmName, id}: {filmName: string, id: number}) {
+    function SimilarFilmPosterWithoutImage({ filmName, id }: { filmName: string, id: number }) {
         return (
             <Link to={`../${type}/${filmName}+${id}`} className="card card-similar relative w-[49%] min-h-[245px] lg:w-[242px] lg:h-[350px] snap-start no-poster" >
                 <span className="absolute inset-0 m-auto h-fit w-fit material-symbols-outlined text-5xl lg:text-7xl text-white font-thin" >
@@ -35,20 +35,20 @@ export default function Similar({similar, type}: {similar: TSimilarObj; type: st
     }
 
     function SimilarFilmPoster(): JSX.Element[] {
-        return  similar.results.map((film: TSimilar, i:number)=> {
-        const {name, original_name, original_title, title, poster_path, id} = film
-        const filmName: string = name || original_name || title || original_title
+        return similar.results.map((film: TSimilar, i: number) => {
+            const { name, original_name, original_title, title, poster_path, id } = film
+            const filmName: string = name || original_name || title || original_title
 
-           return film.poster_path ? <SimilarFilmPosterWithImage filmName={filmName} posterPath={poster_path} id={id} key={i} /> : <SimilarFilmPosterWithoutImage filmName={filmName} id={id} key={i}/>      
+            return film.poster_path ? <SimilarFilmPosterWithImage filmName={filmName} posterPath={poster_path} id={id} key={i} /> : <SimilarFilmPosterWithoutImage filmName={filmName} id={id} key={i} />
         })
     }
 
     function NoSimilarFilmMessage(): JSX.Element {
         return (
-                <p className="card-similar w-full h-full text-lg lg:text-xl font-light text-center">
-                    No similar film.
-                </p>
-            )
+            <p className="card-similar w-full h-full text-lg lg:text-xl font-light text-center">
+                No similar film.
+            </p>
+        )
     }
 
     return (
@@ -59,22 +59,22 @@ export default function Similar({similar, type}: {similar: TSimilarObj; type: st
                 <span className="gallery-title-underline-similar block mt-1 border-b"></span>
             </h2>
 
-            <div className="w-[70%] gallery-cntr hide-film-gallery">
+            <div className="w-[70%]">
 
                 {hasSimilarFilm &&
-                    <div className="arrows-similar flex justify-end items-end gap-3 pl-4">
-                        <button ref={leftArrowRef} onClick={scrollLeft} title="Previous">
-                            <span className="material-symbols-outlined left-arrow scroll-arrow-small">
-                                keyboard_arrow_left
-                            </span>
+                    <div className="flex justify-end items-center gap-3">
+                        <button ref={leftArrowRef} onClick={scrollLeft} title="Scroll films left" aria-label="Scroll film left ">
+                            <svg className="hidden lg:inline-block cursor-pointer" aria-hidden={true} xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#f8fafc">
+                                <path d="M560.67-240 320-480.67l240.67-240.66L608-674 414.67-480.67 608-287.33 560.67-240Z" />
+                            </svg>
                         </button>
 
-                        <button ref={rightArrowRef} onClick={scrollRight} title="Next">
-                            <span className="material-symbols-outlined right-arrow scroll-arrow-small">
-                                keyboard_arrow_right
-                            </span>
+                        <button ref={rightArrowRef} onClick={scrollRight} title="Scroll films right" aria-label="Scroll film right">
+                            <svg className="hidden lg:inline-block cursor-pointer" aria-hidden={true} xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#f8fafc">
+                                <path d="M521.33-480.67 328-674l47.33-47.33L616-480.67 375.33-240 328-287.33l193.33-193.34Z" />
+                            </svg>
                         </button>
-                    </div> 
+                    </div>
                 }
 
                 <div className="gallery overflow-x-auto pl-2 md:px-4 lg:snap-x lg:snap-mandatory" ref={galleryRef} onScroll={changeArrowOpacity}>
@@ -82,8 +82,8 @@ export default function Similar({similar, type}: {similar: TSimilarObj; type: st
                         {hasSimilarFilm ? <SimilarFilmPoster /> : <NoSimilarFilmMessage />}
                     </div>
                 </div>
-            </div> 
-            
+            </div>
+
         </section>
     )
 }

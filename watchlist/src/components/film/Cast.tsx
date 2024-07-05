@@ -50,16 +50,16 @@ export default function Cast({ credits }: { credits: { cast: TCast[], crew: TCre
                 <span className="gallery-title-underline-cast block mt-1 border-b"></span>
             </h2>
 
-            <div className="w-[70%] gallery-cntr hide-film-gallery">
+            <div className="w-[70%]">
 
                 {hasCast && <div className="flex justify-end items-center gap-3">
-                    <button ref={leftArrowRef} onClick={scrollLeft} title="Previous" aria-label="Previous cast">
+                    <button ref={leftArrowRef} onClick={scrollLeft} title="Scroll casts left" aria-label="Scroll casts left">
                         <svg className="hidden lg:inline-block cursor-pointer" aria-hidden={true} xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#f8fafc">
                             <path d="M560.67-240 320-480.67l240.67-240.66L608-674 414.67-480.67 608-287.33 560.67-240Z" />
                         </svg>
                     </button>
 
-                    <button ref={rightArrowRef} onClick={scrollRight} title="Next" aria-label="Next cast">
+                    <button ref={rightArrowRef} onClick={scrollRight} title="Scroll casts right" aria-label="Scroll casts right">
                         <svg className="hidden lg:inline-block cursor-pointer" aria-hidden={true} xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#f8fafc">
                             <path d="M521.33-480.67 328-674l47.33-47.33L616-480.67 375.33-240 328-287.33l193.33-193.34Z" />
                         </svg>

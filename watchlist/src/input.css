@@ -54,15 +54,6 @@
   @apply text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 hover:after:w-2/3 hover:drop-shadow-watchlist after:border-b-2 after:border-white after:transition-all transition-transform hover:-translate-y-[2px] active:translate-y-[2px];
 }
 
-.film-cta-btn {
-  @apply flex justify-center items-center px-5 py-4 md:p-5 bg-red-900/90 hover:bg-zinc-950/90 shadow-addButton hover:shadow-addButtonHover rounded-full cursor-pointer transition-transform active:translate-y-1 active:shadow-xl active:shadow-red-900/90;
-}
-
-/*ARROWS FOR SCROLLING IMAGE GALLERIES*/
-.scroll-arrow-small {
-  @apply hidden lg:inline-block md:text-4xl font-light cursor-pointer;
-}
-
 /*POSTERS*/
 .no-poster {
   @apply flex-none flex flex-col items-center justify-end bg-zinc-800/40 rounded-md overflow-hidden cursor-pointer text-center snap-start;
