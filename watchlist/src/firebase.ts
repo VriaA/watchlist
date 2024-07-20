@@ -11,11 +11,11 @@ const firebaseConfig = {
   projectId: "watchlist-ria",
   storageBucket: "watchlist-ria.appspot.com",
   messagingSenderId: "654301305680",
-  appId: "1:654301305680:web:ad0afa7885cf0e976bea55"
+  appId: "1:654301305680:web:ad0afa7885cf0e976bea55",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app)
+const db = getFirestore(app);
 
-export { app, db }
+export { app, db };

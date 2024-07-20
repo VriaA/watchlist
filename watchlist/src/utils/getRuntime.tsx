@@ -1,5 +1,5 @@
-import UnknownValuePlaceHolder from "../components/UnknownValuePlaceHolder"
+import UnknownValuePlaceHolder from "../components/UnknownValuePlaceHolder";
 
 export default function getRunTime(time: number | null): number | JSX.Element {
-    return time ? time : UnknownValuePlaceHolder()
+  return time ? time : UnknownValuePlaceHolder();
 }

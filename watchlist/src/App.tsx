@@ -1,14 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import Results from "./pages/Results"
-import Film from "./pages/Film"
-import Watchlist from "./pages/Watchlist"
-import Authentication from "./pages/Authentication"
-import AuthRequired from "./components/layout/AuthRequired"
-import AppContextProvider from "./contexts/AppContext"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Results from "./pages/Results";
+import Film from "./pages/Film";
+import Watchlist from "./pages/Watchlist";
+import Authentication from "./pages/Authentication";
+import AuthRequired from "./components/layout/AuthRequired";
+import AppContextProvider from "./contexts/AppContext";
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -28,7 +27,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
