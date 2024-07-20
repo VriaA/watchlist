@@ -8,6 +8,7 @@ import { DocumentData, addDoc, collection, deleteDoc, doc, serverTimestamp } fro
 import imageBaseUrl from "../../utils/imageBaseUrl"
 import { useNavigate } from "react-router-dom"
 import UnknownValuePlaceHolder from "../UnknownValuePlaceHolder"
+import getRunTime from "../../utils/getRuntime"
 import FilmType from "../FilmType"
 
 export default function Hero({ film, type }: { film: TMovie | TSeries, type: string }) {
@@ -38,10 +39,6 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
             return iso639_1LanguageCodes[code]
         }
         return UnknownValuePlaceHolder()
-    }
-
-    function getRunTime(time: number | null): number | JSX.Element {
-        return time ? time : UnknownValuePlaceHolder()
     }
 
     function toggleLineClamp(e: KeyboardEvent | MouseEvent, length: number): void {
@@ -119,7 +116,7 @@ export default function Hero({ film, type }: { film: TMovie | TSeries, type: str
                 <div className="flex flex-wrap gap-3 items-center text-sm md:text-base">
                     <p>{getGenres(genres, hasGenre)}</p>
                     <span className="text-[8px] md:text-[5px]">&#9679;</span>
-                    <p>{runTime} mins</p>
+                    <p className="flex gap-1">{runTime} mins</p>
                     <span className="text-[8px] md:text-[5px]">&#9679;</span>
                     <p>{year}</p>
                 </div>

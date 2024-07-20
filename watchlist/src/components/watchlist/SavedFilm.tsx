@@ -7,6 +7,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../contexts/AppContext";
 import { TAppContext } from "../../types/appTypes";
 import { db } from "../../firebase";
+import getRunTime from "../../utils/getRuntime";
 
 export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element {
     const { setDialog, openDialog, setLoading } = useContext(AppContext) as TAppContext
@@ -141,7 +142,7 @@ export default function SavedFilm({ film }: { film: DocumentData }): JSX.Element
                     <div className="flex items-center gap-2">
                         <p>{year}</p>
                         <span className="text-[8px] lg:text-[10px]">&#9679;</span>
-                        <p>{runtime} mins</p>
+                        <p className="flex items-center gap-1">{getRunTime(runtime)} mins</p>
                     </div>
                     <p className="px-2 py-[2px] bg-zinc-900/40 backdrop-blur-sm border rounded-md">{FilmType(filmType)}</p>
                 </div>
