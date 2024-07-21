@@ -2,6 +2,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
 import Suggestions from "../searchSuggestions/Suggestions";
 import WatchlistUser from "../WatchlistUser";
+import { useContext, useRef } from "react";
+import { AppContext } from "../../contexts/AppContext";
+import { TAppContext } from "../../types/appTypes";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function Header(): JSX.Element {
   const {
@@ -15,9 +20,16 @@ export default function Header(): JSX.Element {
     isTitleMessageVisible,
   } = useSearch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { canAnimate } = useContext(AppContext) as TAppContext
+  const headerRef = useRef<HTMLElement | null>(null)
+
+  useGSAP(() => {
+    if (!canAnimate || !headerRef.current) return
+    gsap.to(headerRef.current, { y: 0, opacity: 1, direction: 1, ease: "sine.in" })
+  }, [canAnimate])
 
   return (
-    <header className="w-full h-fit grid grid-cols-3 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 items-center gap-2 md:gap-4 mt-4">
+    <header ref={headerRef} className="w-full h-fit grid grid-cols-3 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 items-center gap-2 md:gap-4 mt-4 -translate-y-16 opacity-0">
       <Link
         to="/"
         className="w-full col-start-1 col-end-3 lg:col-end-2 text-2xl lg:text-3xl font-medium text-slate-100 uppercase"
