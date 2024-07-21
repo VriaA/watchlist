@@ -15,7 +15,7 @@ export default function useFetch(url: string) {
   };
 
   const [results, setResults] = useState(null);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
   const { setLoading } = useContext(AppContext) as TAppContext;
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function useFetch(url: string) {
         const data = await response.json();
         setResults(data);
       } catch (error: any) {
-        setError(error.message);
+        setError(error?.message);
       } finally {
         setLoading(false);
       }

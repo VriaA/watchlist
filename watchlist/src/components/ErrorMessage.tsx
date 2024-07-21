@@ -1,7 +1,7 @@
 export default function ErrorMessage({
   message,
 }: {
-  message: string;
+  message: string | null;
 }): JSX.Element {
   return (
     <div className="flex-1 h-full flex flex-col items-center justify-center text-center gap-2">

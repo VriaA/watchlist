@@ -35,7 +35,7 @@ export default function Film(): JSX.Element {
       setBgColorBackDrop(backdrop_path ? "bg-zinc-900" : "bg-red-950");
       setBgColorFilm(backdrop_path ? "bg-zinc-800" : "bg-red-800");
     }
-  }, [loading]);
+  }, [loading, results]);
 
   return (
     <div
@@ -48,11 +48,11 @@ export default function Film(): JSX.Element {
           style={bgImageStyle}
         >
           <Header />
-          {loading ? (
+          {loading || !loading && !results && !error ? (
             <FilmPlaceholder />
           ) : !loading && results ? (
             <FilmDetails film={results} type={type} />
-          ) : (
+          ) : error && (
             <ErrorMessage message={error} />
           )}
         </div>
