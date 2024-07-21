@@ -5,6 +5,7 @@ import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "../firebase";
 import useWatchlist from "../hooks/useWatchlist";
 export const AppContext = createContext<TAppContext | null>(null);
+import useCanAnimate from "../hooks/useCanAnimate";
 
 export default function AppContextProvider(): JSX.Element {
   const auth = getAuth(app);
@@ -22,6 +23,7 @@ export default function AppContextProvider(): JSX.Element {
     signedInUser,
     setLoading,
   });
+  const { canAnimate } = useCanAnimate()
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -53,6 +55,7 @@ export default function AppContextProvider(): JSX.Element {
         setUserWatchlist,
         loading,
         setLoading,
+        canAnimate
       }}
     >
       <Outlet />

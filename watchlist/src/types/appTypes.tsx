@@ -16,6 +16,7 @@ export type TAppContext = {
   >;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  canAnimate: boolean
 };
 
 export type TDialog = {
