@@ -8,6 +8,8 @@ import filmImage from "../assets/images/film.webp";
 import FilmPlaceholder from "../components/film/FilmPlaceholder";
 import ErrorMessage from "../components/ErrorMessage";
 import { TMovie, TSeries } from "../types/filmTypes";
+import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import gsap from "gsap";
 
 export default function Film(): JSX.Element {
   const location = useLocation();
@@ -34,6 +36,23 @@ export default function Film(): JSX.Element {
       setBgColorFilm(backdrop_path ? "bg-zinc-800" : "bg-red-800");
     }
   }, [loading, results]);
+
+  useIntersectionObserver('.cards-cntr', (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const galleryTitle = (entry.target as HTMLElement).dataset.gallery
+
+        const hiddenTitleUnderlines = document.querySelectorAll(`.gallery-title-underline-${galleryTitle}`)
+        const hiddenImageCards = [...document.querySelectorAll(`.card-${galleryTitle}`)].slice(0, 4);
+        const scrollArrowBtns = document.querySelectorAll(`.arrows-${galleryTitle}`)
+
+        const tl = gsap.timeline()
+        tl.to(hiddenTitleUnderlines, { width: '100%', duration: .5, delay: .5, ease: "power1.out" })
+        tl.to(hiddenImageCards, { y: 0, opacity: 1, duration: .5, stagger: .2, ease: "expoScale" })
+        tl.to(scrollArrowBtns, { opacity: 1, ease: "sine.out" }, 1.5)
+      }
+    });
+  });
 
   return (
     <div
