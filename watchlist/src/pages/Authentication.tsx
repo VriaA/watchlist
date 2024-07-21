@@ -91,7 +91,6 @@ export default function Authentication(): JSX.Element {
     const { email, password, confirmPassword } = newUser;
     const hasNumber = /\d/.test(password)
 
-
     if (isSignUp && password !== confirmPassword) {
       showErrorMessage(`Passwords do not match.`);
     } else if (isSignUp && password.split('').length < 8) {

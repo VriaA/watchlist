@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
-import { TAppContext } from "../types/appTypes";
-// TODO: Use custom hook in home & results page.
-// const searchResults: U = data.results.filter((result: V)=> result.media_type != 'person')
-// `https://api.themoviedb.org/3/search/multi?query=${title}&include_adult=false&language=en-US&page=1`
-export default function useFetch(url: string) {
+import { TSearchResult } from "../types/resultTypes";
+import { TMovie, TSeries } from "../types/filmTypes";
+
+export default function useFetch(url: string | null) {
   const options = {
     method: "GET",
     headers: {
@@ -14,16 +11,17 @@ export default function useFetch(url: string) {
     },
   };
 
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState<TSearchResult | TMovie | TSeries | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { setLoading } = useContext(AppContext) as TAppContext;
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
+    if (!url) return
     async function getResults() {
       setResults(null);
       setLoading(true);
       try {
-        const response: Response = await fetch(url, options);
+        const response: Response = await fetch((url as string), options);
         handleResponseError(response);
         const data = await response.json();
         setResults(data);
@@ -50,5 +48,5 @@ export default function useFetch(url: string) {
     }
   }
 
-  return { results, error };
+  return { results, error, loading };
 }
