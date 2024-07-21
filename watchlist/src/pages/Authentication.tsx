@@ -89,9 +89,15 @@ export default function Authentication(): JSX.Element {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const { email, password, confirmPassword } = newUser;
+    const hasNumber = /\d/.test(password)
+
 
     if (isSignUp && password !== confirmPassword) {
       showErrorMessage(`Passwords do not match.`);
+    } else if (isSignUp && password.split('').length < 8) {
+      showErrorMessage(`Password must be at least 8 characters long.`);
+    } else if (isSignUp && !hasNumber) {
+      showErrorMessage(`Password must contain a number.`);
     } else {
       setLoading(true);
       if (isSignIn) {
