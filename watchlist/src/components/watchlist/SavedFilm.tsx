@@ -164,13 +164,13 @@ export default function SavedFilm({
         )}
       </div>
 
-      <div className="flex flex-col gap-1 px-2 py-4">
+      <div className="flex flex-col gap-1 px-2 py-2">
         <div className="relative flex justify-between items-center">
           <Link
             to={`/${filmType}/${name}+${filmId}`}
-            className="w-4/5 h-5 lg:h-6 line-clamp-1"
+            className="w-4/5 h-5 lg:h-6"
           >
-            <h2 className="w-full h-full text-sm lg:text-base font-semibold lg:font-normal overflow-hidden cursor-pointer">
+            <h2 className="w-full h-full text-sm lg:text-base font-semibold lg:font-normal overflow-hidden cursor-pointer  line-clamp-1">
               {name}
             </h2>
           </Link>
