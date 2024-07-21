@@ -101,11 +101,11 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
           id="user-menu"
           role="menu"
           aria-labelledby="user-menu-trigger"
-          className="absolute top-[calc(100%+16px)] right-0 z-50 w-fit flex-col gap-4 p-4 bg-zinc-900/40 text-slate-100 rounded-lg"
+          className="absolute top-[calc(100%+16px)] right-0 z-50 w-fit flex flex-col gap-4 p-4 bg-zinc-900/40 text-slate-100 rounded-lg"
         >
           {!isLoggedIn && (
             <Link
-              className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-1 active:translate-y-1"
+              className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-[2px] active:translate-y-[2px]"
               to={"/sign-in"}
             >
               <span className="text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 group-hover:after:w-2/3 group-hover:drop-shadow-watchlist after:border-b-2 after:transition-all after:border-white">
@@ -128,7 +128,7 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
 
           {isLoggedIn && (
             <button
-              className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-1 active:translate-y-1"
+              className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-[2px] active:translate-y-[2px]"
               onClick={signUserOut}
             >
               <span className="text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 group-hover:after:w-2/3 group-hover:drop-shadow-watchlist after:border-b-2 after:transition-all after:border-white">
@@ -151,7 +151,7 @@ export default function WatchlistUser({ style }: TWatchlistUser) {
 
           {isLoggedIn && (
             <button
-              className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-1 active:translate-y-1 hover:text-red-500"
+              className="group flex flex-row-reverse gap-2 items-center w-max transition-all hover:-translate-y-[2px] active:translate-y-[2px] hover:text-red-500"
               onClick={openDeleteDialog}
             >
               <span className="text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 group-hover:after:w-2/3 group-hover:drop-shadow-watchlist after:border-b-2 after:transition-all after:border-red-500">
