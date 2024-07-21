@@ -1,8 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import useSearch from "../hooks/useSearch";
 import WatchlistUser from "../components/WatchlistUser";
+import { useContext, useRef } from "react";
+import { AppContext } from "../contexts/AppContext";
+import { TAppContext } from "../types/appTypes";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function Home(): JSX.Element {
+  const { canAnimate } = useContext(AppContext) as TAppContext
   const navigate = useNavigate();
   const {
     searchTitle,
@@ -10,27 +16,33 @@ export default function Home(): JSX.Element {
     isTitleMessageVisible,
     handleSearchFormSubmit,
   } = useSearch();
+  const homeTitleRef = useRef<HTMLHeadingElement | null>(null)
+  const homeSearchBarRef = useRef<HTMLElement | null>(null)
+
+  useGSAP(() => {
+    if (!canAnimate || !homeTitleRef.current || !homeSearchBarRef.current) return
+    const homeTl = gsap.timeline()
+    homeTl.to(homeTitleRef.current, { y: 0, opacity: 1, scale: 1, duration: .8 })
+    homeTl.to(homeSearchBarRef.current, { opacity: 1, duration: .4 }, "-=.2")
+  }, [canAnimate])
 
   return (
     <div className="w-[100svw] h-[100svh] page-wrapper bg-homeImg bg-wrapperImgPosition md:bg-wrapperImgPositionMd">
       <div className=" w-[100svw] h-[100svh] grid place-content-center">
         <div className="content-cntr overflow-y-auto lg:overflow-hidden">
           <div className="flex-1 flex flex-col justify-center items-center">
-            <div className="absolute top-8 right-8 flex items-center gap-4 md:gap-6">
-              <Link className="nav-link leading-none" to="watchlist">
+            <ul className="absolute top-8 right-8 flex items-center gap-4 md:gap-6">
+              <li>  <Link className="nav-link leading-none" to="watchlist">
                 My watchlist
-              </Link>
-              <WatchlistUser />
-            </div>
+              </Link></li>
+              <li><WatchlistUser /></li>
+            </ul>
 
-            <Link
-              to="/"
-              className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9"
-            >
-              <h1>Find your film</h1>
-            </Link>
+            <h1 ref={homeTitleRef}
+              className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9 translate-y-16 opacity-0 scale-95">
+              Find your film</h1>
 
-            <main className="relative flex justify-center w-full">
+            <main ref={homeSearchBarRef} className="relative flex justify-center w-full opacity-0">
               <form
                 className="relative flex justify-end w-[68%] lg:w-[35%] h-10 bg-zinc-900/40 rounded-full overflow-hidden border border-stone-900/30"
                 onSubmit={(e) => handleSearchFormSubmit(e, navigate)}
