@@ -22,8 +22,8 @@ export default function Home(): JSX.Element {
   useGSAP(() => {
     if (!canAnimate || !homeTitleRef.current || !homeSearchBarRef.current) return
     const homeTl = gsap.timeline()
-    homeTl.to(homeTitleRef.current, { y: 0, opacity: 1, scale: 1, duration: .8 })
-    homeTl.to(homeSearchBarRef.current, { opacity: 1, duration: .4 }, "-=.2")
+    homeTl.to(homeTitleRef.current, { y: 0, opacity: 1, scale: 1, duration: .8, ease: "sine.in" })
+    homeTl.to(homeSearchBarRef.current, { opacity: 1, duration: .4, ease: "sine.out" }, "-=.2")
   }, [canAnimate])
 
   return (
