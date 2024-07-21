@@ -1,10 +1,18 @@
 import { useLocation, useSearchParams } from "react-router-dom";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import getSearchResults from "../utils/getSearchResults";
 import { TResults } from "../types/resultTypes";
 import { TChildren } from "../types/appTypes";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { AppContext } from "../contexts/AppContext";
+import { TAppContext } from "../types/appTypes";
 
-export const ResultsContext = createContext<TResults | null>(null);
+export type TResultsContext = {
+  results: string | TResults | [],
+  gsapTl: gsap.core.Timeline | null
+}
+export const ResultsContext = createContext<TResultsContext | null>(null);
 
 export default function ResultsContextProvider({
   children,
@@ -12,6 +20,14 @@ export default function ResultsContextProvider({
   const [results, setResults] = useState<TResults | [] | string>([]);
   const [searchParams] = useSearchParams();
   const location = useLocation();
+  const { canAnimate } = useContext(AppContext) as TAppContext
+  const [gsapTl, setGsapTl] = useState<gsap.core.Timeline | null>(null)
+
+  useGSAP(() => {
+    if (!canAnimate) return
+    const tl = gsap.timeline()
+    setGsapTl(() => tl)
+  }, [canAnimate])
 
   useEffect((): void => {
     setResults([]);
@@ -27,7 +43,7 @@ export default function ResultsContextProvider({
   }, [location.search]);
 
   return (
-    <ResultsContext.Provider value={results as TResults}>
+    <ResultsContext.Provider value={{ results, gsapTl }}>
       {children}
     </ResultsContext.Provider>
   );

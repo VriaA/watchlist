@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { TPosterProps } from "../../types/resultTypes";
 import imageBaseUrl from "../../utils/imageBaseUrl";
 
-export default function Poster({ result }: TPosterProps) {
+export default function Poster({ result, index }: TPosterProps) {
   const {
     id,
     media_type,
@@ -19,17 +19,19 @@ export default function Poster({ result }: TPosterProps) {
   return (
     <Link
       to={`/${filmType}/${filmName.toLowerCase()}+${id}`}
-      className="group grid z-[5] card min-h-[245px] lg:w-[242px] lg:h-[350px] flex-none overflow-hidden cursor-pointer rounded-md snap-start"
+      className='group card flex-none overflow-hidden cursor-pointer rounded-md snap-start'
     >
-      <span className="inline-block col-start-1 row-start-1 z-[2] min-h-[245px] lg:w-[242px] lg:h-[350px] flex-none bg-zinc-800/60 animate-pulse"></span>
-      <img
-        className="inline-block col-start-1 row-start-1 z-[3] w-full h-full object-cover object-center"
-        src={`${imageBaseUrl}${poster_path}`}
-        alt={`${filmName}`}
-      />
-      <span className="card film-name-poster min-h-[245px] lg:w-[242px] lg:h-[350px]">
-        {filmName}
-      </span>
+      <div className={`${index <= 2 ? "poster-gsap translate-y-64 opacity-0" : ''} grid min-h-[245px] lg:w-[242px] lg:h-[350px]`}>
+        <span className="inline-block col-start-1 row-start-1 z-[2] min-h-[245px] lg:w-[242px] lg:h-[350px] flex-none bg-zinc-800/60 animate-pulse"></span>
+        <img
+          className="inline-block col-start-1 row-start-1 z-[3] w-full h-full object-cover object-center"
+          src={`${imageBaseUrl}${poster_path}`}
+          alt={`${filmName}`}
+        />
+        <p className="card film-name-poster min-h-[245px] lg:w-[242px] lg:h-[350px]">
+          {filmName}
+        </p>
+      </div>
     </Link>
   );
 }

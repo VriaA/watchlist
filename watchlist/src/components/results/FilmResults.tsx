@@ -1,14 +1,16 @@
 import { useContext, useEffect } from "react";
 import EmptyPoster from "./EmptyPoster";
 import Poster from "./Poster";
-import { ResultsContext } from "../../contexts/ResultsContext";
-import { TResults, TResult } from "../../types/resultTypes";
+import { ResultsContext, TResultsContext } from "../../contexts/ResultsContext";
+import { TResult } from "../../types/resultTypes";
 import Loader from "../loader/loader";
 import useScroll from "../../hooks/useScroll";
 import ErrorMessage from "../ErrorMessage";
+import { Power0 } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function FilmResults(): JSX.Element {
-  const results = useContext(ResultsContext) as TResults;
+  const { results, gsapTl } = useContext(ResultsContext) as TResultsContext;
   const isFilmPosters = results && Array.isArray(results) && results.length > 0;
   const isErrorMessage = results && typeof results === "string";
   const {
@@ -22,10 +24,17 @@ export default function FilmResults(): JSX.Element {
 
   useEffect(() => changeArrowOpacity(), [results]);
 
+  useGSAP(() => {
+    if (!gsapTl || results.length <= 0) return
+    gsapTl.to('.poster-gsap', { y: 0, opacity: 1, duration: .5, ease: Power0.easeIn, stagger: .2, zIndex: 10 })
+    gsapTl.to('.arrow-gsap', { opacity: .2, duration: .5, ease: "sine.in" })
+    gsapTl.to('.arrow-gsap', { opacity: 1, duration: .2, ease: "sine.in" })
+  }, { dependencies: [gsapTl, results] })
+
   return (
     <>
       {isFilmPosters ? (
-        <main className="flex-1 relative z-20 flex items-center justify-center mt-6 lg:pt-0 lg:mt-[2%]">
+        <main className="flex-1 relative z-10 flex items-center justify-center mt-6 lg:pt-0 lg:mt-[2%]">
           <button
             ref={leftArrowRef}
             onClick={scrollLeft}
@@ -33,7 +42,7 @@ export default function FilmResults(): JSX.Element {
             aria-label="Scroll left"
           >
             <svg
-              className="hidden lg:inline-block cursor-pointer"
+              className="arrow-gsap hidden lg:inline-block cursor-pointer opacity-0"
               aria-hidden={true}
               xmlns="http://www.w3.org/2000/svg"
               height="72px"
@@ -53,9 +62,9 @@ export default function FilmResults(): JSX.Element {
             <div className="films cards-cntr w-full min-h-full grid grid-cols-2 md:grid-cols-3 lg:flex ${results.length > 2 ? 'justify-center' : ''} lg:justify-start lg:items-center gap-2 md:gap-5 md:mb-5 lg:mb-0 lg:py-5">
               {results.map((result: TResult, i: number) =>
                 result.poster_path ? (
-                  <Poster key={i} result={result} />
+                  <Poster key={i} result={result} index={i} />
                 ) : (
-                  <EmptyPoster key={i} result={result} />
+                  <EmptyPoster key={i} result={result} index={i} />
                 ),
               )}
             </div>
@@ -68,7 +77,7 @@ export default function FilmResults(): JSX.Element {
             aria-label="Scroll left"
           >
             <svg
-              className="hidden lg:inline-block cursor-pointer"
+              className="arrow-gsap hidden lg:inline-block cursor-pointer opacity-0"
               aria-hidden={true}
               xmlns="http://www.w3.org/2000/svg"
               height="72px"

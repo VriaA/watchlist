@@ -37,4 +37,5 @@ export type TResults = TResult[];
 
 export type TPosterProps = {
   result: TResult;
+  index: number
 };
