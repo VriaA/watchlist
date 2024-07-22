@@ -1309,6 +1309,10 @@ video {
   min-width: 100%;
 }
 
+.min-w-9 {
+  min-width: 2.25rem;
+}
+
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1543,6 +1547,10 @@ video {
 
 .overflow-x-scroll {
   overflow-x: scroll;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .rounded {
@@ -2766,6 +2774,10 @@ video {
 
   .lg\:justify-start {
     justify-content: flex-start;
+  }
+
+  .lg\:justify-end {
+    justify-content: flex-end;
   }
 
   .lg\:gap-0 {
