@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
   useGSAP(() => {
     if (!canAnimate || !homeTitleRef.current || !homeSearchBarRef.current) return
     const homeTl = gsap.timeline()
-    homeTl.to(homeTitleRef.current, { y: 0, opacity: 1, scale: 1, duration: .8, ease: "sine.in" })
+    homeTl.to(homeTitleRef.current, { y: 0, opacity: 1, scale: 1, duration: .8, ease: "power1.out" })
     homeTl.to(homeSearchBarRef.current, { opacity: 1, duration: .4, ease: "sine.out" }, "-=.2")
   }, [canAnimate])
 
@@ -39,7 +39,7 @@ export default function Home(): JSX.Element {
             </ul>
 
             <h1 ref={homeTitleRef}
-              className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9 translate-y-16 opacity-0 scale-95">
+              className="font-medium text-4xl px-2 text-center md:text-7xl uppercase mb-3 md:mb-9 translate-y-12 opacity-0 scale-95">
               Find your film</h1>
 
             <main ref={homeSearchBarRef} className="relative flex justify-center w-full opacity-0">
