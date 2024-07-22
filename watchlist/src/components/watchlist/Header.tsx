@@ -12,11 +12,11 @@ export default function Header(): JSX.Element {
     return (
         <header className="flex justify-between items-center gap-2 w-full font-robotoCondensed mt-4 mb-[3svh] lg:mb-[4svh]">
             <nav className="flex flex-col gap-4">
-                <h1 className="text-2xl md:text-3xl uppercase font-inter font-medium">
+                <h1 className="heading-gsap opacity-0 scale-0 text-2xl md:text-3xl uppercase font-inter font-medium">
                     My watchlist
                 </h1>
 
-                <ul className={`${!userWatchlist ? "hidden" : ""} flex gap-2 text-sm md:text-base flex-wrap`}>
+                <ul className={`${!userWatchlist ? "hidden" : ""} nav-gsap opacity-0 flex gap-2 text-sm md:text-base flex-wrap`}>
                     <li>
                         <Link
                             to="."
@@ -24,6 +24,7 @@ export default function Header(): JSX.Element {
                             All
                         </Link>
                     </li>
+
                     <li>
                         <Link
                             to="?filter=watched"
@@ -32,6 +33,7 @@ export default function Header(): JSX.Element {
                             Watched
                         </Link>
                     </li>
+
                     <li>
                         <Link
                             to="?filter=notwatched"
@@ -43,7 +45,7 @@ export default function Header(): JSX.Element {
                 </ul>
             </nav>
 
-            <nav>
+            <nav className="nav-gsap opacity-0">
                 <ul className="flex items-center gap-4 md:gap-6">
                     <li>
                         <Link to="/" className="nav-link static">

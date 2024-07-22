@@ -6,8 +6,6 @@ import { app } from "../firebase";
 import useWatchlist from "../hooks/useWatchlist";
 export const AppContext = createContext<TAppContext | null>(null);
 import useCanAnimate from "../hooks/useCanAnimate";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function AppContextProvider(): JSX.Element {
   const auth = getAuth(app);
@@ -43,8 +41,6 @@ export default function AppContextProvider(): JSX.Element {
     setDialog((prevDialog) => ({ ...prevDialog, message: "", isOpen: false }));
     dialogRef.current?.close();
   }
-
-  gsap.registerPlugin(ScrollTrigger)
 
   return (
     <AppContext.Provider

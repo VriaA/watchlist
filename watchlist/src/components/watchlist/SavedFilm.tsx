@@ -72,7 +72,7 @@ export default function SavedFilm({
   return (
     <section
       ref={filmRef}
-      className="relative z-10 pb-2 bg-zinc-800/20 font-robotoCondensed font-normal lg:font-light text-xs md:text-sm backdrop-blur-md rounded-md overflow-hidden"
+      className="film-gsap opacity-0 translate-y-12 relative z-10 pb-2 bg-zinc-800/20 font-robotoCondensed font-normal lg:font-light text-xs md:text-sm backdrop-blur-md rounded-md overflow-hidden"
     >
       {iswatched && (
         <div
