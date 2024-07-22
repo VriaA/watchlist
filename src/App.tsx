@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
-import Film from "./pages/Film";
+import Film from "./pages/FIlm";
 import Watchlist from "./pages/Watchlist";
 import Authentication from "./pages/Authentication";
 import AuthRequired from "./components/layout/AuthRequired";
