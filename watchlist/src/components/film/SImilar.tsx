@@ -117,7 +117,7 @@ export default function Similar({
   }
 
   return (
-    <section className="flex items-center lg:h-[90svh] px-[2%] lg:snap-start">
+    <section className="flex items-center lg:h-[90svh] px-[2%]">
       <h2 className="relative w-[30%] text-3xl md:text-6xl font-robotoCondensed font-normal">
         Similar
         <span className="gallery-title-underline-similar block mt-1 border-b w-0"></span>

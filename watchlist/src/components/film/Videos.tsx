@@ -13,7 +13,7 @@ export default function Videos({ videos }: { videos: { results: TVideo[] } }) {
   const hasVideos = videos.results.length > 0;
 
   return (
-    <section className="flex items-center lg:h-[90svh] px-[2%] lg:snap-start">
+    <section className="flex items-center lg:h-[90svh] px-[2%]">
       <h2 className="relative w-[30%] text-3xl md:text-6xl font-robotoCondensed font-normal">
         Videos
         <span className="gallery-title-underline-videos block mt-1 border-b w-0"></span>

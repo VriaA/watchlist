@@ -27,7 +27,7 @@ export default function Header() {
     }
 
     return (
-        <header className="absolute flex justify-end items-center gap-4 w-full p-[4%] md:p-[2%] lg:snap-start">
+        <header className="absolute flex justify-end items-center gap-4 w-full p-[4%] md:p-[2%]">
             <nav className="flex justify-end items-center gap-4 md:gap-6">
                 <form
                     className="relative h-10 min-w-[38px] cursor-pointer"
