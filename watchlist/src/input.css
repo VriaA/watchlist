@@ -42,7 +42,7 @@
 }
 
 .content-cntr {
-  @apply flex flex-col w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] backdrop-blur-sm rounded-lg font-inter p-[2%];
+  @apply flex-none flex flex-col w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] backdrop-blur-sm rounded-lg font-inter p-[2%];
 }
 
 .search-suggestions {
