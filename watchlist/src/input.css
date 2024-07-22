@@ -1,0 +1,81 @@
+@tailwind base;
+/*SCROLLBARS*/
+
+/*CHROME, SAFARI*/
+::-webkit-scrollbar {
+  @apply w-2 bg-none;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-red-800/90 rounded-xl;
+}
+
+.gallery::-webkit-scrollbar {
+  @apply lg:hidden;
+}
+
+#overview::-webkit-scrollbar {
+  @apply w-1 bg-zinc-900/50 rounded-xl;
+}
+
+/*MOZILLA*/
+.scrollbar-color {
+  @apply bg-red-800/90;
+}
+
+.scrollbar-width {
+  @apply w-2;
+}
+
+@media screen(lg) {
+  .gallery {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+    transition-duration: 0.5s;
+  }
+}
+
+/*WRAPPERS AND CONTAINERS*/
+.page-wrapper {
+  @apply grid place-content-center w-[100svw] h-[100svh] bg-red-800 text-slate-100 font-inter overflow-x-hidden bg-cover bg-fixed bg-blend-overlay;
+}
+
+.content-cntr {
+  @apply flex-none flex flex-col w-[95svw] md:w-[90svw] max-w-7xl h-[95svh] md:h-[90svh] backdrop-blur-sm rounded-lg font-inter p-[2%];
+}
+
+.search-suggestions {
+  @apply absolute top-0 flex flex-col gap-2 w-full pt-12 px-3 pb-2 max-h-96 overflow-y-auto bg-zinc-900/40 backdrop-blur-md rounded-2xl font-light;
+}
+
+/*NAVIGATION LINK*/
+.nav-link {
+  @apply text-base min-[375px]:text-lg font-robotoCondensed font-normal after:block after:w-0 hover:after:w-2/3 hover:drop-shadow-watchlist after:border-b-2 after:border-white after:transition-all transition-transform hover:-translate-y-[2px] active:translate-y-[2px];
+}
+
+/*POSTERS*/
+.no-poster {
+  @apply flex-none flex flex-col items-center justify-end bg-zinc-800/40 rounded-md overflow-hidden cursor-pointer text-center snap-start;
+}
+
+.film-name-poster {
+  @apply flex items-end justify-center col-start-1 row-start-1 z-[4] p-4 lg:hidden lg:group-hover:flex w-full text-xs lg:text-sm text-center font-normal capitalize bg-gradient-to-b from-transparent via-transparent to-zinc-900;
+}
+
+/*IMAGE CARD HOVER*/
+.cards-cntr:has(.card:hover) .card:not(:hover) {
+  @apply lg:grayscale lg:blur-sm;
+}
+
+.card {
+  @apply lg:transition-transform lg:hover:scale-105;
+}
+
+/*WATCHLIST FILTER */
+.watchlist-filter {
+  @apply self-start flex items-center bg-zinc-900 py-1 px-2 rounded-md cursor-pointer hover:bg-zinc-800;
+}
+
+@tailwind components;
+@tailwind utilities;
