@@ -162,7 +162,7 @@ export default function Hero({
   useGSAP(() => {
     if (!canAnimate || loading) return
     const tl = gsap.timeline()
-    tl.fromTo('.text-to-reveal', { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' }, { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1 })
+    tl.fromTo('.text-to-reveal', { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' }, { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1, ease: Power0.easeIn })
     tl.from('#film-cta-btn-cntr', { opacity: 0, ease: "sine.in", duration: .8 }, "<")
     tl.fromTo('#scroll-indicator-thumb', { opacity: 0 }, { opacity: 1, ease: "sine.in" })
     tl.to('#scroll-indicator-thumb', { repeat: -1, yoyo: true, y: 32, opacity: 1, duration: 1.5, ease: "sine.in" })

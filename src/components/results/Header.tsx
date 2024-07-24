@@ -17,7 +17,7 @@ export default function Header(): JSX.Element {
     setIsSuggestionsOpen,
     isTitleMessageVisible,
   } = useSearch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const { gsapTl } = useContext(ResultsContext) as TResultsContext
   const headerRef = useRef<HTMLElement | null>(null)
 
