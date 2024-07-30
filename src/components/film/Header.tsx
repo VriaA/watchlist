@@ -33,7 +33,7 @@ export default function Header() {
             <nav className="w-full flex justify-between lg:justify-end items-center gap-4 md:gap-6">
                 <Link to="/" className="transition-transform hover:-translate-y-[2px] active:translate-y-[2px]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                        <g fill="none" stroke="#f1f5f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4">
+                        <g fill="none" stroke="#f1f5f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.2">
                             <path d="M5 12H3l9-9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" />
                             <path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6" />
                         </g>
